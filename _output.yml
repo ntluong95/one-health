@@ -1,5 +1,6 @@
 bookdown::gitbook:
-  css: style.css
+  css: style-bookdown.css
+  latex_engine: xelatex
   config:
     toc:
       before: |

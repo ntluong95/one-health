@@ -1,0 +1,141 @@
+.book .book-summary {
+    background-color: #364149;
+}
+
+.book .book-summary ul.summary li a, .book .book-summary ul.summary li span {
+    color: #ffffff;
+}
+
+.book .book-summary ul.summary li a:hover, .book .book-summary ul.summary li.active>a {
+    color: white;
+    background: #008cff;
+    text-decoration: none;
+}
+.book .book-body {
+    background: #2F3941;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal pre {
+    overflow: auto;
+    word-wrap: normal;
+    margin: 0 0 1.275em;
+    padding: .85em 1em;
+    background: #292A30;
+}
+
+.book .book-header.fixed {
+    background-color: #364149 !important;
+}
+
+.book .book-header h1 a, .book .book-header h1 a:hover {
+    color: #008cff;
+}
+
+.book .book-header .btn {
+    color: #008cff;
+}
+
+.fa-angle-right:before {
+    content: "\f105";
+    color: #008cff;
+}
+
+.fa-angle-left:before {
+    content: "\f104";
+    color: #008cff;
+}
+
+.book .book-body .page-wrapper .page-inner section {
+    background: #2F3941;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal {
+    color: #fff;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal code {
+    padding: .2em;
+    margin: 0;
+    font-size: .85em;
+    background-color: #cb6b6b;
+    color: #eaead3;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal pre, .book .book-body .page-wrapper .page-inner section.normal code {
+    font-family: Jetbrains Mono;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal table td, .book .book-body .page-wrapper .page-inner section.normal table th {
+    color: black;
+}
+
+b, strong {
+    font-weight: 700;
+    color: #8afa5f;
+}
+
+em, italic {
+    color: #8afa5f;
+}
+
+
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+code span.fu {
+    color: rgb(120, 175, 130);
+}
+
+code span.co {
+    color: #6190b7;
+    font-style: italic;
+}
+
+code span.st {
+    color: #FD8273;
+}
+
+code span.dv {
+    color: #A29AEC;
+}
+
+code span.sc {
+    color: #ebff00;
+}
+
+code span.at {
+    color: #EAEAD3;
+}
+
+code span.cn {
+    color: #A29AEC;
+}
+
+code span.ot {
+    color: #ebff00;
+}
+
+p.caption {
+    color: white;
+    margin-top: 10px;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h1, .book .book-body .page-wrapper .page-inner section.normal h2, .book .book-body .page-wrapper .page-inner section.normal h3, .book .book-body .page-wrapper .page-inner section.normal h4, .book .book-body .page-wrapper .page-inner section.normal h5, .book .book-body .page-wrapper .page-inner section.normal h6 {
+    color: #008cff;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal a {
+    color: #8afa5f;
+}
