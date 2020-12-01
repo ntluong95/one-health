@@ -1,0 +1,8 @@
+# Estimating true prevalence of diseases
+
+
+
+
+## Se and Sp estimations using logistic regression
+
+## Estimating true prevalence without a gold standard

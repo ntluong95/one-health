@@ -1,0 +1,9 @@
+# Infectious Diseases Modelling 
+
+
+
+
+## Introduction about compartmental model
+
+## Introduction about system dynamic modelling
+

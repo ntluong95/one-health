@@ -1,0 +1,54 @@
+# Basic Data analysis
+
+## Introduction about work flow
+
+The picture below described about a normal working process of data analysis.
+
+First you must **import** your data. This typically means that you take data stored in a file, database, or web application programming interface (API), and load it into the software. In this course, we will work with *.xlsx* and *.csv* file, which are the most common type of storaging data
+
+![![](){style="text-align: center"}Source: R for Data Science book![](){style="img-container {text-align: center)"}](images/data-science.png)
+
+The next steps are **Tidying** and **Transforming** your data. Combining 2 steps, we have the so-called **Data Wrangling.** Tidying your data means storing it in a consistent form that matches the semantics of the dataset with the way it is stored. In brief, when your data is tidy, each column is a variable, and each row is an observation. Once you have tidy data, a common first step is to transform it. Transformation includes narrowing in on observations of interest, creating new variables that are functions of existing variables, and calculating a set of summary statistics (like counts or means).
+
+**Visualization** is a fundamentally human activity. A good visualization will show you things that you did not expect, or raise new questions about the data. A good visualization might also hint that you're asking the wrong question, or you need to collect different data. Visualizations can surprise you, but don't scale particularly well because they require a human to interpret them.
+
+**Models** are complementary tools to visualization. Once you have made your questions sufficiently precise, you can use a model to answer them. Models are a fundamentally mathematical or computational tool, so they generally scale well. But every model makes assumptions, and by its very nature a model cannot question its own assumptions. That means a model cannot fundamentally surprise you.
+
+The last step of data science is **Communication**, an absolutely critical part of any data analysis project. It doesn't matter how well your models and visualization have led you to understand the data unless you can also communicate your results to others.
+
+## Software installation
+
+In this course, I will introduce you about the three most powerful statistical softwares including R, Python and STATA, their usage and their advantages as well as disadvantages. While R and Python is more a programming language, which can be a hurdle for some people, STATA is more user-friendly and balance between using Graphical User Interface (GUI) and saving script (*do file*). In short, you'll need to install the following programs in order:
+
+-   **R**: A statistical programming language used to wrangle, analyze, and visualize data ([mac](https://cran.r-project.org/bin/macosx/), [windows](https://cran.r-project.org/bin/windows/base/))
+
+-   **RStudio**: An interface for writing and running R code, which is a primary language for the quarter ([link)](https://www.rstudio.com/products/rstudio/download/). You can download a developing version [here](https://dailies.rstudio.com/), which will provide most up-to-date new features
+
+-   **Python**: Another programming language, be preferred in machine learning, deep learning, AI. In this tutorial, we will install Python indirectly through package *reticulate* in R. More details will be presented later
+
+-   **Git**: (Optional) A set of command-line tools for tracking changes to a project. This is likely already installed on Macs. The Windows download will come with Git Bash, a simple interface for executing Git commands ([link](https://git-scm.com/downloads))
+
+-   **STATA**: This is paid software. You have to buy it before use or you can download a trial version [here](https://www.stata.com/customer-service/evaluate-stata/)
+
+The following sections have additional information about the purpose of each component, how to install it, and alternative configurations.
+
+### R
+
+### Rstudio
+
+### Python
+
+### Setting environment for R and Python
+
+### STATA
+
+## Create working enviroment
+
+## Data Manipulation
+
+## Data visualization
+
+## Communication with Rmarkdown
+
+## ShinyApp
+

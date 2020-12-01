@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Applied Epidemiology in One Health Research</title>
-  <meta name="description" content="Applied Epidemiology in One Health Research" />
+  <title>Chapter 2 Basic Data analysis | Applied Epidemiology in One Health Research</title>
+  <meta name="description" content="Chapter 2 Basic Data analysis | Applied Epidemiology in One Health Research" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Applied Epidemiology in One Health Research" />
+  <meta property="og:title" content="Chapter 2 Basic Data analysis | Applied Epidemiology in One Health Research" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Applied Epidemiology in One Health Research" />
+  <meta name="twitter:title" content="Chapter 2 Basic Data analysis | Applied Epidemiology in One Health Research" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="basic-data-analysis.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="regression-models.html"/>
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -217,39 +217,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Applied Epidemiology in One Health Research</h1>
-<p class="author"><em>Nguyễn Thanh Lương</em></p>
-<p class="date"><em>2020-12-01</em></p>
+<div id="basic-data-analysis" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Basic Data analysis</h1>
+<div id="introduction-about-work-flow" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Introduction about work flow</h2>
+<p>The picture below described about a normal working process of data analysis.</p>
+<p>First you must <strong>import</strong> your data. This typically means that you take data stored in a file, database, or web application programming interface (API), and load it into the software. In this course, we will work with <em>.xlsx</em> and <em>.csv</em> file, which are the most common type of storaging data</p>
+<div class="figure">
+<img src="images/data-science.png" alt="" />
+<p class="caption"><img src="" style="text-align: center" />Source: R for Data Science book<img src="" style="img-container {text-align: center)" /></p>
 </div>
-<div id="basic-epidemiology" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Basic Epidemiology</h1>
-<div id="causual-concept" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Causual concept</h2>
+<p>The next steps are <strong>Tidying</strong> and <strong>Transforming</strong> your data. Combining 2 steps, we have the so-called <strong>Data Wrangling.</strong> Tidying your data means storing it in a consistent form that matches the semantics of the dataset with the way it is stored. In brief, when your data is tidy, each column is a variable, and each row is an observation. Once you have tidy data, a common first step is to transform it. Transformation includes narrowing in on observations of interest, creating new variables that are functions of existing variables, and calculating a set of summary statistics (like counts or means).</p>
+<p><strong>Visualization</strong> is a fundamentally human activity. A good visualization will show you things that you did not expect, or raise new questions about the data. A good visualization might also hint that you’re asking the wrong question, or you need to collect different data. Visualizations can surprise you, but don’t scale particularly well because they require a human to interpret them.</p>
+<p><strong>Models</strong> are complementary tools to visualization. Once you have made your questions sufficiently precise, you can use a model to answer them. Models are a fundamentally mathematical or computational tool, so they generally scale well. But every model makes assumptions, and by its very nature a model cannot question its own assumptions. That means a model cannot fundamentally surprise you.</p>
+<p>The last step of data science is <strong>Communication</strong>, an absolutely critical part of any data analysis project. It doesn’t matter how well your models and visualization have led you to understand the data unless you can also communicate your results to others.</p>
 </div>
-<div id="sampling" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Sampling</h2>
+<div id="software-installation" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Software installation</h2>
+<p>In this course, I will introduce you about the three most powerful statistical softwares including R, Python and STATA, their usage and their advantages as well as disadvantages. While R and Python is more a programming language, which can be a hurdle for some people, STATA is more user-friendly and balance between using Graphical User Interface (GUI) and saving script (<em>do file</em>). In short, you’ll need to install the following programs in order:</p>
+<ul>
+<li><p><strong>R</strong>: A statistical programming language used to wrangle, analyze, and visualize data (<a href="https://cran.r-project.org/bin/macosx/">mac</a>, <a href="https://cran.r-project.org/bin/windows/base/">windows</a>)</p></li>
+<li><p><strong>RStudio</strong>: An interface for writing and running R code, which is a primary language for the quarter (<a href="https://www.rstudio.com/products/rstudio/download/">link)</a>. You can download a developing version <a href="https://dailies.rstudio.com/">here</a>, which will provide most up-to-date new features</p></li>
+<li><p><strong>Python</strong>: Another programming language, be preferred in machine learning, deep learning, AI. In this tutorial, we will install Python indirectly through package <em>reticulate</em> in R. More details will be presented later</p></li>
+<li><p><strong>Git</strong>: (Optional) A set of command-line tools for tracking changes to a project. This is likely already installed on Macs. The Windows download will come with Git Bash, a simple interface for executing Git commands (<a href="https://git-scm.com/downloads">link</a>)</p></li>
+<li><p><strong>STATA</strong>: This is paid software. You have to buy it before use or you can download a trial version <a href="https://www.stata.com/customer-service/evaluate-stata/">here</a></p></li>
+</ul>
+<p>The following sections have additional information about the purpose of each component, how to install it, and alternative configurations.</p>
+<div id="r" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> R</h3>
 </div>
-<div id="measures-of-diseases-frequency" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Measures of diseases frequency</h2>
+<div id="rstudio" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Rstudio</h3>
 </div>
-<div id="measures-of-association" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Measures of association</h2>
+<div id="python" class="section level3" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Python</h3>
 </div>
-<div id="introduction-about-different-studies-design" class="section level2" number="1.5">
-<h2><span class="header-section-number">1.5</span> Introduction about different studies design</h2>
-<div id="introduction-about-observational-study" class="section level3" number="1.5.1">
-<h3><span class="header-section-number">1.5.1</span> Introduction about observational study</h3>
+<div id="setting-environment-for-r-and-python" class="section level3" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Setting environment for R and Python</h3>
 </div>
-<div id="introduction-about-longitudinal-study" class="section level3" number="1.5.2">
-<h3><span class="header-section-number">1.5.2</span> Introduction about longitudinal study</h3>
-</div>
-<div id="controlled-trials" class="section level3" number="1.5.3">
-<h3><span class="header-section-number">1.5.3</span> Controlled trials</h3>
+<div id="stata" class="section level3" number="2.2.5">
+<h3><span class="header-section-number">2.2.5</span> STATA</h3>
 </div>
 </div>
-<div id="confounder-bias" class="section level2" number="1.6">
-<h2><span class="header-section-number">1.6</span> Confounder bias</h2>
+<div id="create-working-enviroment" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Create working enviroment</h2>
+</div>
+<div id="data-manipulation" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Data Manipulation</h2>
+</div>
+<div id="data-visualization" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Data visualization</h2>
+</div>
+<div id="communication-with-rmarkdown" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span> Communication with Rmarkdown</h2>
+</div>
+<div id="shinyapp" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> ShinyApp</h2>
 
 </div>
 </div>
@@ -258,8 +281,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-
-<a href="basic-data-analysis.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regression-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -290,7 +313,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ntluong95/one-health/edit/master/index.Rmd",
+"link": "https://github.com/ntluong95/one-health/edit/master/02-introduction.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -298,7 +321,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/ntluong95/one-health/blob/master/index.Rmd",
+"link": "https://github.com/ntluong95/one-health/blob/master/02-introduction.Rmd",
 "text": null
 },
 "download": null,

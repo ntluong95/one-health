@@ -23,8 +23,16 @@
     background: #292A30;
 }
 
+.book .book-summary ul.summary li.divider {
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: #008cff;
+}
+
 .book .book-header.fixed {
     background-color: #364149 !important;
+    border-color: #008cff;
 }
 
 .book .book-header h1 a, .book .book-header h1 a:hover {
