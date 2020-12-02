@@ -1,3 +1,11 @@
-.book.font-family-0 {font-family: Georgia, serif;}
-.book.font-family-1 {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
+.book.font-family-0 {font-family: "JetBrains Mono", Georgia, serif;}
+.book.font-family-1 {font-family: "JetBrains Mono", "Helvetica Neue", Helvetica, Arial, sans-serif;}
 .book .book-summary{left:-430px;width:430px;}.book .book-body .page-wrapper .page-inner{max-width:670px;}@media (min-width: 600px) {.book.with-summary .book-header.fixed {left: 430px;}.book.with-summary .book-body{left:430px}}@media (max-width: 600px) {.book.with-summary .book-header.fixed {min-width: 430px;}.book.with-summary .book-body {min-width: 430px;}}
+
+@font-face {
+  font-family: "JetBrainsMono-Bold";
+  font-weight: 400;
+  font-style: normal;
+  src: url(./fontawesome/JetBrainsMono-Bold.woff2) format("woff2");
+  font-display: swap;
+}

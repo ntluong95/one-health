@@ -60,6 +60,7 @@
 
 .book .book-body .page-wrapper .page-inner section.normal {
     color: #fff;
+    text-align: justify;
 }
 
 .book .book-body .page-wrapper .page-inner section.normal code {
@@ -72,6 +73,7 @@
 
 .book .book-body .page-wrapper .page-inner section.normal pre, .book .book-body .page-wrapper .page-inner section.normal code {
     font-family: Jetbrains Mono;
+
 }
 
 .book .book-body .page-wrapper .page-inner section.normal table td, .book .book-body .page-wrapper .page-inner section.normal table th {

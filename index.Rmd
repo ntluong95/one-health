@@ -1,9 +1,10 @@
 --- 
 title: "Applied Epidemiology in One Health Research"
-author: "Nguyễn Thanh Lương"
-date: "`r Sys.Date()`"
+author: "Author: Nguyễn Thanh Lương"
+date: "Date updated: `r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
+
 
 # Basic Epidemiology
 
@@ -14,6 +15,7 @@ install.packages("tidyverse")
 # devtools::install_github("rstudio/tidyverse")
 library(tidyverse)
 a <- b + c
+a >= 5
 ```
 
 ## Sampling
@@ -31,3 +33,5 @@ a <- b + c
 ### Controlled trials
 
 ## Confounder bias
+
+

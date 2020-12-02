@@ -1,9 +1,14 @@
 bookdown::gitbook:
   css: style-bookdown.css
-  latex_engine: xelatex
+  latex_engine: pdflatex
+  keep_tex: yes
+  citation_package: biblatex
   config:
     toc:
-      before: |
-        <li><a href="./">Table of content</a></li>
+      collapse: subsection
+      scroll_highlight: yes
+      before: null
       after: |
         <li><a href="https://www.facebook.com/ntluong95/" target="blank">Visit me</a></li>
+    toc_float: true
+

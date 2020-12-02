@@ -1,0 +1,14 @@
+\usepackage{fontspec}
+\setmonofont{JetBrains Mono}[
+    Contextuals = Alternate,
+    Ligatures = TeX,
+]
+
+\usepackage{listings}
+\lstset{
+    basicstyle = \ttfamily,
+    columns = flexible,
+}
+\makeatletter
+\renewcommand*\verbatim@nolig@list{}
+\makeatother

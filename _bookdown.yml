@@ -4,5 +4,9 @@ delete_merged_file: true
 edit: https://github.com/ntluong95/one-health/edit/master/%s
 view: https://github.com/ntluong95/one-health/blob/master/%s
 language:
+  label:
+    fig: "FIGURE "
+    tab: "TABLE "
   ui:
+    edit: "Edit"
     chapter_name: "Chapter "
