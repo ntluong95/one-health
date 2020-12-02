@@ -1,0 +1,315 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Applied Epidemiology in One Health Research},
+  pdfauthor={Nguyễn Thanh Lương},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Applied Epidemiology in One Health Research}
+\author{Nguyễn Thanh Lương}
+\date{2020-12-02}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\hypertarget{basic-epidemiology}{%
+\section{Basic Epidemiology}\label{basic-epidemiology}}
+
+\hypertarget{causual-concept}{%
+\subsection{Causual concept}\label{causual-concept}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\CommentTok{\# or the development version}
+\CommentTok{\# devtools::install\_github("rstudio/tidyverse")}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\NormalTok{a }\OtherTok{\textless{}{-}}\NormalTok{ b }\SpecialCharTok{+}\NormalTok{ c}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{sampling}{%
+\subsection{Sampling}\label{sampling}}
+
+\hypertarget{measures-of-diseases-frequency}{%
+\subsection{Measures of diseases frequency}\label{measures-of-diseases-frequency}}
+
+\hypertarget{measures-of-association}{%
+\subsection{Measures of association}\label{measures-of-association}}
+
+\hypertarget{introduction-about-different-studies-design}{%
+\subsection{Introduction about different studies design}\label{introduction-about-different-studies-design}}
+
+\hypertarget{introduction-about-observational-study}{%
+\subsubsection{Introduction about observational study}\label{introduction-about-observational-study}}
+
+\hypertarget{introduction-about-longitudinal-study}{%
+\subsubsection{Introduction about longitudinal study}\label{introduction-about-longitudinal-study}}
+
+\hypertarget{controlled-trials}{%
+\subsubsection{Controlled trials}\label{controlled-trials}}
+
+\hypertarget{confounder-bias}{%
+\subsection{Confounder bias}\label{confounder-bias}}
+
+\hypertarget{basic-data-analysis}{%
+\section{Basic Data analysis}\label{basic-data-analysis}}
+
+\hypertarget{introduction-about-work-flow}{%
+\subsection{Introduction about work flow}\label{introduction-about-work-flow}}
+
+The picture below described about a normal working process of data analysis.
+
+First you must \textbf{import} your data. This typically means that you take data stored in a file, database, or web application programming interface (API), and load it into the software. In this course, we will work with \emph{.xlsx} and \emph{.csv} file, which are the most common type of storaging data
+
+\begin{figure}
+\centering
+\includegraphics{images/data-science.png}
+\caption{\includegraphics{}Source: R for Data Science book\includegraphics{}}
+\end{figure}
+
+The next steps are \textbf{Tidying} and \textbf{Transforming} your data. Combining 2 steps, we have the so-called \textbf{Data Wrangling.} Tidying your data means storing it in a consistent form that matches the semantics of the dataset with the way it is stored. In brief, when your data is tidy, each column is a variable, and each row is an observation. Once you have tidy data, a common first step is to transform it. Transformation includes narrowing in on observations of interest, creating new variables that are functions of existing variables, and calculating a set of summary statistics (like counts or means).
+
+\textbf{Visualization} is a fundamentally human activity. A good visualization will show you things that you did not expect, or raise new questions about the data. A good visualization might also hint that you're asking the wrong question, or you need to collect different data. Visualizations can surprise you, but don't scale particularly well because they require a human to interpret them.
+
+\textbf{Models} are complementary tools to visualization. Once you have made your questions sufficiently precise, you can use a model to answer them. Models are a fundamentally mathematical or computational tool, so they generally scale well. But every model makes assumptions, and by its very nature a model cannot question its own assumptions. That means a model cannot fundamentally surprise you.
+
+The last step of data science is \textbf{Communication}, an absolutely critical part of any data analysis project. It doesn't matter how well your models and visualization have led you to understand the data unless you can also communicate your results to others.
+
+\hypertarget{software-installation}{%
+\subsection{Software installation}\label{software-installation}}
+
+In this course, I will introduce you about the three most powerful statistical softwares including R, Python and STATA, their usage and their advantages as well as disadvantages. While R and Python is more a programming language, which can be a hurdle for some people, STATA is more user-friendly and balance between using Graphical User Interface (GUI) and saving script (\emph{do file}). In short, you'll need to install the following programs in order:
+
+\begin{itemize}
+\item
+  \textbf{R}: A statistical programming language used to wrangle, analyze, and visualize data (\href{https://cran.r-project.org/bin/macosx/}{mac}, \href{https://cran.r-project.org/bin/windows/base/}{windows})
+\item
+  \textbf{RStudio}: An interface for writing and running R code, which is a primary language for the quarter (\href{https://www.rstudio.com/products/rstudio/download/}{link)}. You can download a developing version \href{https://dailies.rstudio.com/}{here}, which will provide most up-to-date new features
+\item
+  \textbf{Python}: Another programming language, be preferred in machine learning, deep learning, AI. In this tutorial, we will install Python indirectly through package \emph{reticulate} in R. More details will be presented later
+\item
+  \textbf{Git}: (Optional) A set of command-line tools for tracking changes to a project. This is likely already installed on Macs. The Windows download will come with Git Bash, a simple interface for executing Git commands (\href{https://git-scm.com/downloads}{link})
+\item
+  \textbf{STATA}: This is paid software. You have to buy it before use or you can download a trial version \href{https://www.stata.com/customer-service/evaluate-stata/}{here}
+\end{itemize}
+
+The following sections have additional information about the purpose of each component, how to install it, and alternative configurations.
+
+\hypertarget{r}{%
+\subsubsection{R}\label{r}}
+
+\hypertarget{rstudio}{%
+\subsubsection{Rstudio}\label{rstudio}}
+
+\hypertarget{python}{%
+\subsubsection{Python}\label{python}}
+
+\hypertarget{setting-environment-for-r-and-python}{%
+\subsubsection{Setting environment for R and Python}\label{setting-environment-for-r-and-python}}
+
+\hypertarget{stata}{%
+\subsubsection{STATA}\label{stata}}
+
+\hypertarget{create-working-enviroment}{%
+\subsection{Create working enviroment}\label{create-working-enviroment}}
+
+\hypertarget{data-manipulation}{%
+\subsection{Data Manipulation}\label{data-manipulation}}
+
+\hypertarget{data-visualization}{%
+\subsection{Data visualization}\label{data-visualization}}
+
+\hypertarget{communication-with-rmarkdown}{%
+\subsection{Communication with Rmarkdown}\label{communication-with-rmarkdown}}
+
+\hypertarget{shinyapp}{%
+\subsection{ShinyApp}\label{shinyapp}}
+
+\hypertarget{regression-models}{%
+\section{Regression models}\label{regression-models}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"bookdown"}\NormalTok{)}
+\CommentTok{\# or the development version}
+\CommentTok{\# devtools::install\_github("rstudio/bookdown")}
+\NormalTok{a }\OtherTok{\textless{}{-}}\NormalTok{ b }\SpecialCharTok{+}\NormalTok{ c}
+\end{Highlighting}
+\end{Shaded}
+
+Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading \texttt{\#}.
+
+To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): \url{https://yihui.org/tinytex/}.
+
+\hypertarget{risk-analysis}{%
+\section{Risk analysis}\label{risk-analysis}}
+
+\hypertarget{introduction-about-risk-analysis}{%
+\subsection{Introduction about risk analysis}\label{introduction-about-risk-analysis}}
+
+\hypertarget{quantitative-microbial-risk-assessment}{%
+\subsection{Quantitative Microbial Risk Assessment}\label{quantitative-microbial-risk-assessment}}
+
+\hypertarget{spatial-epidemiology}{%
+\section{Spatial Epidemiology}\label{spatial-epidemiology}}
+
+\hypertarget{introduction-about-qgis}{%
+\subsection{Introduction about QGIS}\label{introduction-about-qgis}}
+
+\hypertarget{spatial-epidemiology-1}{%
+\subsection{Spatial Epidemiology}\label{spatial-epidemiology-1}}
+
+\hypertarget{estimating-true-prevalence-of-diseases}{%
+\section{Estimating true prevalence of diseases}\label{estimating-true-prevalence-of-diseases}}
+
+\hypertarget{se-and-sp-estimations-using-logistic-regression}{%
+\subsection{Se and Sp estimations using logistic regression}\label{se-and-sp-estimations-using-logistic-regression}}
+
+\hypertarget{estimating-true-prevalence-without-a-gold-standard}{%
+\subsection{Estimating true prevalence without a gold standard}\label{estimating-true-prevalence-without-a-gold-standard}}
+
+\hypertarget{infectious-diseases-modelling}{%
+\section{Infectious Diseases Modelling}\label{infectious-diseases-modelling}}
+
+\hypertarget{introduction-about-compartmental-model}{%
+\subsection{Introduction about compartmental model}\label{introduction-about-compartmental-model}}
+
+\hypertarget{introduction-about-system-dynamic-modelling}{%
+\subsection{Introduction about system dynamic modelling}\label{introduction-about-system-dynamic-modelling}}
+
+\hypertarget{other-models}{%
+\section{Other models}\label{other-models}}
+
+\hypertarget{structure-equation-modelling}{%
+\subsection{Structure Equation Modelling}\label{structure-equation-modelling}}
+
+\hypertarget{network-analysis}{%
+\subsection{Network analysis}\label{network-analysis}}
+
+\hypertarget{other-tools}{%
+\section{Other tools}\label{other-tools}}
+
+\hypertarget{digital-data-collection}{%
+\subsection{Digital data collection}\label{digital-data-collection}}
+
+\hypertarget{powerbi}{%
+\subsection{PowerBI}\label{powerbi}}
+
+\hypertarget{tableau}{%
+\subsection{Tableau}\label{tableau}}
+
+\end{document}

@@ -4,6 +4,7 @@
 
 .book .book-summary ul.summary li a, .book .book-summary ul.summary li span {
     color: #008cff;
+    white-space: pre-wrap;
 }
 
 .book .book-summary ul.summary li a:hover, .book .book-summary ul.summary li.active>a {
