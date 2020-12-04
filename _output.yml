@@ -1,6 +1,6 @@
 bookdown::gitbook:
   css: style-bookdown.css
-  latex_engine: pdflatex
+  latex_engine: xelatex
   keep_tex: yes
   citation_package: biblatex
   config:

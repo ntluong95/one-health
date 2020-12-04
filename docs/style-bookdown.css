@@ -72,9 +72,15 @@
 }
 
 .book .book-body .page-wrapper .page-inner section.normal pre, .book .book-body .page-wrapper .page-inner section.normal code {
-    font-family: Jetbrains Mono;
-
+    -webkit-font-feature-settings: "liga" on, "calt" on;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: 'JetBrains Mono';
 }
+
+
+
+
 
 .book .book-body .page-wrapper .page-inner section.normal table td, .book .book-body .page-wrapper .page-inner section.normal table th {
     color: black;
@@ -150,3 +156,5 @@ p.caption {
 .book .book-body .page-wrapper .page-inner section.normal a {
     color: #8afa5f;
 }
+
+
