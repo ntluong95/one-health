@@ -144,6 +144,15 @@ code span.ot {
     color: #ebff00;
 }
 
+code span.kw {
+    color: #e4344e;
+    font-weight: bold;
+}
+
+code span.ch {
+    color: #FD8273;
+}
+
 p.caption {
     color: white;
     margin-top: 10px;
