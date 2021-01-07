@@ -42,7 +42,7 @@ The following sections have additional information about the purpose of each com
 
 ### STATA
 
-## Create working enviroment
+## Create working environment
 
 ## Data Manipulation
 

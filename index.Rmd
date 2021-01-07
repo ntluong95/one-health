@@ -1,99 +1,15 @@
---- 
+---
 title: "Applied Epidemiology in One Health Research"
 author: "Author: Nguyễn Thanh Lương"
 date: "Date updated: `r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
 
-
 # Basic Epidemiology
 
 ## Causual concept
-```{r eval=FALSE}
-install.packages("tidyverse")
-df <-
-  raw %>%
-  #Loại bỏ tiếng việt có dấu
-  mutate_all(
-    .tbl = raw,
-    .funs = ~ stringi::stri_trans_general(.,"Latin-ASCII")
-  ) %>% 
-  # Chọn biến
-  select(
-    id, location,
-    contains(c("tri", "cys")),
-    num_range("a", c(2, 4:5, 7:8, 10, 12:13, 15:16, 18)),
-    num_range("c", c(4, 7, 13)),
-    a4a, a6a, a9a, a11a,
-    starts_with("abc"),
-    ends_with("xyz")
-  ) %>%
-  # Tạo biến
-  mutate( 
-    # Biến số recode thành factor
-    a5 = factor(a5, levels = c(1:2), labels = c("Male", "Female")),
-    # Gộp biến phân nhóm
-    a1 = sjmisc::rec(a11, rec = "1,2=0; 3:4=1"),
-    a1 = factor(a1, levels = c(0:1), labels = c("Khong", "Co")),
-    # Biến chữ gán thành factor
-    a7 = as_factor(haven::labelled(a7, c("Cap 2" = "1", "Cap 3" = "2", "Dai hoc/Sau dai hoc" = "3", "Trung cap/Cao dang" = "4"))),
-    # Tạo biến mới bằng cách gộp nhóm dùng if_else hoặc case_when
-    a5 = if_else(a5 == "Cap 2" | a5 == "Cap 3" | a5 == "Trung cap/Cao dang", 1, 2),
-    a5 = factor(a5, levels = c(1:2), labels = c("Duoi Dai hoc", "Dai hoc tro len")),
-    a6 = case_when(
-      a6 == "Khong co thu nhap" ~ 1,
-      a6 == "Duoi 3 trieu" | a6 == "Tu tren 3 – 5 trieu" ~ 2,
-      a6 == "Tu tren 5 – 10 trieu" ~ 3,
-      a6 == "Tu tren 10 - 20 trieu" | a6 == "Tren 20 trieu" ~ 4
-    ),
-    a6 = factor(a6, levels = c(1:4), labels = c("Khong co thu nhap", "Duoi 5 trieu", "5-10 trieu", "Tren 10 trieu")),
-    # Tạo biến phân nhóm từ biến định lượng
-    mpg1 = if_else(mpg <= 15, 1,
-      if_else(mpg > 15 & mpg <= 20, 2, 3)
-    ),
-    # Tạo biến định lượng từ tính toán
-    test = mpg / drat,
-    # Cộng theo dòng ra biến định lượng
-    use_nc = rowSums(df %>% select(thuocla_nc:chataogiac_nc, chatkhac_nc), na.rm = T),
-    # Cộng theo dòng ra biến định tính
-    psy = ifelse((tramcam + loau + stress) > 0, 1, 0)
-  ) %>%
-    # Đổi tên giá trị biến factor: Biến vcg ban đầu đang là Traditional, Modern và Other
-    levels(db1_tbc$vcg) <- c("Traditional retail", "Modern retail", "Food service retail")
-  # Tạo biến hàng loạt, biến chữ gán thành factor (nhớ là phải có kỹ tự ~ trước function)
-  mutate_at(
-    .vars = vars(b1a1, b1a2, b1b1, b1b2),
-    .funs = ~ as_factor(haven::labelled(., c(
-      "Chua bao gio" = "1", "Hiem khi" = "2", "Thinh thoang" = "3",
-      "Thuong xuyen" = "4", "Luon luon" = "5"
-    )))
-  ) %>%
-  # Ðổi tên
-  rename(
-    a5b = a5,
-    a6b = a6
-  ) %>%
-  # Dán nhãn
-  sjlabelled::var_labels(
-    a5 = "Gender",
-    location = "Commune",
-    c13 = "Raw vegetable consumption"
-  )
-  sjlabelled::set_label(., label_list) # Trích được dòng đầu tiên thành label (label_list <-  as.character(raw[1,]))
 
-# Unit
-units(df$tuoime) <- "Years"; units(df$tlsosinh) <- "Grams"; units(df$tuoithai) <- "Weeks";
-
-df$var <- NULL # Nếu muốn xóa biến này, tương tự lệnh drop trong STATA
-df1 %<>% mutate(Sal = str_replace(Sal, "ặ", "ă")) #Loại bỏ tiếng việt có dấu
-
-names(data)[3] <- "age"      # thay đổi tên biến số thứ 3 thành "age" 
-```
-
-```{stata, collectcode=TRUE, cleanlog=FALSE, eval=FALSE}
-use "C:\Users\luong\Desktop\test (2)", clear
-tab a6a a15, co chi2
-```
+![Key components of epidemiologic research](images/1.%20epdemiology%20diagram.png)
 
 ## Sampling
 
@@ -110,5 +26,3 @@ tab a6a a15, co chi2
 ### Controlled trials
 
 ## Confounder bias
-
-

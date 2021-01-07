@@ -16,7 +16,7 @@ rstudio
 python
 setting-environment-for-r-and-python
 stata
-create-working-enviroment
+create-working-environment
 data-manipulation
 data-visualization
 communication-with-rmarkdown
