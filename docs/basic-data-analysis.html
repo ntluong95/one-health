@@ -220,10 +220,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.1</span> Introduction about work flow</h2>
 <p>The picture below described about a normal working process of data analysis.</p>
 <p>First you must <strong>import</strong> your data. This typically means that you take data stored in a file, database, or web application programming interface (API), and load it into the software. In this course, we will work with <em>.xlsx</em> and <em>.csv</em> file, which are the most common type of storaging data</p>
-<div class="figure">
-<img src="images/data-science.png" width="700" alt="" />
-<p class="caption"><img src="" style="text-align: center" />Source: R for Data Science book<img src="" style="img-container {text-align: center)" /></p>
-</div>
+<center>
+<img src="images/data-science.png" title="fig:" width="700" alt="Source: R for Data Science book" />
+</center>
 <p>The next steps are <strong>Tidying</strong> and <strong>Transforming</strong> your data. Combining 2 steps, we have the so-called <strong>Data Wrangling.</strong> Tidying your data means storing it in a consistent form that matches the semantics of the dataset with the way it is stored. In brief, when your data is tidy, each column is a variable, and each row is an observation. Once you have tidy data, a common first step is to transform it. Transformation includes narrowing in on observations of interest, creating new variables that are functions of existing variables, and calculating a set of summary statistics (like counts or means).</p>
 <p><strong>Visualization</strong> is a fundamentally human activity. A good visualization will show you things that you did not expect, or raise new questions about the data. A good visualization might also hint that you’re asking the wrong question, or you need to collect different data. Visualizations can surprise you, but don’t scale particularly well because they require a human to interpret them.</p>
 <p><strong>Models</strong> are complementary tools to visualization. Once you have made your questions sufficiently precise, you can use a model to answer them. Models are a fundamentally mathematical or computational tool, so they generally scale well. But every model makes assumptions, and by its very nature a model cannot question its own assumptions. That means a model cannot fundamentally surprise you.</p>
