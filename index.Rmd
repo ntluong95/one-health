@@ -11,9 +11,11 @@ site: bookdown::bookdown_site
 
 Our rationale for doing research is to identify potentially causal associations between exposures and outcomes (the center of the diagram). In many cases, the exposures are risk factors and the outcome is a disease of interest. However, this is not the only scenario; for example, our outcome of interest might be a measure of productivity or food safety and the exposures might include certain diseases.
 
-<center>![Figure 1.1. Key components of epidemiologic research](images/1.%20epdemiology%20diagram.png)</center>
+<center>
 
+![Figure 1.1. Key components of epidemiologic research](images/1.%20epdemiology%20diagram.png)
 
+</center>
 
 Ultimately, we aim to make causal inferences (bottom right of diagram) and Chapter 1 discusses some important concepts of causation as they relate to epidemiologic research.
 

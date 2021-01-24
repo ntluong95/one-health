@@ -111,51 +111,78 @@ pre code {
   white-space: inherit;
 }
 
-code span.fu {
-    color: rgb(120, 175, 130);
+
+p.caption {
+    color: white;
+    margin-top: 10px;
 }
+
+
+code span.kw {
+    color: #50FA7B;
+    font-weight: bold;
+} /* Màu keyword */
+
+code span.cf {
+    color: #48C9B0;
+    font-weight: bold;
+} /* Màu function */
 
 code span.co {
-    color: #6190b7;
-    font-style: italic;
-}
+  font-style: italic;
+  color: #808080;
+} /* Màu comment */
 
 code span.st {
-    color: #FD8273;
+    color: #FFB86C;
+} /* Màu string */
+
+code span.ch {
+    color: #FFB86C;
+} /* Màu string */
+
+code span.dt {
+    color: #ffffff;
 }
 
-code span.dv {
-    color: #A29AEC;
-}
+
+code span.op {
+    font-weight: bold;
+    color: #FFAE00;
+} /* Màu operation */
+
+
+code span.ot {
+    color: #ebff00;
+} /* Màu mũi tên */
 
 code span.sc {
     color: #ebff00;
-}
+} /* Màu mũi tên */
 
 code span.at {
     color: #EAEAD3;
 }
 
+code span.dv {
+    color: #ef6555;
+} /* Màu số */
+
 code span.cn {
-    color: #A29AEC;
+    color: #A29AEC !important;
+} /* Màu True/False */
+
+code span.fu {
+    color: #50FA7B;
 }
 
-code span.ot {
-    color: #ebff00;
-}
-
-code span.kw {
-    color: #e4344e;
+code span.im {
+    color: #48C9B0 !important;
     font-weight: bold;
 }
 
-code span.ch {
-    color: #FD8273;
-}
-
-p.caption {
-    color: white;
-    margin-top: 10px;
+code span.va {
+    color: #27AE60;
 }
 
 .book .book-body .page-wrapper .page-inner section.normal h1, .book .book-body .page-wrapper .page-inner section.normal h2, .book .book-body .page-wrapper .page-inner section.normal h3, .book .book-body .page-wrapper .page-inner section.normal h4, .book .book-body .page-wrapper .page-inner section.normal h5, .book .book-body .page-wrapper .page-inner section.normal h6 {

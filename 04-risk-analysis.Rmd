@@ -1,8 +1,149 @@
 # Risk analysis
 
+```{r Data manipulation, message = FALSE, warning=FALSE, eval=FALSE}
+df <-
+  raw %>%
+  #Loại bỏ tiếng việt có dấu
+  mutate_all(
+    .tbl = raw,
+    .funs = ~ stringi::stri_trans_general(.,"Latin-ASCII")
+  ) %>% 
+  # Chọn biến 
+  select(
+    id, location,
+    contains(c("tri", "cys")),
+    num_range("a", c(2, 4:5, 7:8, 10, 12:13, 15:16, 18)),
+    num_range("c", c(4, 7, 13)),
+    a4a, a6a, a9a, a11a,
+    starts_with("abc"),
+    ends_with("xyz")
+  ) %>%
+  # Tạo biến
+  mutate( 
+    # Biến số recode thành factor
+    a5 = factor(a5, levels = c(1:2), labels = c("Male", "Female")),
+    # Gộp biến phân nhóm
+    a1 = sjmisc::rec(a11, rec = "1,2=0; 3:4=1"),
+    a1 = factor(a1, levels = c(0:1), labels = c("Khong", "Co")),
+    # Biến chữ gán thành factor
+    a7 = as_factor(haven::labelled(a7, c("Cap 2" = "1", "Cap 3" = "2", "Dai hoc/Sau dai hoc" = "3", "Trung cap/Cao dang" = "4"))),
+    # Tạo biến mới bằng cách gộp nhóm dùng if_else hoặc case_when
+    a5 = if_else(a5 == "Cap 2" | a5 == "Cap 3" | a5 == "Trung cap/Cao dang", 1, 2),
+    a5 = factor(a5, levels = c(1:2), labels = c("Duoi Dai hoc", "Dai hoc tro len")),
+    a6 = case_when(
+      a6 == "Khong co thu nhap" ~ 1,
+      a6 == "Duoi 3 trieu" | a6 == "Tu tren 3 – 5 trieu" ~ 2,
+      a6 == "Tu tren 5 – 10 trieu" ~ 3,
+      a6 == "Tu tren 10 - 20 trieu" | a6 == "Tren 20 trieu" ~ 4
+    ),
+    a6 = factor(a6, levels = c(1:4), labels = c("Khong co thu nhap", "Duoi 5 trieu", "5-10 trieu", "Tren 10 trieu")),
+    # Tạo biến phân nhóm từ biến định lượng
+    mpg1 = if_else(mpg <= 15, 1,
+      if_else(mpg > 15 & mpg <= 20, 2, 3) 
+    ),
+    # Tạo biến định lượng từ tính toán
+    test = mpg / drat,
+    # Cộng theo dòng ra biến định lượng
+    use_nc = rowSums(df %>% select(thuocla_nc:chataogiac_nc, chatkhac_nc), na.rm = T),
+    # Cộng theo dòng ra biến định tính
+    psy = ifelse((tramcam + loau + stress) > 0, 1, 0)
+  ) %>%
+    # Đổi tên giá trị biến factor: Biến vcg ban đầu đang là Traditional, Modern và Other
+    levels(db1_tbc$vcg) <- c("Traditional retail", "Modern retail", "Food service retail")
+  # Tạo biến hàng loạt, biến chữ gán thành factor (nhớ là phải có kỹ tự ~ trước function)
+  mutate_at(
+    .vars = vars(b1a1, b1a2, b1b1, b1b2),
+    .funs = ~ as_factor(haven::labelled(., c(
+      "Chua bao gio" = "1", "Hiem khi" = "2", "Thinh thoang" = "3",
+      "Thuong xuyen" = "4", "Luon luon" = "5"
+    )))
+  ) %>%
+  # Ðổi tên
+  rename(
+    a5b = a5,
+    a6b = a6
+  ) %>%
+  # Dán nhãn
+  sjlabelled::var_labels(
+    a5 = "Gender",
+    location = "Commune",
+    c13 = "Raw vegetable consumption"
+  )
+  sjlabelled::set_label(., label_list) # Trích được dòng đầu tiên thành label (label_list <-  as.character(raw[1,]))
+
+# Unit
+units(df$tuoime) <- "Years"; label(lalonde$race) <- "Race"
+
+df$var <- NULL # Nếu muốn xóa biến này, tương tự lệnh drop trong STATA
+df1 %<>% mutate(Sal = str_replace(Sal, "ặ", "ă")) #Loại bỏ tiếng việt có dấu
+
+names(data)[3] <- "age"      # thay đổi tên biến số thứ 3 thành "age"  
+
+dat_raw <- haven::read_stata("D:/0. CENPHER/0. DU AN/2. BMZ small grant/1. BMZ Implementation/1. Baseline Assessment/1. Data collection/4. Data BMZ (2) 07102018_Dan nhan.dta")
+
+dictionary <- labelled::look_for(dat_raw, details = TRUE)
+
+dat_2017 <- dat_raw %>%
+  # --------------------------------------------------------------
+# change 1: convert haven_labelled variables to factors ----
+mutate_if(haven::is.labelled, haven::as_factor)
+
+```
 
 
 
 ## Introduction about risk analysis
+```{python, eval = FALSE}
+#https://github.com/kieferk/dfply
+from dfply import *
+from dfply import mutate, select, group_by
+diamonds >> select(X.carat, X.cut) >> head(3)
+
+diamonds >> group_by(X.cut) >> mutate(price_lead=lead(X.price), price_lag=lag(X.price)) >> head(2) >> select(X.cut, X.price, X.price_lead, X.price_lag)
+
+diamonds >>= mutate(x_plus_y = X.x + X.y) >>
+select(columns_from('x')) >> head(10) >> tail(3)
+
+from __future__ import division, print_function, unicode_literals
+import pandas as pd
+import numpy as np 
+
+# height (cm)
+X = np.array([[147, 150, 153, 158, 163, 165, 168, 170, 173, 175, 178, 180, 183]]).T
+# weight (kg)
+y = np.array([[ 49, 50, 51,  54, 58, 59, 60, 62, 63, 64, 66, 67, 68]]).T
+# Visualize data 
+plt.plot(X, y, 'ro')
+plt.axis([140, 190, 45, 75])
+plt.xlabel('Height (cm)')
+plt.ylabel('Weight (kg)')
+plt.show()
+
+from scipy.integrate import ode
+```
 
 ## Quantitative Microbial Risk Assessment
+```{stata, collectcode=TRUE, cleanlog=FALSE, eval=FALSE}
+use "C:\Users\luong\Desktop\test (2)", clear
+tab a6a a15, co chi2
+
+xi: sw , pe(.1): logistic c4a i.location i.a4a i.a5 i.a6a i.a9a i.a11a i.a14 i.a15 ///
+i.c1x1 i.c1x2 i.c1x3 i.c1x4 i.c1x5 /// 
+i.c13a i.c6 i.c7a
+
+tab a6a a15, co chi2
+tab a9a a5, co chi2
+tab a11a a5, co chi2 // Biến định lượng
+
+ttest a4, by (a5)
+ttest a12, by (a5)
+ranksum a12, by(a5)
+
+gen kt1a=(b9 + b13 + b14 + b17 + b18 + b21 + b22 + b27) / 8
+gen kt2a=(b4 + b10 + b12 + b16 + b19 + b20 + b24 + b25b) / 8
+gen kt3a=(b1 + b6 + b8)/ 3
+
+label var    a1 "Nhãn của biến"
+label define a1 1 "Nhãn 1" 2 "Nhãn 2"
+label value  a1 a1
+```
