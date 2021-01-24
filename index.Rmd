@@ -62,3 +62,15 @@ Chapter 7-11
 ### Controlled trials
 
 ## Confounder bias
+
+
+<html lang="en-us">
+<head> <meta charset="utf-8">
+    <link href='https://raw.githubusercontent.com/ntluong95/data/main/style.css' rel='stylesheet' type='text/css' />
+</head>
+<body>
+<script src="https://raw.githubusercontent.com/ntluong95/data/main/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+</html>

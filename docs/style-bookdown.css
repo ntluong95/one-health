@@ -1,19 +1,19 @@
 .book .book-summary {
-    background-color: #364149;
+    background-color: #20263e;
 }
 
 .book .book-summary ul.summary li a, .book .book-summary ul.summary li span {
-    color: #008cff;
+    color: #4aa9f7;
     white-space: pre-wrap;
 }
 
 .book .book-summary ul.summary li a:hover, .book .book-summary ul.summary li.active>a {
     color: white;
-    background: #008cff;
+    background: #39a952;
     text-decoration: none;
 }
 .book .book-body {
-    background: #2F3941;
+    background: rgb(28, 31, 43);
 }
 
 .book .book-body .page-wrapper .page-inner section.normal pre {
@@ -21,7 +21,7 @@
     word-wrap: normal;
     margin: 0 0 1.275em;
     padding: .85em 1em;
-    background: #292A30;
+    background: #2d3143;
 }
 
 .book .book-summary ul.summary li.divider {
@@ -32,7 +32,7 @@
 }
 
 .book .book-header.fixed {
-    background-color: #364149 !important;
+    background-color: rgb(28, 31, 43) !important;
     border-color: #008cff;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .book .book-body .page-wrapper .page-inner section {
-    background: #2F3941;
+    background: rgb(28, 31, 43);
 }
 
 .book .book-body .page-wrapper .page-inner section.normal {
@@ -120,7 +120,7 @@ p.caption {
 
 code span.kw {
     color: #50FA7B;
-    font-weight: bold;
+    font-weight: normal;
 } /* Màu keyword */
 
 code span.cf {
@@ -185,6 +185,56 @@ code span.va {
     color: #27AE60;
 }
 
+.hljs-keyword, .hljs-selector-tag, .hljs-literal {
+    color: #A29AEC;
+}
+
+.hljs-keyword {
+    color: #FD7CB2 !important;
+}
+
+code span.bu {
+    color: #51e655;
+}
+
+.hljs-attribute {
+  color: #e26861;
+} 
+
+.hljs-pipe{
+  color: #BD93F9;
+  font-weight: bold;
+}
+
+.hljs-pipe1{
+  color: #BD93F9;
+  font-weight: bold;
+}
+
+.hljs-fun-param {
+  color: #ebff00;
+}
+
+.hljs-storage{
+  color: #00cc97;
+}
+
+.hljs-storage1{
+  color: #50FA7B;
+}
+
+.hljs-identifier{
+  color: #e6ffcf;
+}
+
+.hljs-function1 {
+  color: #50FA7B;
+}
+
+code span.fl {
+  color: #ef6555 !important;
+}
+
 .book .book-body .page-wrapper .page-inner section.normal h1, .book .book-body .page-wrapper .page-inner section.normal h2, .book .book-body .page-wrapper .page-inner section.normal h3, .book .book-body .page-wrapper .page-inner section.normal h4, .book .book-body .page-wrapper .page-inner section.normal h5, .book .book-body .page-wrapper .page-inner section.normal h6 {
     color: #008cff;
 }
@@ -193,4 +243,12 @@ code span.va {
     color: #8afa5f;
 }
 
+.book .book-body .page-wrapper .page-inner section.normal pre .hljs, .book .book-body .page-wrapper .page-inner section.normal code .hljs {
+    background: #2d3143;
+    color: #e6ffcf;
+    padding: 0.5em;
+}
 
+.book .book-body .page-wrapper .page-inner section.normal pre .hljs-string, .book .book-body .page-wrapper .page-inner section.normal code .hljs-string, .book .book-body .page-wrapper .page-inner section.normal pre .hljs-value, .book .book-body .page-wrapper .page-inner section.normal code .hljs-value, .book .book-body .page-wrapper .page-inner section.normal pre .hljs-inheritance, .book .book-body .page-wrapper .page-inner section.normal code .hljs-inheritance, .book .book-body .page-wrapper .page-inner section.normal pre .hljs-header, .book .book-body .page-wrapper .page-inner section.normal code .hljs-header, .book .book-body .page-wrapper .page-inner section.normal pre .ruby .hljs-symbol, .book .book-body .page-wrapper .page-inner section.normal code .ruby .hljs-symbol, .book .book-body .page-wrapper .page-inner section.normal pre .xml .hljs-cdata, .book .book-body .page-wrapper .page-inner section.normal code .xml .hljs-cdata {
+    color: #ffb86c;
+}

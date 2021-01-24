@@ -1,4 +1,6 @@
 bookdown::gitbook:
+  includes:
+      in_header: highlight-bookdown.html
   css: style-bookdown.css
   latex_engine: xelatex
   keep_tex: yes
@@ -11,4 +13,3 @@ bookdown::gitbook:
       after: |
         <li><a href="https://www.facebook.com/ntluong95/" target="blank">Visit me</a></li>
     toc_float: true
-
