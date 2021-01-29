@@ -13,11 +13,11 @@ After reading this chapter, reader should be able to:
 
 -   Select the appropriate sampling strategy for a particular situation, taking into account the requirements, advantages and disadvantages of each method.
 
--   Identify the different types of selection bias and assess whether or not a particular study is likely to suffer from excess selection bias
+-   Identify the different types of selection bias and assess whether or not a particular study is likely to suffer from excess selection bias.
 
--   Explain the different ways of measuring disease frequency and differentiate among counts, proportions, odds and rates
+-   Explain the different ways of measuring disease frequency and differentiate among counts, proportions, odds and rates.
 
--   Calculate and interpret the following measures of association: risk ratio, odds ratio, incidence rate ratio, risk difference (attributable risk), attributable fraction (exposed), population attributable risk, attributable fraction (population)
+-   Calculate and interpret the following measures of association: risk ratio, odds ratio, incidence rate ratio, risk difference (attributable risk), attributable fraction (exposed), population attributable risk, attributable fraction (population).
 
 -   Understand the strength and weaknesses of various study designs for the identification and evaluation of causal factors.
 
