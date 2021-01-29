@@ -37,7 +37,7 @@ In one health epidemiologic research, we often encounter clustered or correlated
 
 Other important tools in epidemiology, including Risk analysis (*Chapter 4*), Spatial epidemiology (*Chapter 5*), Estimating true prevalence of a diseases (*Chapter 6*) and Infections diseases modeling (*Chapter 7*) will also be discussed
 
-Other models and tools will be mentioned in *Chapter 8*. Structured reviews and assessments of the literature in the form of meta-analyses are becoming increasingly important and are introduced in *Chapter 8.3*. In *Chapter 9*, we will introduce about digital data collection tool (*Chapter 9.1*) and visualization tools (\*Chapter 9.2\*)
+Other models and tools will be mentioned in *Chapter 8*. Structured reviews and assessments of the literature in the form of meta-analyses are becoming increasingly important and are introduced in *Chapter 8.3*. In *Chapter 9*, we will introduce about digital data collection tool (*Chapter 9.1*) and visualization tools (*Chapter 9.2*)
 
 ## Sampling
 
