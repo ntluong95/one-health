@@ -2,12 +2,14 @@
 
 ## Introduction about work flow
 
-The picture below described about a normal working process of data analysis
+The picture below described about a normal working process of data analysis.
 
 First you must **import** your data. This typically means that you take data stored in a file, database, or web application programming interface (API), and load it into the software. In this course, we will work with *.xlsx* and *.csv* file, which are the most common type of storaging data.
 
 <center>
-![![](){style="text-align: center"}Source: R for Data Science book![](){style="img-container {text-align: center)"}](images/data-science.png){width="700"}
+
+![Source: R for Data Science book](images/data-science.png){width="700"}
+
 </center>
 
 The next steps are **Tidying** and **Transforming** your data. Combining 2 steps, we have the so-called **Data Wrangling.** Tidying your data means storing it in a consistent form that matches the semantics of the dataset with the way it is stored. In brief, when your data is tidy, each column is a variable, and each row is an observation. Once you have tidy data, a common first step is to transform it. Transformation includes narrowing in on observations of interest, creating new variables that are functions of existing variables, and calculating a set of summary statistics (like counts or means).
@@ -36,15 +38,103 @@ The following sections have additional information about the purpose of each com
 
 ### R
 
+R is a popular data science language used to download, analyze, and visualize data. You can download it at the appropriate link for your operating system ([mac](https://cran.r-project.org/bin/macosx/), [windows](https://cran.r-project.org/bin/windows/base/)). At the link, click the appropriate download link and follow instructions:
+
+<center>
+
+![](docs/images/download_r.png)
+
+</center>
+
+To install package in R, type the following code to the console. For instance, you want to install `tidyverse` package
+
+```{r, message = FALSE, warning=FALSE, eval=FALSE}
+install.packages("tidyverse")
+```
+
+To call `tidyverse` package
+
+```{r, message = FALSE, warning=FALSE, eval=FALSE}
+library(tidyverse)
+```
+
 ### Rstudio
+
+The primary programming language we will use throughout the course is R. It's a very powerful statistical programming language that is built to work well with large and diverse datasets. While you are able to execute R scripts without an interface, the RStudio interface provides a wonderful way to engage with the R language. Importantly, you **cannot use the RStudio interface until you have installed R.**
+
+To download the RStudio program, select the installer for your operating system at this [link](https://rstudio.com/products/rstudio/download/). Make sure to scroll down to download a **free** version of RStudio:
+
+<center>
+
+![](docs/images/Screenshot%202021-01-29%20215552.png)
+
+</center>
 
 ### Python
 
+Python is a very popular all-purpose programming language that is making a major impact in the data-science arena. Some data scientists, and even some organizations, believe they have to pick between R or Python. However, this turns out to be a false choice. In fact, results from a surveys showed that many data science teams today are bilingual, leveraging both R and Python in their work. And while both languages have unique strengths, these teams frequently struggle to use them together.
+
+Rstudio provides a prefect environment for data scientist through a package reticulate. Rstudio can be a potentially platform for data scientist who are using solely R or Python, or using both
+
 ### Setting environment for R and Python
 
+Firstly, you have to install reticulate package:
+
+```{r, message = FALSE, warning=FALSE, eval=FALSE}
+install.packages("reticulate")
+```
+
+Secondly, install the miniconda environment. I suggest you should install miniconda in your local disk, not your OS disk (i.e Disk C)
+
+```{r, message = FALSE, warning=FALSE, eval=FALSE}
+reticulate::install_miniconda("D:/Python")
+reticulate::use_condaenv("D:/Python/envs/r-reticulate")
+```
+
+Thirdly, try to install Python package. There are two ways to do it, Reticulate style and Python style
+**Reticulate** style
+
+```{r, message = FALSE, warning=FALSE, eval=FALSE}
+library(reticulate)
+py_install("pandas") 
+py_install("matplotlib")
+```
+
+**Python** style
+Set Python PATH through Terminal. You copy this code and paste into Terminal console in your Rstudio: 
+`setx PATH "%PATH%;D:\Python\envs\r-reticulate\Scripts"`  
+Then try to run this code to install pandas package: 
+`python -m pip install pandas`
+
 ### STATA
+This is paid software. You have to buy it before use or you can download a trial version [here](https://www.stata.com/customer-service/evaluate-stata/)
+
+If you want to use STATA in Rstudio, you can do it through `statamarkdown` package. Detail will be dicussed further in this document.
+
+```{r setup STATA environment, message = FALSE, warning=FALSE, eval=FALSE}
+install.packages("Statamarkdown")
+library(Statamarkdown)
+stataexe <- "C:/Program Files/Stata16/StataSE-64.exe"
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+```
 
 ## Create working environment
+
+Git is a version control system that provides a set of commands that allow you to manage changes to a project (much more on this in [module-3](https://github.com/info-201/m3-version-control)). For now, you'll need to [download](https://git-scm.com/downloads) and install the software. Note, if you are using a Windows machine, this will install a program called Git Bash, which provides a text-based interface for executing commands on your computer. To setup Git in your Rstudio, you can visit this [link](https://www.geo.uzh.ch/microsite/reproducible_research/post/rr-rstudio-git/).
+
+For alternative/additional Windows command-line tools, see below:
+
+**Git Bash**
+
+Because we'll primarily use the command line for implementing version control (i.e., keeping track of changes to our code), we can use a command-line tool that ships with the version control software, Git. When you download the [Git](https://git-scm.com/downloads) software on Windows, the Git Bash user-interface will be installed. You can then navigate to Git Bash from your Desktop / Start Menu, and you will be able to use the appropriate syntax to keep track of code changes.
+
+**Windows Bash**
+
+With the release of Windows 10, Windows began providing command line (bash) support. If you already have Windows 10, here are a few [instructions](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) for installing bash capabilities. This requires that you [switch to 64 bit windows](http://www.howtogeek.com/228042/how-to-switch-from-32-bit-windows-10-to-64-bit-windows-10/), and follow the instructions above. While this will provide you with direct bash capabilities, you may run into challenges along the way (I have not tested these instructions). Note, you will still **need to install Git** in addition to Windows Bash.
+
+**Powershell (Windows Management Framework)**
+
+If you want to explore more robust command-line alternatives for Windows, the Windows Management Framework (including a program called Powershell) seems to be a preferred standard. Powershell will provide a simple text-based interface for inputing commands. Note, you will still **need to install Git** in addition to Powershell.
 
 ## Data Manipulation
 
