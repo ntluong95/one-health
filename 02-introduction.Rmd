@@ -2,7 +2,7 @@
 
 ## Introduction about work flow
 
-The picture below described about a normal working process of data analysis.
+The picture below described about a normal working process of data analysis
 
 First you must **import** your data. This typically means that you take data stored in a file, database, or web application programming interface (API), and load it into the software. In this course, we will work with *.xlsx* and *.csv* file, which are the most common type of storaging data.
 
