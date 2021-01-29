@@ -35,7 +35,7 @@ With our data in hand, we are now able to begin to model relationships with the 
 
 In one health epidemiologic research, we often encounter clustered or correlated data and these present major challenges in their analyses. *Chapter 3.7.1* introduces these while *Chapters 3.7.2* and *Chapters 3.7.3* focus on mixed (random effects) models for continuous and discrete outcomes. Chapter *Chapters 3.7.4* presents some alternative methods of analysis for dealing with clustered data.
 
-Other important tools in epidemiology, including Risk analysis (*Chapter 4*), Spatial epidemiology (*Chapter 5*), Estimating true prevalence of a diseases (*Chapter 6*) and Infections diseases modelling (*Chapter 7*) will also be discussed
+Other important tools in epidemiology, including Risk analysis (*Chapter 4*), Spatial epidemiology (*Chapter 5*), Estimating true prevalence of a diseases (*Chapter 6*) and Infections diseases modeling (*Chapter 7*) will also be discussed
 
 Other models and tools will be mentioned in *Chapter 8*. Structured reviews and assessments of the literature in the form of meta-analyses are becoming increasingly important and are introduced in *Chapter 8.3*. In *Chapter 9*, we will introduce about digital data collection tool (*Chapter 9.1*) and visualization tools (\*Chapter 9.2\*)
 
