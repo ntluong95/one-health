@@ -21,3 +21,7 @@
 ### Mixed model for discrete data
 
 ### Alternative approach to dealing with clustered data
+
+## Longitudinal study and time series data
+
+## Controlled trials

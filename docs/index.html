@@ -149,9 +149,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#measures-of-association"><i class="fa fa-check"></i><b>1.4</b> Measures of association</a></li>
 <li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#introduction-about-different-studies-design"><i class="fa fa-check"></i><b>1.5</b> Introduction about different studies design</a>
 <ul>
-<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#introduction-about-observational-study"><i class="fa fa-check"></i><b>1.5.1</b> Introduction about observational study</a></li>
-<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#introduction-about-longitudinal-study"><i class="fa fa-check"></i><b>1.5.2</b> Introduction about longitudinal study</a></li>
-<li class="chapter" data-level="1.5.3" data-path="index.html"><a href="index.html#controlled-trials"><i class="fa fa-check"></i><b>1.5.3</b> Controlled trials</a></li>
+<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#introduction-about-observational-studies"><i class="fa fa-check"></i><b>1.5.1</b> Introduction about observational studies</a></li>
+<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#cohort-studies"><i class="fa fa-check"></i><b>1.5.2</b> Cohort studies</a></li>
+<li class="chapter" data-level="1.5.3" data-path="index.html"><a href="index.html#case-control-studies"><i class="fa fa-check"></i><b>1.5.3</b> Case-control studies</a></li>
+<li class="chapter" data-level="1.5.4" data-path="index.html"><a href="index.html#hybrid-study-designs"><i class="fa fa-check"></i><b>1.5.4</b> Hybrid study designs</a></li>
+<li class="chapter" data-level="1.5.5" data-path="index.html"><a href="index.html#longitudinal-study-and-time-series-data"><i class="fa fa-check"></i><b>1.5.5</b> Longitudinal study and time series data</a></li>
+<li class="chapter" data-level="1.5.6" data-path="index.html"><a href="index.html#controlled-trials"><i class="fa fa-check"></i><b>1.5.6</b> Controlled trials</a></li>
 </ul></li>
 <li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#confounder-bias"><i class="fa fa-check"></i><b>1.6</b> Confounder bias</a></li>
 </ul></li>
@@ -188,6 +191,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7.3" data-path="regression-models.html"><a href="regression-models.html#mixed-model-for-discrete-data"><i class="fa fa-check"></i><b>3.7.3</b> Mixed model for discrete data</a></li>
 <li class="chapter" data-level="3.7.4" data-path="regression-models.html"><a href="regression-models.html#alternative-approach-to-dealing-with-clustered-data"><i class="fa fa-check"></i><b>3.7.4</b> Alternative approach to dealing with clustered data</a></li>
 </ul></li>
+<li class="chapter" data-level="3.8" data-path="regression-models.html"><a href="regression-models.html#longitudinal-study-and-time-series-data-1"><i class="fa fa-check"></i><b>3.8</b> Longitudinal study and time series data</a></li>
+<li class="chapter" data-level="3.9" data-path="regression-models.html"><a href="regression-models.html#controlled-trials-1"><i class="fa fa-check"></i><b>3.9</b> Controlled trials</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="risk-analysis.html"><a href="risk-analysis.html"><i class="fa fa-check"></i><b>4</b> Risk analysis</a></li>
 <li class="chapter" data-level="5" data-path="spatial-epidemiology.html"><a href="spatial-epidemiology.html"><i class="fa fa-check"></i><b>5</b> Spatial Epidemiology</a>
@@ -254,7 +259,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </center>
 <p>Ultimately, we aim to make causal inferences (bottom right of diagram) and Chapter 1 discusses some important concepts of causation as they relate to epidemiologic research. Any study starts with an overall study design and the main observational study types are discussed in <em>Chapters 1.5.</em> In any study, it is important to identify the target population and obtain a study group from it in a manner that does not lead to selection bias. Sampling and selection bias is discussed in <em>Chapter 1.2.</em> Once we have identified our study subjects, it is necessary to obtain data on exposure variables, extraneous variables and the outcome in a manner that does not lead to information bias (<em>Chapter 1.6</em>). Two important tools that are used in that process are questionnaires (<em>Chapter 1.3</em>) and diagnostic and screening tests (<em>Chapter 1.3</em>). In order to start the process of establishing an association between exposure and outcome, we need to settle on a measure of disease frequency (<em>Chapter 1.3</em>) and select a measure of association (<em>Chapter 1.4</em>) that fits the context. In many cases, the study design will determine the measures that are appropriate. Confounding bias is a major concern in observational studies, and the identification of factors that should be controlled as confounders is featured in <em>Chapter 1.6</em>.</p>
 <p>Basic data analysis will be presented in <em>Chapter 2</em>. You will learn essential skills to conduct data analysis with different programming languages such as R and Python or statistical software like STATA. <em>Chapter 2.6</em> will provides you a road map for investigators starting into the analysis of an epidemiologic dataset. You will also introduced on how to communicate your works with other scientists and readers using Rmarkdown (<em>Chapter 2.7</em>) and ShinyApp (<em>Chapter 2.8</em>).</p>
-<p>With our data in hand, we are now able to begin to model relationships with the intent of estimating causal effects of exposure (<em>Chapter 3</em>). Individual chapters are dedicated to the analyses appropriate for outcomes that are continuous (<em>Chapter 3.2</em>), dichotomous (<em>Chapter 3.3</em>), nominal/ordinal (<em>Chapter 3.4</em>), count (<em>Chapter 3.5</em>) and time-to-event data (<em>Chapter 3.6</em>). <em>Chapter 3.1</em> presents some general guide lines on model-building techniques that are applicable to all types of model. In one health epidemiologic research, we often encounter clustered or correlated data and these present major challenges in their analyses. <em>Chapter 3.7.1</em> introduces these while <em>Chapters 3.7.2</em> and <em>Chapters 3.7.3</em> focus on mixed (random effects) models for continuous and discrete outcomes. Chapter <em>Chapters 3.7.4</em> presents some alternative methods of analysis for dealing with clustered data.</p>
+<p>With our data in hand, we are now able to begin to model relationships with the intent of estimating causal effects of exposure (<em>Chapter 3</em>). Individual chapters are dedicated to the analyses appropriate for outcomes that are continuous (<em>Chapter 3.2</em>), dichotomous (<em>Chapter 3.3</em>), nominal/ordinal (<em>Chapter 3.4</em>), count (<em>Chapter 3.5</em>) and time-to-event data (<em>Chapter 3.6</em>). <em>Chapter 3.1</em> presents some general guide lines on model-building techniques that are applicable to all types of model. In one health epidemiologic research, we often encounter clustered or correlated data and these present major challenges in their analyses. <em>Chapter 3.7.1</em> introduces these while <em>Chapters 3.7.2</em> and <em>Chapters 3.7.3</em> focus on mixed (random effects) models for continuous and discrete outcomes. <em>Chapters 3.7.4</em> presents some alternative methods of analysis for dealing with clustered data.</p>
 <p>Other important tools in epidemiology, including Risk analysis (<em>Chapter 4</em>), Spatial epidemiology (<em>Chapter 5</em>), Estimating true prevalence of a diseases (<em>Chapter 6</em>) and Infections diseases modelling (<em>Chapter 7</em>) will also be discussed</p>
 <p>Other models and tools will be mentioned in <em>Chapter 8</em>. Structured reviews and assessments of the literature in the form of meta-analyses are becoming increasingly important and are introduced in <em>Chapter 8.3</em>. In <em>Chapter 9</em>, we will introduce about digital data collection tool (<em>Chapter 9.1</em>) and visualization tools (<em>Chapter 9.2</em>)</p>
 </div>
@@ -264,25 +269,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="measures-of-diseases-frequency" class="section level2" number="1.3">
 <h2><span class="header-section-number">1.3</span> Measures of diseases frequency</h2>
+<p>Chapter 4</p>
 </div>
 <div id="measures-of-association" class="section level2" number="1.4">
 <h2><span class="header-section-number">1.4</span> Measures of association</h2>
+<p>Chapter 6</p>
 </div>
 <div id="introduction-about-different-studies-design" class="section level2" number="1.5">
 <h2><span class="header-section-number">1.5</span> Introduction about different studies design</h2>
-<p>Chapter 7-11</p>
-<div id="introduction-about-observational-study" class="section level3" number="1.5.1">
-<h3><span class="header-section-number">1.5.1</span> Introduction about observational study</h3>
+<div id="introduction-about-observational-studies" class="section level3" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Introduction about observational studies</h3>
+<p>Chapter 7</p>
 </div>
-<div id="introduction-about-longitudinal-study" class="section level3" number="1.5.2">
-<h3><span class="header-section-number">1.5.2</span> Introduction about longitudinal study</h3>
+<div id="cohort-studies" class="section level3" number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> Cohort studies</h3>
+<p>Chapter 8</p>
 </div>
-<div id="controlled-trials" class="section level3" number="1.5.3">
-<h3><span class="header-section-number">1.5.3</span> Controlled trials</h3>
+<div id="case-control-studies" class="section level3" number="1.5.3">
+<h3><span class="header-section-number">1.5.3</span> Case-control studies</h3>
+<p>Chapter 9</p>
+</div>
+<div id="hybrid-study-designs" class="section level3" number="1.5.4">
+<h3><span class="header-section-number">1.5.4</span> Hybrid study designs</h3>
+<p>Chapter 10</p>
+</div>
+<div id="longitudinal-study-and-time-series-data" class="section level3" number="1.5.5">
+<h3><span class="header-section-number">1.5.5</span> Longitudinal study and time series data</h3>
+<p>To be searched</p>
+</div>
+<div id="controlled-trials" class="section level3" number="1.5.6">
+<h3><span class="header-section-number">1.5.6</span> Controlled trials</h3>
+<p>Chapter 11</p>
 </div>
 </div>
 <div id="confounder-bias" class="section level2" number="1.6">
 <h2><span class="header-section-number">1.6</span> Confounder bias</h2>
+<p>Chapter 13</p>
 
 </div>
 </div>

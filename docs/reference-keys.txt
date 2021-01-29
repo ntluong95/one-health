@@ -4,8 +4,11 @@ sampling
 measures-of-diseases-frequency
 measures-of-association
 introduction-about-different-studies-design
-introduction-about-observational-study
-introduction-about-longitudinal-study
+introduction-about-observational-studies
+cohort-studies
+case-control-studies
+hybrid-study-designs
+longitudinal-study-and-time-series-data
 controlled-trials
 confounder-bias
 basic-data-analysis
@@ -34,6 +37,8 @@ introduction-to-clustered-data
 mixed-model-for-continous-data
 mixed-model-for-discrete-data
 alternative-approach-to-dealing-with-clustered-data
+longitudinal-study-and-time-series-data-1
+controlled-trials-1
 risk-analysis
 spatial-epidemiology
 introduction-about-qgis

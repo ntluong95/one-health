@@ -21,7 +21,7 @@ Ultimately, we aim to make causal inferences (bottom right of diagram) and Chapt
 
 Basic data analysis will be presented in *Chapter 2*. You will learn essential skills to conduct data analysis with different programming languages such as R and Python or statistical software like STATA. *Chapter 2.6* will provides you a road map for investigators starting into the analysis of an epidemiologic dataset. You will also introduced on how to communicate your works with other scientists and readers using Rmarkdown (*Chapter 2.7*) and ShinyApp (*Chapter 2.8*).
 
-With our data in hand, we are now able to begin to model relationships with the intent of estimating causal effects of exposure (*Chapter 3*). Individual chapters are dedicated to the analyses appropriate for outcomes that are continuous (*Chapter 3.2*), dichotomous (*Chapter 3.3*), nominal/ordinal (*Chapter 3.4*), count (*Chapter 3.5*) and time-to-event data (*Chapter 3.6*). *Chapter 3.1* presents some general guide lines on model-building techniques that are applicable to all types of model. In one health epidemiologic research, we often encounter clustered or correlated data and these present major challenges in their analyses. *Chapter 3.7.1* introduces these while *Chapters 3.7.2* and *Chapters 3.7.3* focus on mixed (random effects) models for continuous and discrete outcomes. Chapter *Chapters 3.7.4* presents some alternative methods of analysis for dealing with clustered data.
+With our data in hand, we are now able to begin to model relationships with the intent of estimating causal effects of exposure (*Chapter 3*). Individual chapters are dedicated to the analyses appropriate for outcomes that are continuous (*Chapter 3.2*), dichotomous (*Chapter 3.3*), nominal/ordinal (*Chapter 3.4*), count (*Chapter 3.5*) and time-to-event data (*Chapter 3.6*). *Chapter 3.1* presents some general guide lines on model-building techniques that are applicable to all types of model. In one health epidemiologic research, we often encounter clustered or correlated data and these present major challenges in their analyses. *Chapter 3.7.1* introduces these while *Chapters 3.7.2* and *Chapters 3.7.3* focus on mixed (random effects) models for continuous and discrete outcomes. *Chapters 3.7.4* presents some alternative methods of analysis for dealing with clustered data.
 
 Other important tools in epidemiology, including Risk analysis (*Chapter 4*), Spatial epidemiology (*Chapter 5*), Estimating true prevalence of a diseases (*Chapter 6*) and Infections diseases modelling (*Chapter 7*) will also be discussed
 
@@ -33,16 +33,38 @@ Chapter 2 và Chapter 12
 
 ## Measures of diseases frequency
 
+Chapter 4
+
 ## Measures of association
+
+Chapter 6
 
 ## Introduction about different studies design
 
-Chapter 7-11
+### Introduction about observational studies
 
-### Introduction about observational study
+Chapter 7
 
-### Introduction about longitudinal study
+### Cohort studies
+
+Chapter 8
+
+### Case-control studies
+
+Chapter 9
+
+### Hybrid study designs
+
+Chapter 10
+
+### Longitudinal study and time series data
+
+To be searched
 
 ### Controlled trials
 
+Chapter 11
+
 ## Confounder bias
+
+Chapter 13
