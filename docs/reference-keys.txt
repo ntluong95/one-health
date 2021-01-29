@@ -45,7 +45,7 @@ introduction-about-qgis
 spatial-epidemiology-1
 estimating-true-prevalence-of-a-disease
 se-and-sp-estimations-using-logistic-regression
-estimating-true-prevalence-without-a-gold-standard
+estimate-true-prevalence-without-a-gold-standard
 infectious-diseases-modelling
 introduction-about-compartmental-model
 introduction-about-system-dynamic-modelling

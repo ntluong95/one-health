@@ -13,3 +13,5 @@ bookdown::gitbook:
       after: |
         <li><a href="https://www.facebook.com/ntluong95/" target="blank">Visit me</a></li>
     toc_float: true
+    download: null
+  split_by: section

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Estimating true prevalence of a disease | Applied Epidemiology in One Health Research</title>
-  <meta name="description" content="Chapter 6 Estimating true prevalence of a disease | Applied Epidemiology in One Health Research" />
+  <title>2.2 Software installation | Applied Epidemiology in One Health Research</title>
+  <meta name="description" content="2.2 Software installation | Applied Epidemiology in One Health Research" />
   <meta name="generator" content="bookdown 0.21.5 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Estimating true prevalence of a disease | Applied Epidemiology in One Health Research" />
+  <meta property="og:title" content="2.2 Software installation | Applied Epidemiology in One Health Research" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Estimating true prevalence of a disease | Applied Epidemiology in One Health Research" />
+  <meta name="twitter:title" content="2.2 Software installation | Applied Epidemiology in One Health Research" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="spatial-epidemiology-1.html"/>
-<link rel="next" href="se-and-sp-estimations-using-logistic-regression.html"/>
+<link rel="prev" href="introduction-about-work-flow.html"/>
+<link rel="next" href="create-working-environment.html"/>
 <script src="libs/header-attrs-2.6.4/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -241,16 +241,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="estimating-true-prevalence-of-a-disease" class="section level1" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Estimating true prevalence of a disease</h1>
+<div id="software-installation" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Software installation</h2>
+<p>In this course, I will introduce you about the three most powerful statistical softwares including R, Python and STATA, their usage and their advantages as well as disadvantages. While R and Python is more a programming language, which can be a hurdle for some people, STATA is more user-friendly and balance between using Graphical User Interface (GUI) and saving script (<em>do file</em>). In short, you’ll need to install the following programs in order:</p>
+<ul>
+<li><p><strong>R</strong>: A statistical programming language used to wrangle, analyze, and visualize data (<a href="https://cran.r-project.org/bin/macosx/">mac</a>, <a href="https://cran.r-project.org/bin/windows/base/">windows</a>)</p></li>
+<li><p><strong>RStudio</strong>: An interface for writing and running R code, which is a primary language for the quarter (<a href="https://www.rstudio.com/products/rstudio/download/">link)</a>. You can download a developing version <a href="https://dailies.rstudio.com/">here</a>, which will provide most up-to-date new features</p></li>
+<li><p><strong>Python</strong>: Another programming language, be preferred in machine learning, deep learning, AI. In this tutorial, we will install Python indirectly through package <em>reticulate</em> in R. More details will be presented later</p></li>
+<li><p><strong>Git</strong>: (Optional) A set of command-line tools for tracking changes to a project. This is likely already installed on Macs. The Windows download will come with Git Bash, a simple interface for executing Git commands (<a href="https://git-scm.com/downloads">link</a>)</p></li>
+<li><p><strong>STATA</strong>: This is paid software. You have to buy it before use or you can download a trial version <a href="https://www.stata.com/customer-service/evaluate-stata/">here</a></p></li>
+</ul>
+<p>The following sections have additional information about the purpose of each component, how to install it, and alternative configurations.</p>
+<div id="r" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> R</h3>
+<p>R is a popular data science language used to download, analyze, and visualize data. You can download it at the appropriate link for your operating system (<a href="https://cran.r-project.org/bin/macosx/">mac</a>, <a href="https://cran.r-project.org/bin/windows/base/">windows</a>). At the link, click the appropriate download link and follow instructions:</p>
+<center>
+<p><img src="docs/images/download_r.png" /></p>
+</center>
+<p>To install package in R, type the following code to the console. For instance, you want to install <code>tidyverse</code> package</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="software-installation.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<p>To call <code>tidyverse</code> package</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="software-installation.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+</div>
+<div id="rstudio" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Rstudio</h3>
+<p>The primary programming language we will use throughout the course is R. It’s a very powerful statistical programming language that is built to work well with large and diverse datasets. While you are able to execute R scripts without an interface, the RStudio interface provides a wonderful way to engage with the R language. Importantly, you <strong>cannot use the RStudio interface until you have installed R.</strong></p>
+<p>To download the RStudio program, select the installer for your operating system at this <a href="https://rstudio.com/products/rstudio/download/">link</a>. Make sure to scroll down to download a <strong>free</strong> version of RStudio:</p>
+<center>
+<p><img src="docs/images/Screenshot%202021-01-29%20215552.png" /></p>
+</center>
+</div>
+<div id="python" class="section level3" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Python</h3>
+<p>Python is a very popular all-purpose programming language that is making a major impact in the data-science arena. Some data scientists, and even some organizations, believe they have to pick between R or Python. However, this turns out to be a false choice. In fact, results from a surveys showed that many data science teams today are bilingual, leveraging both R and Python in their work. And while both languages have unique strengths, these teams frequently struggle to use them together.</p>
+<p>Rstudio provides a prefect environment for data scientist through a package reticulate. Rstudio can be a potentially platform for data scientist who are using solely R or Python, or using both</p>
+</div>
+<div id="setting-environment-for-r-and-python" class="section level3" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Setting environment for R and Python</h3>
+<p>Firstly, you have to install reticulate package:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="software-installation.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;reticulate&quot;</span>)</span></code></pre></div>
+<p>Secondly, install the miniconda environment. I suggest you should install miniconda in your local disk, not your OS disk (i.e Disk C)</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="software-installation.html#cb4-1" aria-hidden="true" tabindex="-1"></a>reticulate<span class="sc">::</span><span class="fu">install_miniconda</span>(<span class="st">&quot;D:/Python&quot;</span>)</span>
+<span id="cb4-2"><a href="software-installation.html#cb4-2" aria-hidden="true" tabindex="-1"></a>reticulate<span class="sc">::</span><span class="fu">use_condaenv</span>(<span class="st">&quot;D:/Python/envs/r-reticulate&quot;</span>)</span></code></pre></div>
+<p>Thirdly, try to install Python package. There are two ways to do it, Reticulate style and Python style
+<strong>Reticulate</strong> style</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="software-installation.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb5-2"><a href="software-installation.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">py_install</span>(<span class="st">&quot;pandas&quot;</span>) </span>
+<span id="cb5-3"><a href="software-installation.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">py_install</span>(<span class="st">&quot;matplotlib&quot;</span>)</span></code></pre></div>
+<p><strong>Python</strong> style
+Set Python PATH through Terminal. You copy this code and paste into Terminal console in your Rstudio:
+<code>setx PATH "%PATH%;D:\Python\envs\r-reticulate\Scripts"</code><br />
+Then try to run this code to install pandas package:
+<code>python -m pip install pandas</code></p>
+</div>
+<div id="stata" class="section level3" number="2.2.5">
+<h3><span class="header-section-number">2.2.5</span> STATA</h3>
+<p>This is paid software. You have to buy it before use or you can download a trial version <a href="https://www.stata.com/customer-service/evaluate-stata/">here</a></p>
+<p>If you want to use STATA in Rstudio, you can do it through <code>statamarkdown</code> package. Detail will be dicussed further in this document.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="software-installation.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;Statamarkdown&quot;</span>)</span>
+<span id="cb6-2"><a href="software-installation.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Statamarkdown)</span>
+<span id="cb6-3"><a href="software-installation.html#cb6-3" aria-hidden="true" tabindex="-1"></a>stataexe <span class="ot">&lt;-</span> <span class="st">&quot;C:/Program Files/Stata16/StataSE-64.exe&quot;</span></span>
+<span id="cb6-4"><a href="software-installation.html#cb6-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">engine.path=</span><span class="fu">list</span>(<span class="at">stata=</span>stataexe))</span></code></pre></div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="spatial-epidemiology-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="se-and-sp-estimations-using-logistic-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction-about-work-flow.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="create-working-environment.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -281,7 +341,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ntluong95/one-health/edit/master/06-true-prev.Rmd",
+"link": "https://github.com/ntluong95/one-health/edit/master/02-introduction.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -289,7 +349,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/ntluong95/one-health/blob/master/06-true-prev.Rmd",
+"link": "https://github.com/ntluong95/one-health/blob/master/02-introduction.Rmd",
 "text": null
 },
 "download": null,

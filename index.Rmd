@@ -7,13 +7,27 @@ site: bookdown::bookdown_site
 
 # Basic Epidemiology
 
+**OBJECTIVES**
+
+After reading this chapter, reader should be able to:
+
+-   Select the appropriate sampling strategy for a particular situation, taking into account the requirements, advantages and disadvantages of each method.
+
+-   Identify the different types of selection bias and assess whether or not a particular study is likely to suffer from excess selection bias
+
+-   Explain the different ways of measuring disease frequency and differentiate among counts, proportions, odds and rates
+
+-   Calculate and interpret the following measures of association: risk ratio, odds ratio, incidence rate ratio, risk difference (attributable risk), attributable fraction (exposed), population attributable risk, attributable fraction (population)
+
+-   Understand the strength and weaknesses of various study designs for the identification and evaluation of causal factors.
+
 ## About the book
 
 Our rationale for doing research is to identify potentially causal associations between **exposures and outcomes** (the center of the diagram). In many cases, the exposures are risk factors and the outcome is a disease of interest. However, this is not the only scenario; for example, our outcome of interest might be a measure of productivity or food safety and the exposures might include certain diseases.
 
 <center>
 
-![Figure 1.1. Key components of epidemiologic research](images/1.%20epdemiology%20diagram.png){width="736"}
+![**Figure 1.1. Key components of epidemiologic research**](images/1.%20epdemiology%20diagram.png){width="736"}
 
 </center>
 

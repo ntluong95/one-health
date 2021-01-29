@@ -5,4 +5,4 @@
 
 ## Se and Sp estimations using logistic regression
 
-## Estimating true prevalence without a gold standard
+## Estimate true prevalence without a gold standard
