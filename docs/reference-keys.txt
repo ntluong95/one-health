@@ -1,5 +1,5 @@
 basic-epidemiology
-causual-concept
+about-the-book
 sampling
 measures-of-diseases-frequency
 measures-of-association
