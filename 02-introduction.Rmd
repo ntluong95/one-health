@@ -143,3 +143,6 @@ If you want to explore more robust command-line alternatives for Windows, the Wi
 ## Communication with Rmarkdown
 
 ## ShinyApp
+
+## A structred approach to data analysis
+

@@ -1,4 +1,4 @@
-# Estimating true prevalence of diseases
+# Estimating true prevalence of a disease
 
 
 

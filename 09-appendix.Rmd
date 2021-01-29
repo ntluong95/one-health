@@ -7,5 +7,4 @@
 
 ## PowerBI
 
-## Tableau
 
