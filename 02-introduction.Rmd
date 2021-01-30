@@ -236,6 +236,22 @@ raw_df.head()
 
 **STATA**
 
+First, setup STATA code chunk in Rmarkdown
+
+```{r, message = FALSE, warning=FALSE}
+library(Statamarkdown)
+stataexe <- "C:/Program Files/Stata16/StataSE-64.exe"
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+```
+
+Then, use function `import delimited`, specify your path to the data
+
+```{stata, collectcode=TRUE, cleanlog=FALSE}
+import delimited "D:\Book Writing\1. Applied Epidemiology in One Health\data\calf.csv"
+describe
+```
+
+
 ### Data transformation
 
 #### R

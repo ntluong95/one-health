@@ -393,6 +393,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## [5 rows x 14 columns]</code></pre>
 <p><strong>STATA</strong></p>
+<p>First, setup STATA code chunk in Rmarkdown</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="data-manipulation.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Statamarkdown)</span>
+<span id="cb13-2"><a href="data-manipulation.html#cb13-2" aria-hidden="true" tabindex="-1"></a>stataexe <span class="ot">&lt;-</span> <span class="st">&quot;C:/Program Files/Stata16/StataSE-64.exe&quot;</span></span>
+<span id="cb13-3"><a href="data-manipulation.html#cb13-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">engine.path=</span><span class="fu">list</span>(<span class="at">stata=</span>stataexe))</span></code></pre></div>
+<p>Then, use function <code>import delimited</code>, specify your path to the data</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb14-1"><a href="data-manipulation.html#cb14-1" aria-hidden="true" tabindex="-1"></a>import delimited <span class="st">&quot;D:\Book Writing\1. Applied Epidemiology in One Health\data\calf.csv&quot;</span></span>
+<span id="cb14-2"><a href="data-manipulation.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">describe</span></span></code></pre></div>
+<pre><code>. import delimited &quot;D:\Book Writing\1. Applied Epidemiology in One Health\da&gt; calf.csv&quot;
+(14 vars, 254 obs)
+
+. describe
+
+Contains data
+  obs:           254                          
+ vars:            14                          
+-------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------
+case            int     %8.0g                 
+age             byte    %8.0g                 
+breed           byte    %8.0g                 
+sex             byte    %8.0g                 
+attd            byte    %8.0g                 
+dehy            float   %9.0g                 
+eye             byte    %8.0g                 
+jnts            byte    %8.0g                 
+post            byte    %8.0g                 
+pulse           int     %8.0g                 
+resp            int     %8.0g                 
+temp            float   %9.0g                 
+umb             byte    %8.0g                 
+sepsis          byte    %8.0g                 
+-------------------------------------------------------------------------------
+Sorted by: 
+     Note: Dataset has changed since last saved.</code></pre>
 </div>
 <div id="data-transformation" class="section level3" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Data transformation</h3>
