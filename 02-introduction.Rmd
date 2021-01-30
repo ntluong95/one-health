@@ -198,7 +198,7 @@ There are several ways to import data, but the most preferred is from comma-sepa
 +-----------+--------------------------------------+----------------------------+
 | umb       | swollen umbilicus clinically evident | 0/1                        |
 +-----------+--------------------------------------+----------------------------+
-| sepsis    | sepsis *(outcome)*                   | 0/1                        |
+| sepsis    | sepsis **(outcome)**                 | 0/1                        |
 +-----------+--------------------------------------+----------------------------+
 
 **R**
@@ -224,8 +224,8 @@ reticulate::use_condaenv("D:/Python/envs/r-reticulate")
 import os as os
 os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = "D:/Python/envs/r-reticulate/Library/plugins/platforms"
 ```
-  
-Now, you can import CSV file by Python using library `pandas` with function `read_csv` 
+
+Now, you can import CSV file by Python using library `pandas` with function `read_csv`
 
 ```{python, message = FALSE, warning=FALSE}
 import pandas as pd
@@ -250,7 +250,6 @@ Then, use function `import delimited`, specify your path to the data
 import delimited "D:\Book Writing\1. Applied Epidemiology in One Health\data\calf.csv"
 describe
 ```
-
 
 ### Data transformation
 
