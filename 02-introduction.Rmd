@@ -1,5 +1,21 @@
 # Basic Data analysis
 
+**OBJECTIVES**
+
+After reading this chapter, reader should be able to:
+
+-   Construct a logical causal diagram based on your area of research interest as an aid to guiding your study design and analyses
+
+-   Select the appropriate sampling strategy for a particular situation, taking into account the requirements, advantages and disadvantages of each method.
+
+-   Identify the different types of selection bias and assess whether or not a particular study is likely to suffer from excess selection bias.
+
+-   Explain the different ways of measuring disease frequency and differentiate among counts, proportions, odds and rates.
+
+-   Calculate and interpret the following measures of association: risk ratio, odds ratio, incidence rate ratio, risk difference (attributable risk), attributable fraction (exposed), population attributable risk, attributable fraction (population).
+
+-   Understand the strength and weaknesses of various study designs for the identification and evaluation of causal factors.
+
 ## Introduction about work flow
 
 The picture below described about a normal working process of data analysis.
@@ -92,6 +108,7 @@ reticulate::use_condaenv("D:/Python/envs/r-reticulate")
 ```
 
 Thirdly, try to install Python package. There are two ways to do it, Reticulate style and Python style
+
 **Reticulate** style
 
 ```{r, message = FALSE, warning=FALSE, eval=FALSE}
@@ -101,12 +118,12 @@ py_install("matplotlib")
 ```
 
 **Python** style
-Set Python PATH through Terminal. You copy this code and paste into Terminal console in your Rstudio: 
-`setx PATH "%PATH%;D:\Python\envs\r-reticulate\Scripts"`  
-Then try to run this code to install pandas package: 
-`python -m pip install pandas`
+
+Set Python PATH through Terminal. You copy this code and paste into Terminal console in your Rstudio: `setx PATH "%PATH%;D:\Python\envs\r-reticulate\Scripts"`\
+Then try to run this code to install pandas package: `python -m pip install pandas`
 
 ### STATA
+
 This is paid software. You have to buy it before use or you can download a trial version [here](https://www.stata.com/customer-service/evaluate-stata/)
 
 If you want to use STATA in Rstudio, you can do it through `statamarkdown` package. Detail will be dicussed further in this document.
@@ -138,6 +155,118 @@ If you want to explore more robust command-line alternatives for Windows, the Wi
 
 ## Data Manipulation
 
+### Import file
+
+There are several ways to import data, but the most preferred is from comma-separated values file (*.csv*). Other data types format you may normally see in your work are from text file (*.txt*), Excel spread sheets (*.xlsx*), STATA file (*.dta*), SPSS file (*.sav*), JavaScript Object Notation (*.json*), shapefile (*.shp*). In this tutorial, I will only concentrate on importing data from CSV file because of its ubiquitous in data analysis. We will use **calf** data set, you can download it [here](https://raw.githubusercontent.com/ntluong95/data/main/one-health/calf.csv).
+
+**Data set description** These data come from a retrospective analysis of the medical records from all diarrheic calves which were presented to Atlantic Veterinary College, PEl, Canada between 1989 and 1993. There are 254 observations (records) and 14 variables in the dataset (calf):
+
++-----------+--------------------------------------+----------------------------+
+| Variables | Description                          | Codes/Units                |
++===========+======================================+============================+
+| case      | hospital case number                 |                            |
++-----------+--------------------------------------+----------------------------+
+| age       | age at admission                     | days                       |
++-----------+--------------------------------------+----------------------------+
+| breed     | breed                                | coded 1-9                  |
++-----------+--------------------------------------+----------------------------+
+| sex       | sex                                  | 0 = female 1 = male        |
++-----------+--------------------------------------+----------------------------+
+| attd      | attitude of calf                     | 0 = bright, alert          |
++-----------+--------------------------------------+----------------------------+
+|           |                                      | 1 = depressed              |
++-----------+--------------------------------------+----------------------------+
+|           |                                      | 2 = unresponsive, comatose |
++-----------+--------------------------------------+----------------------------+
+| dehy      | \% dehydration                       |                            |
++-----------+--------------------------------------+----------------------------+
+| eye       | uveitis/hypopyon clinically evident  | 0/1                        |
++-----------+--------------------------------------+----------------------------+
+| jnts      | swollen joints clinically evident    | number of joints affected  |
++-----------+--------------------------------------+----------------------------+
+| post      | posture of caIf                      | 0 = standing               |
++-----------+--------------------------------------+----------------------------+
+|           |                                      | 1 = sternal                |
++-----------+--------------------------------------+----------------------------+
+|           |                                      | 2 = lateral                |
++-----------+--------------------------------------+----------------------------+
+| pulse     | pulse rate                           | beats per minute           |
++-----------+--------------------------------------+----------------------------+
+| resp      | respiratory rate                     | breaths per minute         |
++-----------+--------------------------------------+----------------------------+
+| temp      | rectal temperature                   | ^0^C                       |
++-----------+--------------------------------------+----------------------------+
+| umb       | swollen umbilicus clinically evident | 0/1                        |
++-----------+--------------------------------------+----------------------------+
+| sepsis    | sepsis *(outcome)*                   | 0/1                        |
++-----------+--------------------------------------+----------------------------+
+
+**R**
+
+To import data in R, you need `readr` package installed in your computer and use function `read_csv` to import file to the working environment.
+
+```{r, message = FALSE, warning=FALSE}
+library(readr) 
+raw_df <- read_csv("D:/Book Writing/1. Applied Epidemiology in One Health/data/calf.csv")
+
+head(raw_df)
+```
+
+**Python**
+
+First, you have to register to use Python in R via package `reticulate`
+
+```{r }
+reticulate::use_condaenv("D:/Python/envs/r-reticulate")
+```
+
+```{python }
+import os as os
+os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = "D:/Python/envs/r-reticulate/Library/plugins/platforms"
+```
+  
+Now, you can import CSV file by Python using library `pandas` with function `read_csv` 
+
+```{python, message = FALSE, warning=FALSE}
+import pandas as pd
+raw_df = pd.read_csv("D:/Book Writing/1. Applied Epidemiology in One Health/data/calf.csv")
+print(raw_df)
+```
+
+**STATA**
+
+### Data transformation
+
+#### R
+
+In this section you are going to learn the five key dplyr functions that allow you to solve the vast majority of your data manipulation challenges:
+
+-   Pick observations by their values `filter()`.
+
+-   Reorder the rows `arrange()`.
+
+-   Pick variables by their names `select()`.
+
+-   Create new variables with functions of existing variables `mutate()`.
+
+-   Collapse many values down to a single summary `summarise()`.
+
+These can all be used in conjunction with `group_by()` which changes the scope of each function from operating on the entire dataset to operating on it group-by-group. These six functions provide the verbs for a language of data manipulation.
+
+All verbs work similarly:
+
+1.  The first argument is a data frame.
+
+2.  The subsequent arguments describe what to do with the data frame, using the variable names (without quotes).
+
+3.  The result is a new data frame.
+
+Together these properties make it easy to chain together multiple simple steps to achieve a complex result. Let's dive in and see how these verbs work.
+
+#### Python
+
+#### STATA
+
 ## Data visualization
 
 ## Communication with Rmarkdown
@@ -145,4 +274,3 @@ If you want to explore more robust command-line alternatives for Windows, the Wi
 ## ShinyApp
 
 ## A structred approach to data analysis
-

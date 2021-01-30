@@ -1,5 +1,6 @@
 basic-epidemiology
 about-the-book
+causual-concept
 sampling
 measures-of-diseases-frequency
 measures-of-association
@@ -21,6 +22,11 @@ setting-environment-for-r-and-python
 stata
 create-working-environment
 data-manipulation
+import-file
+data-transformation
+r-1
+python-1
+stata-1
 data-visualization
 communication-with-rmarkdown
 shinyapp
