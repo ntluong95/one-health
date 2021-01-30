@@ -31,6 +31,7 @@ data-transformation
 r-2
 python-2
 stata-2
+descriptive-statistics
 data-visualization
 communication-with-rmarkdown
 shinyapp

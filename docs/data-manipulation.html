@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.4 Data Manipulation | Applied Epidemiology in One Health Research</title>
-  <meta name="description" content="2.4 Data Manipulation | Applied Epidemiology in One Health Research" />
+  <title>2.4 Data manipulation | Applied Epidemiology in One Health Research</title>
+  <meta name="description" content="2.4 Data manipulation | Applied Epidemiology in One Health Research" />
   <meta name="generator" content="bookdown 0.21.5 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.4 Data Manipulation | Applied Epidemiology in One Health Research" />
+  <meta property="og:title" content="2.4 Data manipulation | Applied Epidemiology in One Health Research" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.4 Data Manipulation | Applied Epidemiology in One Health Research" />
+  <meta name="twitter:title" content="2.4 Data manipulation | Applied Epidemiology in One Health Research" />
   
   
   
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="create-working-environment.html"/>
-<link rel="next" href="data-visualization.html"/>
+<link rel="next" href="descriptive-statistics.html"/>
 <script src="libs/header-attrs-2.6.4/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -171,16 +171,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2.5" data-path="software-installation.html"><a href="software-installation.html#stata"><i class="fa fa-check"></i><b>2.2.5</b> STATA</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="create-working-environment.html"><a href="create-working-environment.html"><i class="fa fa-check"></i><b>2.3</b> Create working environment</a></li>
-<li class="chapter" data-level="2.4" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>2.4</b> Data Manipulation</a>
+<li class="chapter" data-level="2.4" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>2.4</b> Data manipulation</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="data-manipulation.html"><a href="data-manipulation.html#import-file"><i class="fa fa-check"></i><b>2.4.1</b> Import file</a></li>
 <li class="chapter" data-level="2.4.2" data-path="data-manipulation.html"><a href="data-manipulation.html#labelling-data"><i class="fa fa-check"></i><b>2.4.2</b> Labelling data</a></li>
 <li class="chapter" data-level="2.4.3" data-path="data-manipulation.html"><a href="data-manipulation.html#data-transformation"><i class="fa fa-check"></i><b>2.4.3</b> Data transformation</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>2.5</b> Data visualization</a></li>
-<li class="chapter" data-level="2.6" data-path="communication-with-rmarkdown.html"><a href="communication-with-rmarkdown.html"><i class="fa fa-check"></i><b>2.6</b> Communication with Rmarkdown</a></li>
-<li class="chapter" data-level="2.7" data-path="shinyapp.html"><a href="shinyapp.html"><i class="fa fa-check"></i><b>2.7</b> ShinyApp</a></li>
-<li class="chapter" data-level="2.8" data-path="a-structred-approach-to-data-analysis.html"><a href="a-structred-approach-to-data-analysis.html"><i class="fa fa-check"></i><b>2.8</b> A structred approach to data analysis</a></li>
+<li class="chapter" data-level="2.5" data-path="descriptive-statistics.html"><a href="descriptive-statistics.html"><i class="fa fa-check"></i><b>2.5</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="2.6" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>2.6</b> Data visualization</a></li>
+<li class="chapter" data-level="2.7" data-path="communication-with-rmarkdown.html"><a href="communication-with-rmarkdown.html"><i class="fa fa-check"></i><b>2.7</b> Communication with Rmarkdown</a></li>
+<li class="chapter" data-level="2.8" data-path="shinyapp.html"><a href="shinyapp.html"><i class="fa fa-check"></i><b>2.8</b> ShinyApp</a></li>
+<li class="chapter" data-level="2.9" data-path="a-structred-approach-to-data-analysis.html"><a href="a-structred-approach-to-data-analysis.html"><i class="fa fa-check"></i><b>2.9</b> A structred approach to data analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="regression-models.html"><a href="regression-models.html"><i class="fa fa-check"></i><b>3</b> Regression models</a>
 <ul>
@@ -248,7 +249,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="data-manipulation" class="section level2" number="2.4">
-<h2><span class="header-section-number">2.4</span> Data Manipulation</h2>
+<h2><span class="header-section-number">2.4</span> Data manipulation</h2>
 <div id="import-file" class="section level3" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Import file</h3>
 <p>There are several ways to import data, but the most preferred is from comma-separated values file (<em>.csv</em>). Other data types format you may normally see in your work are from text file (<em>.txt</em>), Excel spread sheets (<em>.xlsx</em>), STATA file (<em>.dta</em>), SPSS file (<em>.sav</em>), JavaScript Object Notation (<em>.json</em>), shapefile (<em>.shp</em>). In this tutorial, I will only concentrate on importing data from CSV file because of its ubiquitous in data analysis. We will use <strong>calf</strong> data set, you can download it <a href="https://raw.githubusercontent.com/ntluong95/data/main/one-health/calf.csv">here</a>.</p>
@@ -442,59 +443,83 @@ Sorted by:
 <h3><span class="header-section-number">2.4.2</span> Labelling data</h3>
 <div id="r-1" class="section level4" number="2.4.2.1">
 <h4><span class="header-section-number">2.4.2.1</span> R</h4>
-<p>To <strong>label for variables</strong> in dataset, you can use function <code>var_labels</code> in package <code>sjlabelled</code>. Noted that the operation <code>|&gt;</code> means <em>forwarding</em>. It is R native piping, similar to <code>%&gt;%</code> if you know <code>magrittr</code> package</p>
+<p>To <strong>label for value of variables</strong> in dataset, you can use function <code>mututate</code> to create new varibales (will present in details later) combining with <code>factor</code> function. Remember that you can only do that for categorical variables, in R they is storaged as <em>factor</em> data. Noted that the operation <code>|&gt;</code> means <em>forwarding</em>. It is R native piping, similar to <code>%&gt;%</code> if you know <code>magrittr</code> package</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="data-manipulation.html#cb16-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="ot">&lt;-</span> raw_df <span class="sc">|</span><span class="er">&gt;</span> </span>
-<span id="cb16-2"><a href="data-manipulation.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  sjlabelled<span class="sc">::</span><span class="fu">var_labels</span>(</span>
-<span id="cb16-3"><a href="data-manipulation.html#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">case =</span> <span class="st">&quot;hospital case number&quot;</span>, </span>
-<span id="cb16-4"><a href="data-manipulation.html#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="st">&quot;age at admission&quot;</span>,</span>
-<span id="cb16-5"><a href="data-manipulation.html#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">breed =</span> <span class="st">&quot;breed&quot;</span>,</span>
-<span id="cb16-6"><a href="data-manipulation.html#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> <span class="st">&quot;sex&quot;</span>,</span>
-<span id="cb16-7"><a href="data-manipulation.html#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">attd =</span> <span class="st">&quot;attitude of calf&quot;</span>,</span>
-<span id="cb16-8"><a href="data-manipulation.html#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">dehy =</span> <span class="st">&quot;% dehydration&quot;</span>,</span>
-<span id="cb16-9"><a href="data-manipulation.html#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">eye =</span> <span class="st">&quot;uveitis/hypopyon clinically evident&quot;</span>,</span>
-<span id="cb16-10"><a href="data-manipulation.html#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">jnts =</span> <span class="st">&quot;swollen joints clinically evident&quot;</span>,</span>
-<span id="cb16-11"><a href="data-manipulation.html#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">post =</span> <span class="st">&quot;posture of caIf&quot;</span>,</span>
-<span id="cb16-12"><a href="data-manipulation.html#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">pulse =</span> <span class="st">&quot;pulse rate&quot;</span>,</span>
-<span id="cb16-13"><a href="data-manipulation.html#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">resp =</span> <span class="st">&quot;respiratory rate&quot;</span>,</span>
-<span id="cb16-14"><a href="data-manipulation.html#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">temp =</span> <span class="st">&quot;rectal temperature&quot;</span>,</span>
-<span id="cb16-15"><a href="data-manipulation.html#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">umb =</span> <span class="st">&quot;swollen umbilicus clinically evident&quot;</span>,</span>
-<span id="cb16-16"><a href="data-manipulation.html#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">sepsis =</span> <span class="st">&quot;sepsis&quot;</span>)</span></code></pre></div>
+<span id="cb16-2"><a href="data-manipulation.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">breed =</span> <span class="fu">factor</span>(breed, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Holstein&quot;</span>,<span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Shorthorn&quot;</span>, <span class="st">&quot;Charolais&quot;</span>, <span class="st">&quot;Simmental&quot;</span>, <span class="st">&quot;Limousin&quot;</span>, <span class="st">&quot;Crossbreed&quot;</span>, <span class="st">&quot;Other&quot;</span>)),</span>
+<span id="cb16-3"><a href="data-manipulation.html#cb16-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="fu">factor</span>(sex, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Female&quot;</span>,<span class="st">&quot;Male&quot;</span>)),</span>
+<span id="cb16-4"><a href="data-manipulation.html#cb16-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">attd =</span> <span class="fu">factor</span>(attd, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;bright, alert&quot;</span>,<span class="st">&quot;depressed&quot;</span>, <span class="st">&quot;unresponsive, comatose&quot;</span>)),</span>
+<span id="cb16-5"><a href="data-manipulation.html#cb16-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">eye =</span> <span class="fu">factor</span>(eye, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)),</span>
+<span id="cb16-6"><a href="data-manipulation.html#cb16-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">post =</span> <span class="fu">factor</span>(post, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;standing&quot;</span>,<span class="st">&quot;sternal&quot;</span>, <span class="st">&quot;lateral&quot;</span>)),</span>
+<span id="cb16-7"><a href="data-manipulation.html#cb16-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">umb =</span> <span class="fu">factor</span>(umb, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)),</span>
+<span id="cb16-8"><a href="data-manipulation.html#cb16-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">sepsis =</span> <span class="fu">factor</span>(sepsis, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)))</span></code></pre></div>
+<p>To <strong>label for variables</strong> in dataset, you can use function <code>var_labels</code> in package <code>sjlabelled</code>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="data-manipulation.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb17-2"><a href="data-manipulation.html#cb17-2" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">%&lt;&gt;%</span>  </span>
+<span id="cb17-3"><a href="data-manipulation.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  sjlabelled<span class="sc">::</span><span class="fu">var_labels</span>(</span>
+<span id="cb17-4"><a href="data-manipulation.html#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">case =</span> <span class="st">&quot;hospital case number&quot;</span>, </span>
+<span id="cb17-5"><a href="data-manipulation.html#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="st">&quot;age at admission&quot;</span>,</span>
+<span id="cb17-6"><a href="data-manipulation.html#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">breed =</span> <span class="st">&quot;breed&quot;</span>,</span>
+<span id="cb17-7"><a href="data-manipulation.html#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> <span class="st">&quot;sex&quot;</span>,</span>
+<span id="cb17-8"><a href="data-manipulation.html#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">attd =</span> <span class="st">&quot;attitude of calf&quot;</span>,</span>
+<span id="cb17-9"><a href="data-manipulation.html#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">dehy =</span> <span class="st">&quot;% dehydration&quot;</span>,</span>
+<span id="cb17-10"><a href="data-manipulation.html#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">eye =</span> <span class="st">&quot;uveitis/hypopyon clinically evident&quot;</span>,</span>
+<span id="cb17-11"><a href="data-manipulation.html#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">jnts =</span> <span class="st">&quot;swollen joints clinically evident&quot;</span>,</span>
+<span id="cb17-12"><a href="data-manipulation.html#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">post =</span> <span class="st">&quot;posture of caIf&quot;</span>,</span>
+<span id="cb17-13"><a href="data-manipulation.html#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">pulse =</span> <span class="st">&quot;pulse rate&quot;</span>,</span>
+<span id="cb17-14"><a href="data-manipulation.html#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">resp =</span> <span class="st">&quot;respiratory rate&quot;</span>,</span>
+<span id="cb17-15"><a href="data-manipulation.html#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">temp =</span> <span class="st">&quot;rectal temperature&quot;</span>,</span>
+<span id="cb17-16"><a href="data-manipulation.html#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">umb =</span> <span class="st">&quot;swollen umbilicus clinically evident&quot;</span>,</span>
+<span id="cb17-17"><a href="data-manipulation.html#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">sepsis =</span> <span class="st">&quot;sepsis&quot;</span>)</span></code></pre></div>
 <p>You can view the result through function <code>view(lb_df)</code>, it will open the window like this:</p>
 <center>
 <p><img src="docs/images/Screenshot%202021-01-30%20135810.png" /></p>
 </center>
-<p>If you want to see the label of varible, i.e “case”, “age” and “umb”, you can create a dictionary.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="data-manipulation.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create data dictionary ----</span></span>
-<span id="cb17-2"><a href="data-manipulation.html#cb17-2" aria-hidden="true" tabindex="-1"></a>dictionary <span class="ot">&lt;-</span> labelled<span class="sc">::</span><span class="fu">look_for</span>(lb_df, <span class="at">details =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-3"><a href="data-manipulation.html#cb17-3" aria-hidden="true" tabindex="-1"></a>dictionary <span class="sc">%&gt;%</span> </span>
-<span id="cb17-4"><a href="data-manipulation.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;case&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;umb&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb17-5"><a href="data-manipulation.html#cb17-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(variable, label) <span class="sc">%&gt;%</span> <span class="co">#value_labels</span></span>
-<span id="cb17-6"><a href="data-manipulation.html#cb17-6" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>() </span></code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="left">variable</th>
-<th align="left">label</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">case</td>
-<td align="left">hospital case number</td>
-</tr>
-<tr class="even">
-<td align="left">age</td>
-<td align="left">age at admission</td>
-</tr>
-<tr class="odd">
-<td align="left">umb</td>
-<td align="left">swollen umbilicus clinically evident</td>
-</tr>
-</tbody>
-</table>
 </div>
 <div id="python-1" class="section level4" number="2.4.2.2">
 <h4><span class="header-section-number">2.4.2.2</span> Python</h4>
+<p>Python doesn’t support to handle with labelled data, or complicated to do. One simple solution is we do it in R and then pass to Pandas data frame by calling function <code>r.</code></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="data-manipulation.html#cb18-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">=</span> r.lb_df</span>
+<span id="cb18-2"><a href="data-manipulation.html#cb18-2" aria-hidden="true" tabindex="-1"></a>lb_df.info()</span></code></pre></div>
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 254 entries, 0 to 253
+Data columns (total 14 columns):
+ #   Column  Non-Null Count  Dtype   
+---  ------  --------------  -----   
+ 0   case    254 non-null    float64 
+ 1   age     253 non-null    float64 
+ 2   breed   254 non-null    category
+ 3   sex     252 non-null    category
+ 4   attd    248 non-null    category
+ 5   dehy    240 non-null    float64 
+ 6   eye     236 non-null    category
+ 7   jnts    243 non-null    float64 
+ 8   post    248 non-null    category
+ 9   pulse   245 non-null    float64 
+ 10  resp    235 non-null    float64 
+ 11  temp    247 non-null    float64 
+ 12  umb     243 non-null    category
+ 13  sepsis  254 non-null    category
+dtypes: category(7), float64(7)
+memory usage: 16.7 KB</code></pre>
+<p>If you still want to try, an alternative is creating a dictionary that contain all value of variables</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="data-manipulation.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> <span class="op">*</span>   </span>
+<span id="cb20-2"><a href="data-manipulation.html#cb20-2" aria-hidden="true" tabindex="-1"></a>sex_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;Female&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Male&quot;</span>}</span>
+<span id="cb20-3"><a href="data-manipulation.html#cb20-3" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="op">=</span> raw_df <span class="op">&gt;&gt;</span> mutate(sex <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sex_dict.get(x[<span class="st">&quot;sex&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>))</span>
+<span id="cb20-4"><a href="data-manipulation.html#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lb_df1)</span></code></pre></div>
+<pre><code>     case   age  breed     sex  attd  ...  pulse   resp  temp  umb  sepsis
+0    1670   5.0      1    Male   2.0  ...    NaN    NaN  37.6  0.0       0
+1    8124   3.0      2  Female   1.0  ...  130.0  120.0  39.2  0.0       0
+2    6954   2.0      3    Male   2.0  ...    NaN    NaN   NaN  1.0       1
+3    2737   3.0      4    Male   1.0  ...  132.0   40.0  38.6  0.0       0
+4    5341   3.0      5  Female   1.0  ...  128.0   48.0  38.6  1.0       1
+..    ...   ...    ...     ...   ...  ...    ...    ...   ...  ...     ...
+249  4870   1.0      9  Female   1.0  ...  112.0   48.0  39.3  1.0       1
+250  9805   3.0      9  Female   1.0  ...  132.0   28.0  39.0  0.0       0
+251  4869   2.0      9  Female   0.0  ...  140.0   30.0  39.3  0.0       0
+252  2926   3.0      9  Female   0.0  ...  200.0   70.0  39.8  0.0       0
+253  4186  25.0      9  Female   0.0  ...  160.0    NaN  39.7  NaN       0
+
+[254 rows x 14 columns]</code></pre>
 </div>
 <div id="stata-1" class="section level4" number="2.4.2.3">
 <h4><span class="header-section-number">2.4.2.3</span> STATA</h4>
@@ -520,7 +545,7 @@ Sorted by:
 <li><p>The result is a new data frame.</p></li>
 </ol>
 <p>Together these properties make it easy to chain together multiple simple steps to achieve a complex result. Let’s dive in and see how these verbs work.</p>
-<p><strong>Create new variable</strong> To <em>label for value of variables</em> in dataset, you can use function</p>
+<p><strong>Create new variable</strong></p>
 </div>
 <div id="python-2" class="section level4" number="2.4.3.2">
 <h4><span class="header-section-number">2.4.3.2</span> Python</h4>
@@ -536,7 +561,7 @@ Sorted by:
         </div>
       </div>
 <a href="create-working-environment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-visualization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="descriptive-statistics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

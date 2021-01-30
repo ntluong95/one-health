@@ -153,7 +153,7 @@ With the release of Windows 10, Windows began providing command line (bash) supp
 
 If you want to explore more robust command-line alternatives for Windows, the Windows Management Framework (including a program called Powershell) seems to be a preferred standard. Powershell will provide a simple text-based interface for inputing commands. Note, you will still **need to install Git** in addition to Powershell.
 
-## Data Manipulation
+## Data manipulation
 
 ### Import file
 
@@ -257,10 +257,24 @@ describe
 
 #### R
 
-To **label for variables** in dataset, you can use function `var_labels` in package `sjlabelled`. Noted that the operation `|>` means *forwarding*. It is R native piping, similar to `%>%` if you know `magrittr` package
+To **label for value of variables** in dataset, you can use function `mututate` to create new varibales (will present in details later) combining with `factor` function. Remember that you can only do that for categorical variables, in R they is storaged as *factor* data. Noted that the operation `|>` means *forwarding*. It is R native piping, similar to `%>%` if you know `magrittr` package
 
 ```{r, message = FALSE, warning=FALSE}
 lb_df <- raw_df |> 
+  mutate(breed = factor(breed, level = c(1:9), labels = c("Hereford", "Holstein","Angus", "Shorthorn", "Charolais", "Simmental", "Limousin", "Crossbreed", "Other")),
+         sex = factor(sex, level = c(0:1), labels = c("Female","Male")),
+         attd = factor(attd, level = c(0:2), labels = c("bright, alert","depressed", "unresponsive, comatose")),
+         eye = factor(eye, level = c(0:1), labels = c("No","Yes")),
+         post = factor(post, level = c(0:2), labels = c("standing","sternal", "lateral")),
+         umb = factor(umb, level = c(0:1), labels = c("No","Yes")),
+         sepsis = factor(sepsis, level = c(0:1), labels = c("No","Yes")))
+```
+
+To **label for variables** in dataset, you can use function `var_labels` in package `sjlabelled`.
+
+```{r, message = FALSE, warning=FALSE}
+library(magrittr)
+lb_df %<>%  
   sjlabelled::var_labels(
     case = "hospital case number", 
     age = "age at admission",
@@ -286,21 +300,23 @@ You can view the result through function `view(lb_df)`, it will open the window 
 
 </center>
 
-If you want to see the label of varible, i.e "case", "age" and "umb", you can create a dictionary.
-
-```{r, message = FALSE, warning=FALSE}
-# create data dictionary ----
-dictionary <- labelled::look_for(lb_df, details = TRUE)
-dictionary %>% 
-  dplyr::filter(variable %in% c("case", "age", "umb")) %>% 
-  dplyr::select(variable, label) %>% #value_labels
-  knitr::kable() 
-```
-
-
 #### Python
 
+Python doesn't support to handle with labelled data, or complicated to do. One simple solution is we do it in R and then pass to Pandas data frame by calling function `r.`
 
+```{python, message = FALSE, warning=FALSE}
+lb_df = r.lb_df
+lb_df.info()
+```
+
+If you still want to try, an alternative is creating a dictionary that contain all value of variables
+
+```{python, message = FALSE, warning=FALSE}
+from siuba import *   
+sex_dict = {0 : "Female", 1 : "Male"}
+lb_df1 = raw_df >> mutate(sex = _.apply(lambda x: sex_dict.get(x["sex"], "Unknown"), axis = 1))
+print(lb_df1)
+```
 
 #### STATA
 
@@ -332,11 +348,13 @@ All verbs work similarly:
 
 Together these properties make it easy to chain together multiple simple steps to achieve a complex result. Let's dive in and see how these verbs work.
 
-**Create new variable** To *label for value of variables* in dataset, you can use function
+**Create new variable**
 
 #### Python
 
 #### STATA
+
+## Descriptive statistics
 
 ## Data visualization
 
