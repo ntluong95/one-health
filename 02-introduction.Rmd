@@ -230,6 +230,7 @@ Now, you can import CSV file by Python using library `pandas` with function `rea
 ```{python, message = FALSE, warning=FALSE}
 import pandas as pd
 raw_df = pd.read_csv("D:/Book Writing/1. Applied Epidemiology in One Health/data/calf.csv")
+
 raw_df.head()
 ```
 
