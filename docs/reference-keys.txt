@@ -23,10 +23,14 @@ stata
 create-working-environment
 data-manipulation
 import-file
-data-transformation
+labelling-data
 r-1
 python-1
 stata-1
+data-transformation
+r-2
+python-2
+stata-2
 data-visualization
 communication-with-rmarkdown
 shinyapp

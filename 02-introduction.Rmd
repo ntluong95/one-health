@@ -90,7 +90,7 @@ To download the RStudio program, select the installer for your operating system 
 
 Python is a very popular all-purpose programming language that is making a major impact in the data-science arena. Some data scientists, and even some organizations, believe they have to pick between R or Python. However, this turns out to be a false choice. In fact, results from a surveys showed that many data science teams today are bilingual, leveraging both R and Python in their work. And while both languages have unique strengths, these teams frequently struggle to use them together.
 
-Rstudio provides a prefect environment for data scientist through a package reticulate. Rstudio can be a potentially platform for data scientist who are using solely R or Python, or using both
+Rstudio provides a prefect environment for data scientist through a package `reticulate`. Rstudio can be a potentially platform for data scientist who are using solely R or Python, or using both.
 
 ### Setting environment for R and Python
 
@@ -159,7 +159,9 @@ If you want to explore more robust command-line alternatives for Windows, the Wi
 
 There are several ways to import data, but the most preferred is from comma-separated values file (*.csv*). Other data types format you may normally see in your work are from text file (*.txt*), Excel spread sheets (*.xlsx*), STATA file (*.dta*), SPSS file (*.sav*), JavaScript Object Notation (*.json*), shapefile (*.shp*). In this tutorial, I will only concentrate on importing data from CSV file because of its ubiquitous in data analysis. We will use **calf** data set, you can download it [here](https://raw.githubusercontent.com/ntluong95/data/main/one-health/calf.csv).
 
-**Data set description** These data come from a retrospective analysis of the medical records from all diarrheic calves which were presented to Atlantic Veterinary College, PEl, Canada between 1989 and 1993. There are 254 observations (records) and 14 variables in the dataset (calf):
+**Data set description**
+
+These data come from a retrospective analysis of the medical records from all diarrheic calves which were presented to Atlantic Veterinary College, PEl, Canada between 1989 and 1993. There are 254 observations (records) and 14 variables in the dataset (calf):
 
 +-----------+--------------------------------------+----------------------------+
 | Variables | Description                          | Codes/Units                |
@@ -209,7 +211,7 @@ To import data in R, you need `readr` package installed in your computer and use
 library(readr) 
 raw_df <- read_csv("D:/Book Writing/1. Applied Epidemiology in One Health/data/calf.csv")
 
-head(raw_df)
+glimpse(raw_df)
 ```
 
 **Python**
@@ -251,6 +253,57 @@ import delimited "D:\Book Writing\1. Applied Epidemiology in One Health\data\cal
 describe
 ```
 
+### Labelling data
+
+#### R
+
+To **label for variables** in dataset, you can use function `var_labels` in package `sjlabelled`. Noted that the operation `|>` means *forwarding*. It is R native piping, similar to `%>%` if you know `magrittr` package
+
+```{r, message = FALSE, warning=FALSE}
+lb_df <- raw_df |> 
+  sjlabelled::var_labels(
+    case = "hospital case number", 
+    age = "age at admission",
+    breed = "breed",
+    sex = "sex",
+    attd = "attitude of calf",
+    dehy = "% dehydration",
+    eye = "uveitis/hypopyon clinically evident",
+    jnts = "swollen joints clinically evident",
+    post = "posture of caIf",
+    pulse = "pulse rate",
+    resp = "respiratory rate",
+    temp = "rectal temperature",
+    umb = "swollen umbilicus clinically evident",
+    sepsis = "sepsis")
+```
+
+You can view the result through function `view(lb_df)`, it will open the window like this:
+
+<center>
+
+![](docs/images/Screenshot%202021-01-30%20135810.png)
+
+</center>
+
+If you want to see the label of varible, i.e "case", "age" and "umb", you can create a dictionary.
+
+```{r, message = FALSE, warning=FALSE}
+# create data dictionary ----
+dictionary <- labelled::look_for(lb_df, details = TRUE)
+dictionary %>% 
+  dplyr::filter(variable %in% c("case", "age", "umb")) %>% 
+  dplyr::select(variable, label) %>% #value_labels
+  knitr::kable() 
+```
+
+
+#### Python
+
+
+
+#### STATA
+
 ### Data transformation
 
 #### R
@@ -278,6 +331,8 @@ All verbs work similarly:
 3.  The result is a new data frame.
 
 Together these properties make it easy to chain together multiple simple steps to achieve a complex result. Let's dive in and see how these verbs work.
+
+**Create new variable** To *label for value of variables* in dataset, you can use function
 
 #### Python
 

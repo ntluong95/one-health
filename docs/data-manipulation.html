@@ -174,7 +174,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>2.4</b> Data Manipulation</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="data-manipulation.html"><a href="data-manipulation.html#import-file"><i class="fa fa-check"></i><b>2.4.1</b> Import file</a></li>
-<li class="chapter" data-level="2.4.2" data-path="data-manipulation.html"><a href="data-manipulation.html#data-transformation"><i class="fa fa-check"></i><b>2.4.2</b> Data transformation</a></li>
+<li class="chapter" data-level="2.4.2" data-path="data-manipulation.html"><a href="data-manipulation.html#labelling-data"><i class="fa fa-check"></i><b>2.4.2</b> Labelling data</a></li>
+<li class="chapter" data-level="2.4.3" data-path="data-manipulation.html"><a href="data-manipulation.html#data-transformation"><i class="fa fa-check"></i><b>2.4.3</b> Data transformation</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>2.5</b> Data visualization</a></li>
 <li class="chapter" data-level="2.6" data-path="communication-with-rmarkdown.html"><a href="communication-with-rmarkdown.html"><i class="fa fa-check"></i><b>2.6</b> Communication with Rmarkdown</a></li>
@@ -251,7 +252,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="import-file" class="section level3" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Import file</h3>
 <p>There are several ways to import data, but the most preferred is from comma-separated values file (<em>.csv</em>). Other data types format you may normally see in your work are from text file (<em>.txt</em>), Excel spread sheets (<em>.xlsx</em>), STATA file (<em>.dta</em>), SPSS file (<em>.sav</em>), JavaScript Object Notation (<em>.json</em>), shapefile (<em>.shp</em>). In this tutorial, I will only concentrate on importing data from CSV file because of its ubiquitous in data analysis. We will use <strong>calf</strong> data set, you can download it <a href="https://raw.githubusercontent.com/ntluong95/data/main/one-health/calf.csv">here</a>.</p>
-<p><strong>Data set description</strong> These data come from a retrospective analysis of the medical records from all diarrheic calves which were presented to Atlantic Veterinary College, PEl, Canada between 1989 and 1993. There are 254 observations (records) and 14 variables in the dataset (calf):</p>
+<p><strong>Data set description</strong></p>
+<p>These data come from a retrospective analysis of the medical records from all diarrheic calves which were presented to Atlantic Veterinary College, PEl, Canada between 1989 and 1993. There are 254 observations (records) and 14 variables in the dataset (calf):</p>
 <table>
 <colgroup>
 <col width="15%" />
@@ -363,17 +365,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="data-manipulation.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) </span>
 <span id="cb7-2"><a href="data-manipulation.html#cb7-2" aria-hidden="true" tabindex="-1"></a>raw_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;D:/Book Writing/1. Applied Epidemiology in One Health/data/calf.csv&quot;</span>)</span>
 <span id="cb7-3"><a href="data-manipulation.html#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="data-manipulation.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(raw_df)</span></code></pre></div>
-<pre><code>## # A tibble: 6 x 14
-##    case   age breed   sex  attd  dehy   eye  jnts  post pulse  resp  temp   umb
-##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1  1670     5     1     1     2  12      NA     0     2    NA    NA  37.6     0
-## 2  8124     3     2     0     1  13.5     0     0     0   130   120  39.2     0
-## 3  6954     2     3     1     2  NA       1     0     2    NA    NA  NA       1
-## 4  2737     3     4     1     1   5       0     0     0   132    40  38.6     0
-## 5  5341     3     5     0     1   0       0     0     1   128    48  38.6     1
-## 6  6749    10     6     0     1   5.5     0     0     0   160    48  39.6     0
-## # ... with 1 more variable: sepsis &lt;dbl&gt;</code></pre>
+<span id="cb7-4"><a href="data-manipulation.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(raw_df)</span></code></pre></div>
+<pre><code>## Rows: 254
+## Columns: 14
+## $ case   &lt;dbl&gt; 1670, 8124, 6954, 2737, 5341, 6749, 3234, 2325, 2925, 7108, ...
+## $ age    &lt;dbl&gt; 5, 3, 2, 3, 3, 10, 4, 14, 4, 8, 19, 7, 6, 2, 18, 7, 7, 8, 12...
+## $ breed  &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+## $ sex    &lt;dbl&gt; 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, ...
+## $ attd   &lt;dbl&gt; 2, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 0, 1, 1, 2, 1, 2, 0, 1, ...
+## $ dehy   &lt;dbl&gt; 12.0, 13.5, NA, 5.0, 0.0, 5.5, 7.0, 7.0, 5.0, 10.0, 8.0, 4.0...
+## $ eye    &lt;dbl&gt; NA, 0, 1, 0, 0, 0, 0, 0, 0, 0, NA, 0, 0, 0, 0, 0, 0, 0, 0, 0...
+## $ jnts   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...
+## $ post   &lt;dbl&gt; 2, 0, 2, 0, 1, 0, 2, 0, 0, 2, 0, 0, 0, 1, 0, 2, 0, 2, 0, 1, ...
+## $ pulse  &lt;dbl&gt; NA, 130, NA, 132, 128, 160, 180, 100, 150, 120, 140, 126, 10...
+## $ resp   &lt;dbl&gt; NA, 120, NA, 40, 48, 48, 84, 20, 52, 68, 32, 20, 20, 16, 40,...
+## $ temp   &lt;dbl&gt; 37.6, 39.2, NA, 38.6, 38.6, 39.6, 39.0, 35.0, 39.5, 37.8, 39...
+## $ umb    &lt;dbl&gt; 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, ...
+## $ sepsis &lt;dbl&gt; 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, ...</code></pre>
 <p><strong>Python</strong></p>
 <p>First, you have to register to use Python in R via package <code>reticulate</code></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="data-manipulation.html#cb9-1" aria-hidden="true" tabindex="-1"></a>reticulate<span class="sc">::</span><span class="fu">use_condaenv</span>(<span class="st">&quot;D:/Python/envs/r-reticulate&quot;</span>)</span></code></pre></div>
@@ -430,10 +438,72 @@ sepsis          byte    %8.0g
 Sorted by: 
      Note: Dataset has changed since last saved.</code></pre>
 </div>
-<div id="data-transformation" class="section level3" number="2.4.2">
-<h3><span class="header-section-number">2.4.2</span> Data transformation</h3>
+<div id="labelling-data" class="section level3" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Labelling data</h3>
 <div id="r-1" class="section level4" number="2.4.2.1">
 <h4><span class="header-section-number">2.4.2.1</span> R</h4>
+<p>To <strong>label for variables</strong> in dataset, you can use function <code>var_labels</code> in package <code>sjlabelled</code>. Noted that the operation <code>|&gt;</code> means <em>forwarding</em>. It is R native piping, similar to <code>%&gt;%</code> if you know <code>magrittr</code> package</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="data-manipulation.html#cb16-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="ot">&lt;-</span> raw_df <span class="sc">|</span><span class="er">&gt;</span> </span>
+<span id="cb16-2"><a href="data-manipulation.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  sjlabelled<span class="sc">::</span><span class="fu">var_labels</span>(</span>
+<span id="cb16-3"><a href="data-manipulation.html#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">case =</span> <span class="st">&quot;hospital case number&quot;</span>, </span>
+<span id="cb16-4"><a href="data-manipulation.html#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="st">&quot;age at admission&quot;</span>,</span>
+<span id="cb16-5"><a href="data-manipulation.html#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">breed =</span> <span class="st">&quot;breed&quot;</span>,</span>
+<span id="cb16-6"><a href="data-manipulation.html#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> <span class="st">&quot;sex&quot;</span>,</span>
+<span id="cb16-7"><a href="data-manipulation.html#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">attd =</span> <span class="st">&quot;attitude of calf&quot;</span>,</span>
+<span id="cb16-8"><a href="data-manipulation.html#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">dehy =</span> <span class="st">&quot;% dehydration&quot;</span>,</span>
+<span id="cb16-9"><a href="data-manipulation.html#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">eye =</span> <span class="st">&quot;uveitis/hypopyon clinically evident&quot;</span>,</span>
+<span id="cb16-10"><a href="data-manipulation.html#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">jnts =</span> <span class="st">&quot;swollen joints clinically evident&quot;</span>,</span>
+<span id="cb16-11"><a href="data-manipulation.html#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">post =</span> <span class="st">&quot;posture of caIf&quot;</span>,</span>
+<span id="cb16-12"><a href="data-manipulation.html#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">pulse =</span> <span class="st">&quot;pulse rate&quot;</span>,</span>
+<span id="cb16-13"><a href="data-manipulation.html#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">resp =</span> <span class="st">&quot;respiratory rate&quot;</span>,</span>
+<span id="cb16-14"><a href="data-manipulation.html#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">temp =</span> <span class="st">&quot;rectal temperature&quot;</span>,</span>
+<span id="cb16-15"><a href="data-manipulation.html#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">umb =</span> <span class="st">&quot;swollen umbilicus clinically evident&quot;</span>,</span>
+<span id="cb16-16"><a href="data-manipulation.html#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">sepsis =</span> <span class="st">&quot;sepsis&quot;</span>)</span></code></pre></div>
+<p>You can view the result through function <code>view(lb_df)</code>, it will open the window like this:</p>
+<center>
+<p><img src="docs/images/Screenshot%202021-01-30%20135810.png" /></p>
+</center>
+<p>If you want to see the label of varible, i.e “case”, “age” and “umb”, you can create a dictionary.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="data-manipulation.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create data dictionary ----</span></span>
+<span id="cb17-2"><a href="data-manipulation.html#cb17-2" aria-hidden="true" tabindex="-1"></a>dictionary <span class="ot">&lt;-</span> labelled<span class="sc">::</span><span class="fu">look_for</span>(lb_df, <span class="at">details =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-3"><a href="data-manipulation.html#cb17-3" aria-hidden="true" tabindex="-1"></a>dictionary <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="data-manipulation.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;case&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;umb&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-5"><a href="data-manipulation.html#cb17-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(variable, label) <span class="sc">%&gt;%</span> <span class="co">#value_labels</span></span>
+<span id="cb17-6"><a href="data-manipulation.html#cb17-6" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>() </span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="left">label</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">case</td>
+<td align="left">hospital case number</td>
+</tr>
+<tr class="even">
+<td align="left">age</td>
+<td align="left">age at admission</td>
+</tr>
+<tr class="odd">
+<td align="left">umb</td>
+<td align="left">swollen umbilicus clinically evident</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="python-1" class="section level4" number="2.4.2.2">
+<h4><span class="header-section-number">2.4.2.2</span> Python</h4>
+</div>
+<div id="stata-1" class="section level4" number="2.4.2.3">
+<h4><span class="header-section-number">2.4.2.3</span> STATA</h4>
+</div>
+</div>
+<div id="data-transformation" class="section level3" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Data transformation</h3>
+<div id="r-2" class="section level4" number="2.4.3.1">
+<h4><span class="header-section-number">2.4.3.1</span> R</h4>
 <p>In this section you are going to learn the five key dplyr functions that allow you to solve the vast majority of your data manipulation challenges:</p>
 <ul>
 <li><p>Pick observations by their values <code>filter()</code>.</p></li>
@@ -450,12 +520,13 @@ Sorted by:
 <li><p>The result is a new data frame.</p></li>
 </ol>
 <p>Together these properties make it easy to chain together multiple simple steps to achieve a complex result. Let’s dive in and see how these verbs work.</p>
+<p><strong>Create new variable</strong> To <em>label for value of variables</em> in dataset, you can use function</p>
 </div>
-<div id="python-1" class="section level4" number="2.4.2.2">
-<h4><span class="header-section-number">2.4.2.2</span> Python</h4>
+<div id="python-2" class="section level4" number="2.4.3.2">
+<h4><span class="header-section-number">2.4.3.2</span> Python</h4>
 </div>
-<div id="stata-1" class="section level4" number="2.4.2.3">
-<h4><span class="header-section-number">2.4.2.3</span> STATA</h4>
+<div id="stata-2" class="section level4" number="2.4.3.3">
+<h4><span class="header-section-number">2.4.3.3</span> STATA</h4>
 </div>
 </div>
 </div>
