@@ -1,0 +1,35 @@
+
+
+. import delimited "D:\Book Writing\1. Applied Epidemiology in One Health\data\
+> calf.csv"
+(14 vars, 254 obs)
+
+. describe
+
+Contains data
+  obs:           254                          
+ vars:            14                          
+-------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------
+case            int     %8.0g                 
+age             byte    %8.0g                 
+breed           byte    %8.0g                 
+sex             byte    %8.0g                 
+attd            byte    %8.0g                 
+dehy            float   %9.0g                 
+eye             byte    %8.0g                 
+jnts            byte    %8.0g                 
+post            byte    %8.0g                 
+pulse           int     %8.0g                 
+resp            int     %8.0g                 
+temp            float   %9.0g                 
+umb             byte    %8.0g                 
+sepsis          byte    %8.0g                 
+-------------------------------------------------------------------------------
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+. 
+end of do-file
