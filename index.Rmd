@@ -83,6 +83,34 @@ With a number of possible causal variables, the cause-and-effect relationships a
 
 *Pink oval:* ancestor of exposure; *Blue ovals:* ancestor of outcome.
 
+### Causal criteria
+
+A list of criteria for making valid causal inferences includes: time sequence, strength of association, dose-response, plausibility, consistency, specificity, analogy and experimental evidence. Today, we might add evidence from meta-analysis to this list.
+
+**Study design and statistical issues**
+
+If the differences observed in a well-designed study have P-values above 0.4, this would not provide any support for a causal relationship. However, beyond extremes in large P-values, statistical significance should not play a pivotal role in assessing causal relationships.
+
+**Time sequence**
+
+While a cause must precede its effect, demonstrating this fact provides only weak support for causation. Further, the same factor could occur after disease in some individuals and this would not disprove causation except in these specific instances. Many times it is not clear which came first; for example, did the viral infection precede or follow respiratory disease? This becomes a greater problem when we must use surrogate measures of exposure (eg antibody titre to indicate recent exposure). Nonetheless, we would like to be able to demonstrate that an exposure preceded the effect or at least develop a rational argument for believing that it did - sometimes these arguments are based largely on plausibility rather than on demonstrable facts
+
+**Strength of association**
+
+This is usually measured by ratio measures such as risk ratio or odds ratio but could also be measured by risk or rate differences. The belief in larger (stronger) associations being causal appears to relate to how likely it is that unknown or residual confounding might have produced this effect. When studying diseases with very high frequency, risk ratio measures of association will tend to be weaker than with less common diseases.
+
+**Dose response relationship**
+
+If we had a continuous, or ordinal, exposure variable and the risk of disease increased directly with the level of exposure, then this evidence supports causation as it tends to reduce the likelihood of confounding and is consistent with biological expectations. However, in some instances, there might be a cutpoint of exposure such that nothing happens until a threshold exposure is reached and there is no further increase in frequency at higher levels of exposure.
+
+**Coherence or plausibility**
+
+Coherence requires that the observed association is explicable in terms of what we know about disease mechanisms. However, our knowledge is a dynamic state and ranges all the way from the observed association being assessed as 'reasonable' (without any biological supporting evidence) to requiring that 'all the facts be known' (a virtually nonexistent state currently). Postulating a biological mechanism to explain an association after the fact is deemed to be insufficient for causal inferences unless there is some additional evidence supporting the existence of that mechanism
+
+**Consistency**
+
+If the same association is found in different studies by different workers, this gives support to causality. Lack of consistency doesn't mean that we should ignore the results of the first study on a subject, but we should temper our interpretation of the results until they are repeated. This would prevent a lot of false positive scares in both human and veterinary medicine..
+
 ## Sampling
 
 Chapter 2 và Chapter 12
