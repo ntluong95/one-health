@@ -276,19 +276,10 @@ To **label for variables** in dataset, you can use function `var_labels` in pack
 library(magrittr)
 lb_df %<>%  
   sjlabelled::var_labels(
-    case = "hospital case number", 
-    age = "age at admission",
-    breed = "breed",
-    sex = "sex",
-    attd = "attitude of calf",
-    dehy = "% dehydration",
-    eye = "uveitis/hypopyon clinically evident",
-    jnts = "swollen joints clinically evident",
-    post = "posture of caIf",
-    pulse = "pulse rate",
-    resp = "respiratory rate",
-    temp = "rectal temperature",
-    umb = "swollen umbilicus clinically evident",
+    case = "hospital case number", age = "age at admission", breed = "breed", sex = "sex",
+    attd = "attitude of calf", dehy = "% dehydration", eye = "uveitis/hypopyon clinically evident",
+    jnts = "swollen joints clinically evident", post = "posture of caIf", pulse = "pulse rate",
+    resp = "respiratory rate", temp = "rectal temperature", umb = "swollen umbilicus clinically evident",
     sepsis = "sepsis")
 ```
 
@@ -306,7 +297,6 @@ Python doesn't support to handle with labelled data, or complicated to do. One s
 
 ```{python, message = FALSE, warning=FALSE}
 lb_df = r.lb_df
-print(lb_df)
 ```
 
 If you still want to try, an alternative is creating a dictionary that contain all value of variables. Then using `mutate` function from `siuba` library which is similar to `dplyr` library in R Tidyverse to mutate new variable
@@ -322,36 +312,75 @@ umb_dict = {0 : "No", 1 : "Yes"}
 sepsis_dict = {0 : "No", 1 : "Yes"}
 
 from siuba import *   
-lb_df1 = raw_df \
-    >> mutate(
-          sex = _.apply(lambda x: sex_dict.get(x["sex"], "Unknown"), axis = 1),
-          breed = _.apply(lambda x: breed_dict.get(x["breed"], "Unknown"), axis = 1),
-          attd = _.apply(lambda x: attd_dict.get(x["attd"], "Unknown"), axis = 1),
-          eye = _.apply(lambda x: eye_dict.get(x["eye"], "Unknown"), axis = 1),
-          post = _.apply(lambda x: post_dict.get(x["post"], "Unknown"), axis = 1),
-          umb = _.apply(lambda x: umb_dict.get(x["umb"], "Unknown"), axis = 1),
-          sepsis = _.apply(lambda x: sepsis_dict.get(x["sepsis"], "Unknown"), axis = 1)
-          )
-print(lb_df1)
+lb_df1 = raw_df >> mutate(
+                    sex = _.apply(lambda x: sex_dict.get(x["sex"], "NaN"), axis = 1),
+                    breed = _.apply(lambda x: breed_dict.get(x["breed"], "NaN"), axis = 1),
+                    attd = _.apply(lambda x: attd_dict.get(x["attd"], "NaN"), axis = 1),
+                    eye = _.apply(lambda x: eye_dict.get(x["eye"], "NaN"), axis = 1),
+                    post = _.apply(lambda x: post_dict.get(x["post"], "NaN"), axis = 1),
+                    umb = _.apply(lambda x: umb_dict.get(x["umb"], "NaN"), axis = 1),
+                    sepsis = _.apply(lambda x: sepsis_dict.get(x["sepsis"], "NaN"), axis = 1))
 ```
 
 Same version with Pandas function
 
-```{python, message = FALSE, warning=FALSE}
-lb_df2 = \
-  raw_df.assign(
-          sex = _.apply(lambda x: sex_dict.get(x["sex"], "Unknown"), axis = 1),
-          breed = _.apply(lambda x: breed_dict.get(x["breed"], "Unknown"), axis = 1),
-          attd = _.apply(lambda x: attd_dict.get(x["attd"], "Unknown"), axis = 1),
-          eye = _.apply(lambda x: eye_dict.get(x["eye"], "Unknown"), axis = 1),
-          post = _.apply(lambda x: post_dict.get(x["post"], "Unknown"), axis = 1),
-          umb = _.apply(lambda x: umb_dict.get(x["umb"], "Unknown"), axis = 1),
-          sepsis = _.apply(lambda x: sepsis_dict.get(x["sepsis"], "Unknown"), axis = 1))
-print(lb_df2)
+```{python, message = FALSE, warning = FALSE}
+lb_df2 =  raw_df.assign(
+                    sex = _.apply(lambda x: sex_dict.get(x["sex"], "NaN"), axis = 1),
+                    breed = _.apply(lambda x: breed_dict.get(x["breed"], "NaN"), axis = 1),
+                    attd = _.apply(lambda x: attd_dict.get(x["attd"], "NaN"), axis = 1),
+                    eye = _.apply(lambda x: eye_dict.get(x["eye"], "NaN"), axis = 1),
+                    post = _.apply(lambda x: post_dict.get(x["post"], "NaN"), axis = 1),
+                    umb = _.apply(lambda x: umb_dict.get(x["umb"], "NaN"), axis = 1),
+                    sepsis = _.apply(lambda x: sepsis_dict.get(x["sepsis"], "NaN"), axis = 1))
+print(lb_df, lb_df1, lb_df2)
 ```
 
 
 #### STATA
+
+```{stata, collectcode=TRUE, cleanlog=FALSE, eval = FALSE}
+label var case "hospital case number"
+
+label var age "age at admission"
+
+label var breed "breed"
+label def breed 1 "Hereford" 2 "Holstein" 3 "Angus" 4 "Shorthorn" 5 "Charolais" 6 "Simmental" 7 "Limousin" 8 "Crossbreed" 9 "Other"
+label val breed breed
+
+label var sex "sex" 
+label def sex 0 "Female" 1 "Male"
+label val sex sex
+
+label var attd "attitude of calf"
+label def attd 0 "bright, alert" 1 "depressed" 2 "unresponsive, comatose"
+label val attd attd
+
+label var dehy "% dehydration"
+
+label var eye "uveitis/hypopyon clinically evident"
+label def eye 0 "No" 1 "Yes"
+label val eye eye
+
+label var jnts "swollen joints clinically evident"
+
+label var post "posture of caIf" 
+label def post 0 "standing" 1 "sternal" 2 "lateral"
+label val post post
+
+label var pulse "pulse rate"
+label var resp "respiratory rate"
+label var temp "rectal temperature"
+
+label var umb "swollen umbilicus clinically evident"
+label def umb 0 "No" 1 "Yes"
+label val umb umb
+
+label var sepsis "sepsis"
+label def sepsis 0 "No" 1 "Yes"
+label val sepsis sepsis
+```
+
 
 ### Data transformation
 
