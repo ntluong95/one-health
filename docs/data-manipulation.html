@@ -479,45 +479,80 @@ Sorted by:
 <h4><span class="header-section-number">2.4.2.2</span> Python</h4>
 <p>Python doesn’t support to handle with labelled data, or complicated to do. One simple solution is we do it in R and then pass to Pandas data frame by calling function <code>r.</code></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="data-manipulation.html#cb18-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">=</span> r.lb_df</span>
-<span id="cb18-2"><a href="data-manipulation.html#cb18-2" aria-hidden="true" tabindex="-1"></a>lb_df.info()</span></code></pre></div>
-<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 254 entries, 0 to 253
-Data columns (total 14 columns):
- #   Column  Non-Null Count  Dtype   
----  ------  --------------  -----   
- 0   case    254 non-null    float64 
- 1   age     253 non-null    float64 
- 2   breed   254 non-null    category
- 3   sex     252 non-null    category
- 4   attd    248 non-null    category
- 5   dehy    240 non-null    float64 
- 6   eye     236 non-null    category
- 7   jnts    243 non-null    float64 
- 8   post    248 non-null    category
- 9   pulse   245 non-null    float64 
- 10  resp    235 non-null    float64 
- 11  temp    247 non-null    float64 
- 12  umb     243 non-null    category
- 13  sepsis  254 non-null    category
-dtypes: category(7), float64(7)
-memory usage: 16.7 KB</code></pre>
-<p>If you still want to try, an alternative is creating a dictionary that contain all value of variables</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="data-manipulation.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> <span class="op">*</span>   </span>
-<span id="cb20-2"><a href="data-manipulation.html#cb20-2" aria-hidden="true" tabindex="-1"></a>sex_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;Female&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Male&quot;</span>}</span>
-<span id="cb20-3"><a href="data-manipulation.html#cb20-3" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="op">=</span> raw_df <span class="op">&gt;&gt;</span> mutate(sex <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sex_dict.get(x[<span class="st">&quot;sex&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>))</span>
-<span id="cb20-4"><a href="data-manipulation.html#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lb_df1)</span></code></pre></div>
-<pre><code>     case   age  breed     sex  attd  ...  pulse   resp  temp  umb  sepsis
-0    1670   5.0      1    Male   2.0  ...    NaN    NaN  37.6  0.0       0
-1    8124   3.0      2  Female   1.0  ...  130.0  120.0  39.2  0.0       0
-2    6954   2.0      3    Male   2.0  ...    NaN    NaN   NaN  1.0       1
-3    2737   3.0      4    Male   1.0  ...  132.0   40.0  38.6  0.0       0
-4    5341   3.0      5  Female   1.0  ...  128.0   48.0  38.6  1.0       1
-..    ...   ...    ...     ...   ...  ...    ...    ...   ...  ...     ...
-249  4870   1.0      9  Female   1.0  ...  112.0   48.0  39.3  1.0       1
-250  9805   3.0      9  Female   1.0  ...  132.0   28.0  39.0  0.0       0
-251  4869   2.0      9  Female   0.0  ...  140.0   30.0  39.3  0.0       0
-252  2926   3.0      9  Female   0.0  ...  200.0   70.0  39.8  0.0       0
-253  4186  25.0      9  Female   0.0  ...  160.0    NaN  39.7  NaN       0
+<span id="cb18-2"><a href="data-manipulation.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lb_df)</span></code></pre></div>
+<pre><code>       case   age      breed     sex  ...   resp  temp  umb  sepsis
+0    1670.0   5.0   Hereford    Male  ...    NaN  37.6   No      No
+1    8124.0   3.0   Holstein  Female  ...  120.0  39.2   No      No
+2    6954.0   2.0      Angus    Male  ...    NaN   NaN  Yes     Yes
+3    2737.0   3.0  Shorthorn    Male  ...   40.0  38.6   No      No
+4    5341.0   3.0  Charolais  Female  ...   48.0  38.6  Yes     Yes
+..      ...   ...        ...     ...  ...    ...   ...  ...     ...
+249  4870.0   1.0      Other  Female  ...   48.0  39.3  Yes     Yes
+250  9805.0   3.0      Other  Female  ...   28.0  39.0   No      No
+251  4869.0   2.0      Other  Female  ...   30.0  39.3   No      No
+252  2926.0   3.0      Other  Female  ...   70.0  39.8   No      No
+253  4186.0  25.0      Other  Female  ...    NaN  39.7  NaN      No
+
+[254 rows x 14 columns]</code></pre>
+<p>If you still want to try, an alternative is creating a dictionary that contain all value of variables. Then using <code>mutate</code> function from <code>siuba</code> library which is similar to <code>dplyr</code> library in R Tidyverse to mutate new variable</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="data-manipulation.html#cb20-1" aria-hidden="true" tabindex="-1"></a>breed_dict <span class="op">=</span> {<span class="dv">1</span> : <span class="st">&quot;Hereford&quot;</span>, <span class="dv">2</span> : <span class="st">&quot;Holstein&quot;</span>, <span class="dv">3</span> : <span class="st">&quot;Angus&quot;</span>, <span class="dv">4</span> : <span class="st">&quot;Shorthorn&quot;</span>, <span class="op">\</span></span>
+<span id="cb20-2"><a href="data-manipulation.html#cb20-2" aria-hidden="true" tabindex="-1"></a>              <span class="dv">5</span> : <span class="st">&quot;Charolais&quot;</span>, <span class="dv">6</span>: <span class="st">&quot;Simmental&quot;</span>, <span class="dv">7</span> : <span class="st">&quot;Limousin&quot;</span>, <span class="dv">8</span>: <span class="st">&quot;Crossbreed&quot;</span>, <span class="dv">9</span> : <span class="st">&quot;Other&quot;</span>}</span>
+<span id="cb20-3"><a href="data-manipulation.html#cb20-3" aria-hidden="true" tabindex="-1"></a>sex_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;Female&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Male&quot;</span>}</span>
+<span id="cb20-4"><a href="data-manipulation.html#cb20-4" aria-hidden="true" tabindex="-1"></a>attd_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;bright, alert&quot;</span>, <span class="dv">1</span>: <span class="st">&quot;depressed&quot;</span>, <span class="dv">2</span>: <span class="st">&quot;unresponsive, comatose&quot;</span>}</span>
+<span id="cb20-5"><a href="data-manipulation.html#cb20-5" aria-hidden="true" tabindex="-1"></a>eye_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;No&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Yes&quot;</span>}</span>
+<span id="cb20-6"><a href="data-manipulation.html#cb20-6" aria-hidden="true" tabindex="-1"></a>post_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;standing&quot;</span>, <span class="dv">1</span>: <span class="st">&quot;sternal&quot;</span>, <span class="dv">2</span> : <span class="st">&quot;lateral&quot;</span>}</span>
+<span id="cb20-7"><a href="data-manipulation.html#cb20-7" aria-hidden="true" tabindex="-1"></a>umb_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;No&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Yes&quot;</span>}</span>
+<span id="cb20-8"><a href="data-manipulation.html#cb20-8" aria-hidden="true" tabindex="-1"></a>sepsis_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;No&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Yes&quot;</span>}</span>
+<span id="cb20-9"><a href="data-manipulation.html#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="data-manipulation.html#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> <span class="op">*</span>   </span>
+<span id="cb20-11"><a href="data-manipulation.html#cb20-11" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="op">=</span> raw_df <span class="op">\</span></span>
+<span id="cb20-12"><a href="data-manipulation.html#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> mutate(</span>
+<span id="cb20-13"><a href="data-manipulation.html#cb20-13" aria-hidden="true" tabindex="-1"></a>          sex <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sex_dict.get(x[<span class="st">&quot;sex&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb20-14"><a href="data-manipulation.html#cb20-14" aria-hidden="true" tabindex="-1"></a>          breed <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: breed_dict.get(x[<span class="st">&quot;breed&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb20-15"><a href="data-manipulation.html#cb20-15" aria-hidden="true" tabindex="-1"></a>          attd <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: attd_dict.get(x[<span class="st">&quot;attd&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb20-16"><a href="data-manipulation.html#cb20-16" aria-hidden="true" tabindex="-1"></a>          eye <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: eye_dict.get(x[<span class="st">&quot;eye&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb20-17"><a href="data-manipulation.html#cb20-17" aria-hidden="true" tabindex="-1"></a>          post <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: post_dict.get(x[<span class="st">&quot;post&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb20-18"><a href="data-manipulation.html#cb20-18" aria-hidden="true" tabindex="-1"></a>          umb <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: umb_dict.get(x[<span class="st">&quot;umb&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb20-19"><a href="data-manipulation.html#cb20-19" aria-hidden="true" tabindex="-1"></a>          sepsis <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sepsis_dict.get(x[<span class="st">&quot;sepsis&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb20-20"><a href="data-manipulation.html#cb20-20" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb20-21"><a href="data-manipulation.html#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lb_df1)</span></code></pre></div>
+<pre><code>     case   age      breed     sex  ...   resp  temp      umb  sepsis
+0    1670   5.0   Hereford    Male  ...    NaN  37.6       No      No
+1    8124   3.0   Holstein  Female  ...  120.0  39.2       No      No
+2    6954   2.0      Angus    Male  ...    NaN   NaN      Yes     Yes
+3    2737   3.0  Shorthorn    Male  ...   40.0  38.6       No      No
+4    5341   3.0  Charolais  Female  ...   48.0  38.6      Yes     Yes
+..    ...   ...        ...     ...  ...    ...   ...      ...     ...
+249  4870   1.0      Other  Female  ...   48.0  39.3      Yes     Yes
+250  9805   3.0      Other  Female  ...   28.0  39.0       No      No
+251  4869   2.0      Other  Female  ...   30.0  39.3       No      No
+252  2926   3.0      Other  Female  ...   70.0  39.8       No      No
+253  4186  25.0      Other  Female  ...    NaN  39.7  Unknown      No
+
+[254 rows x 14 columns]</code></pre>
+<p>Same version with Pandas function</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="data-manipulation.html#cb22-1" aria-hidden="true" tabindex="-1"></a>lb_df2 <span class="op">=</span> <span class="op">\</span></span>
+<span id="cb22-2"><a href="data-manipulation.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  raw_df.assign(</span>
+<span id="cb22-3"><a href="data-manipulation.html#cb22-3" aria-hidden="true" tabindex="-1"></a>          sex <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sex_dict.get(x[<span class="st">&quot;sex&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb22-4"><a href="data-manipulation.html#cb22-4" aria-hidden="true" tabindex="-1"></a>          breed <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: breed_dict.get(x[<span class="st">&quot;breed&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb22-5"><a href="data-manipulation.html#cb22-5" aria-hidden="true" tabindex="-1"></a>          attd <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: attd_dict.get(x[<span class="st">&quot;attd&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb22-6"><a href="data-manipulation.html#cb22-6" aria-hidden="true" tabindex="-1"></a>          eye <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: eye_dict.get(x[<span class="st">&quot;eye&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb22-7"><a href="data-manipulation.html#cb22-7" aria-hidden="true" tabindex="-1"></a>          post <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: post_dict.get(x[<span class="st">&quot;post&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb22-8"><a href="data-manipulation.html#cb22-8" aria-hidden="true" tabindex="-1"></a>          umb <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: umb_dict.get(x[<span class="st">&quot;umb&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb22-9"><a href="data-manipulation.html#cb22-9" aria-hidden="true" tabindex="-1"></a>          sepsis <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sepsis_dict.get(x[<span class="st">&quot;sepsis&quot;</span>], <span class="st">&quot;Unknown&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>))</span>
+<span id="cb22-10"><a href="data-manipulation.html#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lb_df2)</span></code></pre></div>
+<pre><code>     case   age      breed     sex  ...   resp  temp      umb  sepsis
+0    1670   5.0   Hereford    Male  ...    NaN  37.6       No      No
+1    8124   3.0   Holstein  Female  ...  120.0  39.2       No      No
+2    6954   2.0      Angus    Male  ...    NaN   NaN      Yes     Yes
+3    2737   3.0  Shorthorn    Male  ...   40.0  38.6       No      No
+4    5341   3.0  Charolais  Female  ...   48.0  38.6      Yes     Yes
+..    ...   ...        ...     ...  ...    ...   ...      ...     ...
+249  4870   1.0      Other  Female  ...   48.0  39.3      Yes     Yes
+250  9805   3.0      Other  Female  ...   28.0  39.0       No      No
+251  4869   2.0      Other  Female  ...   30.0  39.3       No      No
+252  2926   3.0      Other  Female  ...   70.0  39.8       No      No
+253  4186  25.0      Other  Female  ...    NaN  39.7  Unknown      No
 
 [254 rows x 14 columns]</code></pre>
 </div>

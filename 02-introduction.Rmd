@@ -306,17 +306,50 @@ Python doesn't support to handle with labelled data, or complicated to do. One s
 
 ```{python, message = FALSE, warning=FALSE}
 lb_df = r.lb_df
-lb_df.info()
+print(lb_df)
 ```
 
-If you still want to try, an alternative is creating a dictionary that contain all value of variables
+If you still want to try, an alternative is creating a dictionary that contain all value of variables. Then using `mutate` function from `siuba` library which is similar to `dplyr` library in R Tidyverse to mutate new variable
 
 ```{python, message = FALSE, warning=FALSE}
-from siuba import *   
+breed_dict = {1 : "Hereford", 2 : "Holstein", 3 : "Angus", 4 : "Shorthorn", \
+              5 : "Charolais", 6: "Simmental", 7 : "Limousin", 8: "Crossbreed", 9 : "Other"}
 sex_dict = {0 : "Female", 1 : "Male"}
-lb_df1 = raw_df >> mutate(sex = _.apply(lambda x: sex_dict.get(x["sex"], "Unknown"), axis = 1))
+attd_dict = {0 : "bright, alert", 1: "depressed", 2: "unresponsive, comatose"}
+eye_dict = {0 : "No", 1 : "Yes"}
+post_dict = {0 : "standing", 1: "sternal", 2 : "lateral"}
+umb_dict = {0 : "No", 1 : "Yes"}
+sepsis_dict = {0 : "No", 1 : "Yes"}
+
+from siuba import *   
+lb_df1 = raw_df \
+    >> mutate(
+          sex = _.apply(lambda x: sex_dict.get(x["sex"], "Unknown"), axis = 1),
+          breed = _.apply(lambda x: breed_dict.get(x["breed"], "Unknown"), axis = 1),
+          attd = _.apply(lambda x: attd_dict.get(x["attd"], "Unknown"), axis = 1),
+          eye = _.apply(lambda x: eye_dict.get(x["eye"], "Unknown"), axis = 1),
+          post = _.apply(lambda x: post_dict.get(x["post"], "Unknown"), axis = 1),
+          umb = _.apply(lambda x: umb_dict.get(x["umb"], "Unknown"), axis = 1),
+          sepsis = _.apply(lambda x: sepsis_dict.get(x["sepsis"], "Unknown"), axis = 1)
+          )
 print(lb_df1)
 ```
+
+Same version with Pandas function
+
+```{python, message = FALSE, warning=FALSE}
+lb_df2 = \
+  raw_df.assign(
+          sex = _.apply(lambda x: sex_dict.get(x["sex"], "Unknown"), axis = 1),
+          breed = _.apply(lambda x: breed_dict.get(x["breed"], "Unknown"), axis = 1),
+          attd = _.apply(lambda x: attd_dict.get(x["attd"], "Unknown"), axis = 1),
+          eye = _.apply(lambda x: eye_dict.get(x["eye"], "Unknown"), axis = 1),
+          post = _.apply(lambda x: post_dict.get(x["post"], "Unknown"), axis = 1),
+          umb = _.apply(lambda x: umb_dict.get(x["umb"], "Unknown"), axis = 1),
+          sepsis = _.apply(lambda x: sepsis_dict.get(x["sepsis"], "Unknown"), axis = 1))
+print(lb_df2)
+```
+
 
 #### STATA
 
