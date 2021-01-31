@@ -2,6 +2,7 @@ basic-epidemiology
 about-the-book
 causual-concept
 experimental-versus-observational-evidence
+model-of-causation
 sampling
 measures-of-diseases-frequency
 measures-of-association
