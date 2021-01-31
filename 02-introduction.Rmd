@@ -322,7 +322,7 @@ lb_df1 = raw_df >> mutate(
                     sepsis = _.apply(lambda x: sepsis_dict.get(x["sepsis"], "NaN"), axis = 1))
 ```
 
-Same version with Pandas function
+You can do exactly same version with `assign` function from `pandas` library. The principle is same because `siuba` was developed inherited from `pandas`, but lighter and support for R users who are familiar with `tidyverse` ecosystem.
 
 ```{python, message = FALSE, warning = FALSE}
 lb_df2 =  raw_df.assign(
@@ -333,7 +333,7 @@ lb_df2 =  raw_df.assign(
                     post = _.apply(lambda x: post_dict.get(x["post"], "NaN"), axis = 1),
                     umb = _.apply(lambda x: umb_dict.get(x["umb"], "NaN"), axis = 1),
                     sepsis = _.apply(lambda x: sepsis_dict.get(x["sepsis"], "NaN"), axis = 1))
-print(lb_df, lb_df1, lb_df2)
+print(lb_df)
 ```
 
 
