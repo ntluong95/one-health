@@ -1,20 +1,20 @@
-# Basic Data analysis
+# Basic Data Analysis
 
 **OBJECTIVES**
 
 After reading this chapter, reader should be able to:
 
--   Construct a logical causal diagram based on your area of research interest as an aid to guiding your study design and analyses
+-   Understand the work flow and the concept of tidy data
 
--   Select the appropriate sampling strategy for a particular situation, taking into account the requirements, advantages and disadvantages of each method.
+-   Install and set up working environment for different languages and software, including R, Python and STATA in Rstudio IDE
 
--   Identify the different types of selection bias and assess whether or not a particular study is likely to suffer from excess selection bias.
+-   Understand the principles and steps of data manipulation and implement in R, Python and STATA.
 
--   Explain the different ways of measuring disease frequency and differentiate among counts, proportions, odds and rates.
+-   Perform basic descriptive statistics with R, Python and STATA such as mean, sd, frequency, statistical tests (Chi-squared, t-test, etc.)
 
--   Calculate and interpret the following measures of association: risk ratio, odds ratio, incidence rate ratio, risk difference (attributable risk), attributable fraction (exposed), population attributable risk, attributable fraction (population).
+-   Visualize data with ggplot2 package in R and matplotlib library in Python
 
--   Understand the strength and weaknesses of various study designs for the identification and evaluation of causal factors.
+-   Communicate your result with Rmarkdown or deploying a simple project with ShinyApp
 
 ## Introduction about work flow
 
