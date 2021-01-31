@@ -159,7 +159,7 @@ If you want to explore more robust command-line alternatives for Windows, the Wi
 
 There are several ways to import data, but the most preferred is from comma-separated values file (*.csv*). Other data types format you may normally see in your work are from text file (*.txt*), Excel spread sheets (*.xlsx*), STATA file (*.dta*), SPSS file (*.sav*), JavaScript Object Notation (*.json*), shapefile (*.shp*). In this tutorial, I will only concentrate on importing data from CSV file because of its ubiquitous in data analysis. We will use **calf** data set, you can download it [here](https://raw.githubusercontent.com/ntluong95/data/main/one-health/calf.csv).
 
-**Data set description**
+**Dataset description**
 
 These data come from a retrospective analysis of the medical records from all diarrheic calves which were presented to Atlantic Veterinary College, PEl, Canada between 1989 and 1993. There are 254 observations (records) and 14 variables in the dataset (calf):
 
@@ -287,7 +287,7 @@ You can view the result through function `view(lb_df)`, it will open the window 
 
 <center>
 
-![](docs/images/Screenshot%202021-01-30%20135810.png)
+![](docs/images/Screenshot%202021-01-30%20135810.png){width="2998"}
 
 </center>
 
@@ -336,7 +336,6 @@ lb_df2 =  raw_df.assign(
 print(lb_df)
 ```
 
-
 #### STATA
 
 ```{stata, collectcode=TRUE, cleanlog=FALSE, eval = FALSE}
@@ -381,7 +380,6 @@ label def sepsis 0 "No" 1 "Yes"
 label val sepsis sepsis
 ```
 
-
 ### Data transformation
 
 #### R
@@ -421,6 +419,80 @@ Together these properties make it easy to chain together multiple simple steps t
 ## Data visualization
 
 ## Communication with Rmarkdown
+
+R Markdown is an open-source tool for producing reproducible reports in R. It enables you to keep all of your code, results, plots, and writing in one place. R Markdown is particularly useful when you are producing a document for an audience that is interested in the results from your analysis, but not your code. In general, you can not only use Rmarkdown for your R code, but you can integrate many others, such as Python and STATA like what we are doing in this tutorial book.
+
+R Markdown is powerful because it can be used for data analysis and data science, collaborating with others, and communicating results to decision makers. With R Markdown, you have the option to export your work to numerous formats including PDF, Microsoft Word, a slideshow, or an HTML document for use in a website. You can find a comprehensive guide from the book: [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+
+<center>
+
+![](docs/images/Screenshot%202021-01-31%20215707.png)
+
+</center>
+
+### Start a document with Rmarkdown
+
+R Markdown is a free, open source tool that is installed like any other R package. Use the following command to install R Markdown:
+
+```{r eval=FALSE}
+install.packages("rmarkdown")
+```
+
+Now that R Markdown is installed, open a new R Markdown file in RStudio by navigating to *File \> New File \> R Markdown*. R Markdown files have the file extension ".Rmd". When you open a new R Markdown file in RStudio, a pop-up window appears that prompts you to select output format to use for the document. The default output format is HTML. With HTML, you can easily view it in a web browser.
+
+<center>
+
+![](docs/images/Screenshot%202021-01-31%20220339.png){width="669"}
+
+</center>
+
+### Rmarkdown document format
+
+Once you've selected the desired output format, an R Markdown document appears in your RStudio pane. But unlike an R script which is blank, this .Rmd document includes some formatting that might seem strange at first. Let's break it down.
+
+We've highlighted six different sections of this R Markdown document to understand what is going on:
+
+1.  YAML Header: Controls certain output settings that apply to the entire document.
+
+2.  Code Chunk: Includes code to run, and code-related options.
+
+3.  Body Text: For communicating results and findings to the targeted audience.
+
+4.  Code to Generate a Table: Outputs a table with minimal formatting like you would see in the console.
+
+5.  Section Header: Specified with `##`.
+
+6.  Code to Generate a Plot: Outputs a plot. Here, the code used to generate the plot will not be included because the parameter `echo=FALSE` is specified. This is a chunk option. We'll cover chunk options soon!
+
+<center>
+
+![](docs/images/Screenshot%202021-01-31%20222907.png){width="2938"}
+
+</center>
+
+This document is ready to output as-is. Let's "knit," or output, the document to see how these formatting specifications look in a rendered document. We do this in RStudio by clicking the knit button. Knitting the document generates an HTML document, because that's the output format we've specified. The shortcut to knit a document is `Command + Shift + K` on a Mac, or `Ctrl + Shift + K` on Linux and Windows. The "k" is short for "knit"!
+
+If you want to share your work to the internet, Rstudio provides a wonderful platform called *Rpubs*. To do this, after you knit your document, you click on the button *Publish document* on the top right, create an account on Rpubs and wait to see your results.
+
+### Control Behavior with Code Chunk Options
+
+One of the great things about R Markdown is that you have many options to control how each chunk of code is evaluated and presented. This allows you to build presentations and reports from the ground up --- including code, plots, tables, and images --- while only presenting the essential information to the intended audience. For example, you can include a plot of your results without showing the code used to generate it.
+
+Mastering code chunk options is essential to becoming a proficient R Markdown user. The best way to learn chunk options is to try them as you need them in your reports, so don't worry about memorizing all of this now. Here are the key chunk options to learn:
+
+-   `echo = FALSE`: Do not show code in the output, but run code and produce all outputs, plots, warnings and messages. The code chunk to generate a plot in the image below is an example of this.
+
+-   `eval = FALSE`: Show code, but do not evaluate it.
+
+-   `fig.show` = "hide": Hide plots.
+
+-   `include = FALSE`: Run code, but suppress all output. This is helpful for setup code. You can see an example of this in the top code chunk of the image below.
+
+-   `message = FALSE`: Prevent packages from printing messages when they load. This also suppress messages generated by functions.
+
+-   `results = "hide"`: Hides printed output.
+
+-   `warning = FALSE`: Prevents packages and functions from displaying warnings.
 
 ## ShinyApp
 

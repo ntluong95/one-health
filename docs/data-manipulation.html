@@ -179,7 +179,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="descriptive-statistics.html"><a href="descriptive-statistics.html"><i class="fa fa-check"></i><b>2.5</b> Descriptive statistics</a></li>
 <li class="chapter" data-level="2.6" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>2.6</b> Data visualization</a></li>
-<li class="chapter" data-level="2.7" data-path="communication-with-rmarkdown.html"><a href="communication-with-rmarkdown.html"><i class="fa fa-check"></i><b>2.7</b> Communication with Rmarkdown</a></li>
+<li class="chapter" data-level="2.7" data-path="communication-with-rmarkdown.html"><a href="communication-with-rmarkdown.html"><i class="fa fa-check"></i><b>2.7</b> Communication with Rmarkdown</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="communication-with-rmarkdown.html"><a href="communication-with-rmarkdown.html#start-a-document-with-rmarkdown"><i class="fa fa-check"></i><b>2.7.1</b> Start a document with Rmarkdown</a></li>
+<li class="chapter" data-level="2.7.2" data-path="communication-with-rmarkdown.html"><a href="communication-with-rmarkdown.html#rmarkdown-document-format"><i class="fa fa-check"></i><b>2.7.2</b> Rmarkdown document format</a></li>
+<li class="chapter" data-level="2.7.3" data-path="communication-with-rmarkdown.html"><a href="communication-with-rmarkdown.html#control-behavior-with-code-chunk-options"><i class="fa fa-check"></i><b>2.7.3</b> Control Behavior with Code Chunk Options</a></li>
+</ul></li>
 <li class="chapter" data-level="2.8" data-path="shinyapp.html"><a href="shinyapp.html"><i class="fa fa-check"></i><b>2.8</b> ShinyApp</a></li>
 <li class="chapter" data-level="2.9" data-path="a-structred-approach-to-data-analysis.html"><a href="a-structred-approach-to-data-analysis.html"><i class="fa fa-check"></i><b>2.9</b> A structred approach to data analysis</a></li>
 </ul></li>
@@ -253,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="import-file" class="section level3" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Import file</h3>
 <p>There are several ways to import data, but the most preferred is from comma-separated values file (<em>.csv</em>). Other data types format you may normally see in your work are from text file (<em>.txt</em>), Excel spread sheets (<em>.xlsx</em>), STATA file (<em>.dta</em>), SPSS file (<em>.sav</em>), JavaScript Object Notation (<em>.json</em>), shapefile (<em>.shp</em>). In this tutorial, I will only concentrate on importing data from CSV file because of its ubiquitous in data analysis. We will use <strong>calf</strong> data set, you can download it <a href="https://raw.githubusercontent.com/ntluong95/data/main/one-health/calf.csv">here</a>.</p>
-<p><strong>Data set description</strong></p>
+<p><strong>Dataset description</strong></p>
 <p>These data come from a retrospective analysis of the medical records from all diarrheic calves which were presented to Atlantic Veterinary College, PEl, Canada between 1989 and 1993. There are 254 observations (records) and 14 variables in the dataset (calf):</p>
 <table>
 <colgroup>
@@ -463,7 +468,7 @@ Sorted by:
 <span id="cb17-8"><a href="data-manipulation.html#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">sepsis =</span> <span class="st">&quot;sepsis&quot;</span>)</span></code></pre></div>
 <p>You can view the result through function <code>view(lb_df)</code>, it will open the window like this:</p>
 <center>
-<p><img src="docs/images/Screenshot%202021-01-30%20135810.png" /></p>
+<p><img src="docs/images/Screenshot%202021-01-30%20135810.png" width="2998" /></p>
 </center>
 </div>
 <div id="python-1" class="section level4" number="2.4.2.2">

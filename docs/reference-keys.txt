@@ -34,6 +34,9 @@ stata-2
 descriptive-statistics
 data-visualization
 communication-with-rmarkdown
+start-a-document-with-rmarkdown
+rmarkdown-document-format
+control-behavior-with-code-chunk-options
 shinyapp
 a-structred-approach-to-data-analysis
 regression-models

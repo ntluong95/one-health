@@ -179,7 +179,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="descriptive-statistics.html"><a href="descriptive-statistics.html"><i class="fa fa-check"></i><b>2.5</b> Descriptive statistics</a></li>
 <li class="chapter" data-level="2.6" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>2.6</b> Data visualization</a></li>
-<li class="chapter" data-level="2.7" data-path="communication-with-rmarkdown.html"><a href="communication-with-rmarkdown.html"><i class="fa fa-check"></i><b>2.7</b> Communication with Rmarkdown</a></li>
+<li class="chapter" data-level="2.7" data-path="communication-with-rmarkdown.html"><a href="communication-with-rmarkdown.html"><i class="fa fa-check"></i><b>2.7</b> Communication with Rmarkdown</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="communication-with-rmarkdown.html"><a href="communication-with-rmarkdown.html#start-a-document-with-rmarkdown"><i class="fa fa-check"></i><b>2.7.1</b> Start a document with Rmarkdown</a></li>
+<li class="chapter" data-level="2.7.2" data-path="communication-with-rmarkdown.html"><a href="communication-with-rmarkdown.html#rmarkdown-document-format"><i class="fa fa-check"></i><b>2.7.2</b> Rmarkdown document format</a></li>
+<li class="chapter" data-level="2.7.3" data-path="communication-with-rmarkdown.html"><a href="communication-with-rmarkdown.html#control-behavior-with-code-chunk-options"><i class="fa fa-check"></i><b>2.7.3</b> Control Behavior with Code Chunk Options</a></li>
+</ul></li>
 <li class="chapter" data-level="2.8" data-path="shinyapp.html"><a href="shinyapp.html"><i class="fa fa-check"></i><b>2.8</b> ShinyApp</a></li>
 <li class="chapter" data-level="2.9" data-path="a-structred-approach-to-data-analysis.html"><a href="a-structred-approach-to-data-analysis.html"><i class="fa fa-check"></i><b>2.9</b> A structred approach to data analysis</a></li>
 </ul></li>
@@ -250,6 +255,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="communication-with-rmarkdown" class="section level2" number="2.7">
 <h2><span class="header-section-number">2.7</span> Communication with Rmarkdown</h2>
+<p>R Markdown is an open-source tool for producing reproducible reports in R. It enables you to keep all of your code, results, plots, and writing in one place. R Markdown is particularly useful when you are producing a document for an audience that is interested in the results from your analysis, but not your code. In general, you can not only use Rmarkdown for your R code, but you can integrate many others, such as Python and STATA like what we are doing in this tutorial book.</p>
+<p>R Markdown is powerful because it can be used for data analysis and data science, collaborating with others, and communicating results to decision makers. With R Markdown, you have the option to export your work to numerous formats including PDF, Microsoft Word, a slideshow, or an HTML document for use in a website. You can find a comprehensive guide from the book: <a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definitive Guide</a></p>
+<center>
+<p><img src="docs/images/Screenshot%202021-01-31%20215707.png" /></p>
+</center>
+<div id="start-a-document-with-rmarkdown" class="section level3" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> Start a document with Rmarkdown</h3>
+<p>R Markdown is a free, open source tool that is installed like any other R package. Use the following command to install R Markdown:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="communication-with-rmarkdown.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span></code></pre></div>
+<p>Now that R Markdown is installed, open a new R Markdown file in RStudio by navigating to <em>File &gt; New File &gt; R Markdown</em>. R Markdown files have the file extension “.Rmd”. When you open a new R Markdown file in RStudio, a pop-up window appears that prompts you to select output format to use for the document. The default output format is HTML. With HTML, you can easily view it in a web browser.</p>
+<center>
+<p><img src="docs/images/Screenshot%202021-01-31%20220339.png" width="669" /></p>
+</center>
+</div>
+<div id="rmarkdown-document-format" class="section level3" number="2.7.2">
+<h3><span class="header-section-number">2.7.2</span> Rmarkdown document format</h3>
+<p>Once you’ve selected the desired output format, an R Markdown document appears in your RStudio pane. But unlike an R script which is blank, this .Rmd document includes some formatting that might seem strange at first. Let’s break it down.</p>
+<p>We’ve highlighted six different sections of this R Markdown document to understand what is going on:</p>
+<ol style="list-style-type: decimal">
+<li><p>YAML Header: Controls certain output settings that apply to the entire document.</p></li>
+<li><p>Code Chunk: Includes code to run, and code-related options.</p></li>
+<li><p>Body Text: For communicating results and findings to the targeted audience.</p></li>
+<li><p>Code to Generate a Table: Outputs a table with minimal formatting like you would see in the console.</p></li>
+<li><p>Section Header: Specified with <code>##</code>.</p></li>
+<li><p>Code to Generate a Plot: Outputs a plot. Here, the code used to generate the plot will not be included because the parameter <code>echo=FALSE</code> is specified. This is a chunk option. We’ll cover chunk options soon!</p></li>
+</ol>
+<center>
+<p><img src="docs/images/Screenshot%202021-01-31%20222907.png" width="2938" /></p>
+</center>
+<p>This document is ready to output as-is. Let’s “knit,” or output, the document to see how these formatting specifications look in a rendered document. We do this in RStudio by clicking the knit button. Knitting the document generates an HTML document, because that’s the output format we’ve specified. The shortcut to knit a document is <code>Command + Shift + K</code> on a Mac, or <code>Ctrl + Shift + K</code> on Linux and Windows. The “k” is short for “knit”!</p>
+<p>If you want to share your work to the internet, Rstudio provides a wonderful platform called <em>Rpubs</em>. To do this, after you knit your document, you click on the button <em>Publish document</em> on the top right, create an account on Rpubs and wait to see your results.</p>
+</div>
+<div id="control-behavior-with-code-chunk-options" class="section level3" number="2.7.3">
+<h3><span class="header-section-number">2.7.3</span> Control Behavior with Code Chunk Options</h3>
+<p>One of the great things about R Markdown is that you have many options to control how each chunk of code is evaluated and presented. This allows you to build presentations and reports from the ground up — including code, plots, tables, and images — while only presenting the essential information to the intended audience. For example, you can include a plot of your results without showing the code used to generate it.</p>
+<p>Mastering code chunk options is essential to becoming a proficient R Markdown user. The best way to learn chunk options is to try them as you need them in your reports, so don’t worry about memorizing all of this now. Here are the key chunk options to learn:</p>
+<ul>
+<li><p><code>echo = FALSE</code>: Do not show code in the output, but run code and produce all outputs, plots, warnings and messages. The code chunk to generate a plot in the image below is an example of this.</p></li>
+<li><p><code>eval = FALSE</code>: Show code, but do not evaluate it.</p></li>
+<li><p><code>fig.show</code> = “hide”: Hide plots.</p></li>
+<li><p><code>include = FALSE</code>: Run code, but suppress all output. This is helpful for setup code. You can see an example of this in the top code chunk of the image below.</p></li>
+<li><p><code>message = FALSE</code>: Prevent packages from printing messages when they load. This also suppress messages generated by functions.</p></li>
+<li><p><code>results = "hide"</code>: Hides printed output.</p></li>
+<li><p><code>warning = FALSE</code>: Prevents packages and functions from displaying warnings.</p></li>
+</ul>
+</div>
 </div>
             </section>
 
