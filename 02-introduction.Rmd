@@ -257,7 +257,7 @@ describe
 
 #### R
 
-To **label for value of variables** in dataset, you can use function `mututate` to create new varibales (will present in details later) combining with `factor` function. Remember that you can only do that for categorical variables, in R they is storaged as *factor* data. Noted that the operation `|>` means *forwarding*. It is R native piping, similar to `%>%` if you know `magrittr` package
+To **label for value of variables** in dataset, you can use function `mutate` to create new varibales (will present in details later) combining with `factor` function. Remember that you can only do that for categorical variables, in R they is storaged as *factor* data. Noted that the operation `|>` means *forwarding*. It is R native piping, similar to `%>%` if you know `magrittr` package
 
 ```{r, message = FALSE, warning=FALSE}
 lb_df <- raw_df |> 
@@ -484,7 +484,7 @@ Mastering code chunk options is essential to becoming a proficient R Markdown us
 
 -   `eval = FALSE`: Show code, but do not evaluate it.
 
--   `fig.show` = "hide": Hide plots.
+-   `fig.show = "hide"`: Hide plots.
 
 -   `include = FALSE`: Run code, but suppress all output. This is helpful for setup code. You can see an example of this in the top code chunk of the image below.
 
