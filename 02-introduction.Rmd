@@ -496,4 +496,12 @@ Mastering code chunk options is essential to becoming a proficient R Markdown us
 
 ## ShinyApp
 
+https://blog.rstudio.com/2021/02/01/shiny-1-6-0/
+
+https://www.youtube.com/watch?v=wSYt4IYIsdI
+
+https://yakdata.com/ultimate-guide-r-shiny-app-dashboards-2021/
+
+https://github.com/nanxstats/awesome-shiny-extensions
+
 ## A structred approach to data analysis

@@ -77,11 +77,11 @@ With a number of possible causal variables, the cause-and-effect relationships a
 
 ![Association between Maternal Obesity and Child Respiratory Outcomes](docs/images/preview.jpg)
 
+[Red arrows:]{style="color:#f33842"} open biasing paths; *Green arrows:* open causal paths;
+
+[Pink oval:]{style="color:#fb8b91"} ancestor of exposure; [Blue ovals:]{style="color:#43aee6"} ancestor of outcome.
+
 </center>
-
-*Red arrows:* open biasing paths; *Green arrows:* open causal paths;
-
-*Pink oval:* ancestor of exposure; *Blue ovals:* ancestor of outcome.
 
 ### Causal criteria
 
@@ -109,7 +109,19 @@ Coherence requires that the observed association is explicable in terms of what 
 
 **Consistency**
 
-If the same association is found in different studies by different workers, this gives support to causality. Lack of consistency doesn't mean that we should ignore the results of the first study on a subject, but we should temper our interpretation of the results until they are repeated. This would prevent a lot of false positive scares in both human and veterinary medicine..
+If the same association is found in different studies by different workers, this gives support to causality. Lack of consistency doesn't mean that we should ignore the results of the first study on a subject, but we should temper our interpretation of the results until they are repeated. This would prevent a lot of false positive scares in both human and veterinary medicine.
+
+**Specificity of association**
+
+It used to be thought that, if a factor was associated with only one disease, it was more likely causal than a factor that was associated with numerous disease outcomes.
+
+**Analogy**
+
+This is not a very important criterion for assessing causation, although there are examples of its being used to good purpose. This approach tends to be used to infer relationships in cases of human diseases based on experimental results in other animal species.
+
+**Experimental evidence**
+
+This criterion perhaps relates partly to biological plausibility and partly to the additional control that is exerted in weIl-designed experiments. We tend to place more importance on experimental evidence if the same target species is used and the routes of challenge, or nature of the treatment are in line with what one might expect under field conditions. Experimental evidence from other species in more contrived settings is given less weight in our assessment of causation. Indeed, the experimental approach is just another way to test the hypothesis, so this is not really a distinct criterion for causation in its own right.
 
 ## Sampling
 
