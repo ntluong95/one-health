@@ -508,21 +508,22 @@ Sorted by:
 <span id="cb20-6"><a href="data-manipulation.html#cb20-6" aria-hidden="true" tabindex="-1"></a>                    post <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: post_dict.get(x[<span class="st">&quot;post&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
 <span id="cb20-7"><a href="data-manipulation.html#cb20-7" aria-hidden="true" tabindex="-1"></a>                    umb <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: umb_dict.get(x[<span class="st">&quot;umb&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
 <span id="cb20-8"><a href="data-manipulation.html#cb20-8" aria-hidden="true" tabindex="-1"></a>                    sepsis <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sepsis_dict.get(x[<span class="st">&quot;sepsis&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>))</span>
-<span id="cb20-9"><a href="data-manipulation.html#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lb_df)</span></code></pre></div>
-<pre><code>       case   age      breed     sex  ...   resp  temp  umb  sepsis
-0    1670.0   5.0   Hereford    Male  ...    NaN  37.6   No      No
-1    8124.0   3.0   Holstein  Female  ...  120.0  39.2   No      No
-2    6954.0   2.0      Angus    Male  ...    NaN   NaN  Yes     Yes
-3    2737.0   3.0  Shorthorn    Male  ...   40.0  38.6   No      No
-4    5341.0   3.0  Charolais  Female  ...   48.0  38.6  Yes     Yes
-..      ...   ...        ...     ...  ...    ...   ...  ...     ...
-249  4870.0   1.0      Other  Female  ...   48.0  39.3  Yes     Yes
-250  9805.0   3.0      Other  Female  ...   28.0  39.0   No      No
-251  4869.0   2.0      Other  Female  ...   30.0  39.3   No      No
-252  2926.0   3.0      Other  Female  ...   70.0  39.8   No      No
-253  4186.0  25.0      Other  Female  ...    NaN  39.7  NaN      No
-
-[254 rows x 14 columns]</code></pre>
+<span id="cb20-9"><a href="data-manipulation.html#cb20-9" aria-hidden="true" tabindex="-1"></a>glimpse(lb_df)</span></code></pre></div>
+<pre><code>Shape:  (254, 14)
+case   float64   0 (0%) NAs : 1670.0, 8124.0, 6954.0, 2737.0, 5341.0, 6749.0, 3234.0, 2325.0, 2925.0, 7108.0
+age    float64   1 (0%) NAs : 5.0, 3.0, 2.0, 3.0, 3.0, 10.0, 4.0, 14.0, 4.0, 8.0
+breed  category  0 (0%) NAs : Hereford, Holstein, Angus, Shorthorn, Charolais, Simmental, Limousin, Crossbreed
+sex    category  2 (1%) NAs : Male, Female, Male, Male, Female, Female, Female, Female, Female, Female
+attd   category  6 (2%) NAs : unresponsive, comatose, depressed, unresponsive, comatose, depressed, depressed,
+dehy   float64  14 (6%) NAs : 12.0, 13.5, nan, 5.0, 0.0, 5.5, 7.0, 7.0, 5.0, 10.0
+eye    category 18 (7%) NAs : nan, No, Yes, No, No, No, No, No, No, No
+jnts   float64  11 (4%) NAs : 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0
+post   category  6 (2%) NAs : lateral, standing, lateral, standing, sternal, standing, lateral, standing, stan
+pulse  float64   9 (4%) NAs : nan, 130.0, nan, 132.0, 128.0, 160.0, 180.0, 100.0, 150.0, 120.0
+resp   float64  19 (7%) NAs : nan, 120.0, nan, 40.0, 48.0, 48.0, 84.0, 20.0, 52.0, 68.0
+temp   float64   7 (3%) NAs : 37.6, 39.2, nan, 38.6, 38.6, 39.6, 39.0, 35.0, 39.5, 37.8
+umb    category 11 (4%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No
+sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></pre>
 </div>
 <div id="stata-1" class="section level4" number="2.4.2.3">
 <h4><span class="header-section-number">2.4.2.3</span> STATA</h4>
