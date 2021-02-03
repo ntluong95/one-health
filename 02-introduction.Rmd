@@ -328,17 +328,27 @@ You can view the result through function `view(lb_df)`, it will open the window 
 
 #### Python
 
-Python doesn't support to handle with labelled data, or complicated to do. One simple solution is we do it in R and then pass to Pandas data frame by calling function `r.`
+Python doesn't support to handle with labelled data, or complicated to do. One simple solution is we do it in R and then pass to Pandas data frame by calling function `r.`. Noted: You should convert all factor variables into character variables before transforming.
 
-```{python, message = FALSE, warning=FALSE}
-lb_df = r.lb_df
+```{r, message = FALSE, warning=FALSE}
+lb_df1 <- lb_df |> mutate_if(is.factor, as.character)
 ```
 
-If you still want to try, an alternative is creating a dictionary that contain all value of variables. Then using `mutate` function from `siuba` library which is similar to `dplyr` library in R Tidyverse to mutate new variable
+If needed, you should also convert all object variables into category variables in pandas dataframe
 
 ```{python, message = FALSE, warning=FALSE}
-breed_dict = {1 : "Hereford", 2 : "Holstein", 3 : "Angus", 4 : "Shorthorn", \
-              5 : "Charolais", 6: "Simmental", 7 : "Limousin", 8: "Crossbreed", 9 : "Other"}
+lb_df = r.lb_df1
+
+lb_df.loc[:, lb_df.dtypes == 'object'] =(lb_df.select_dtypes(['object'])
+                                              .apply(lambda x: x.astype('category')))
+glimpse(lb_df)                                            
+```
+
+If you still want to try to handle purerly Python code, an alternative is creating a dictionary that contain all value of variables. Then using `mutate` function from `siuba` library which is similar to `dplyr` library in R Tidyverse to mutate new variable
+
+```{python, message = FALSE, warning=FALSE}
+breed_dict = ({1 : "Hereford", 2 : "Holstein", 3 : "Angus", 4 : "Shorthorn",
+              5 : "Charolais", 6: "Simmental", 7 : "Limousin", 8: "Crossbreed", 9 : "Other"})
 sex_dict = {0 : "Female", 1 : "Male"}
 attd_dict = {0 : "bright, alert", 1: "depressed", 2: "unresponsive, comatose"}
 eye_dict = {0 : "No", 1 : "Yes"}
@@ -368,7 +378,7 @@ lb_df2 =  raw_df.assign(
                     post = _.apply(lambda x: post_dict.get(x["post"], "NaN"), axis = 1),
                     umb = _.apply(lambda x: umb_dict.get(x["umb"], "NaN"), axis = 1),
                     sepsis = _.apply(lambda x: sepsis_dict.get(x["sepsis"], "NaN"), axis = 1))
-glimpse(lb_df)
+
 ```
 
 #### STATA
