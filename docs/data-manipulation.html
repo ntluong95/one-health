@@ -693,7 +693,7 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 # ... with 244 more rows, and 2 more variables: temp &lt;dbl&gt;, umb &lt;fct&gt;</code></pre>
 <p>You can see now <code>sepsis</code> and <code>sex</code> variable is moved to column first and second of the dataframe.</p>
 <p><strong>Add new variable with <code>mutate()</code></strong></p>
-<p><code>mutate()</code> always adds new columns at the end of your dataset so we’ll start by creating a narrower dataset so we can see the new variables.</p>
+<p>Note: <code>mutate()</code> always adds new columns at the end of your dataset.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="data-manipulation.html#cb34-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
 <span id="cb34-2"><a href="data-manipulation.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case<span class="sc">:</span>dehy) <span class="sc">|</span><span class="er">&gt;</span> </span>
 <span id="cb34-3"><a href="data-manipulation.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -701,24 +701,131 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 <span id="cb34-5"><a href="data-manipulation.html#cb34-5" aria-hidden="true" tabindex="-1"></a>                      age <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> age <span class="sc">&lt;</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">&quot;Group B&quot;</span>,</span>
 <span id="cb34-6"><a href="data-manipulation.html#cb34-6" aria-hidden="true" tabindex="-1"></a>                      age <span class="sc">&gt;=</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">&quot;Group C&quot;</span>),</span>
 <span id="cb34-7"><a href="data-manipulation.html#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_breed =</span> <span class="fu">case_when</span>(breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Holstein&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Shorthorn&quot;</span>) <span class="sc">~</span> <span class="st">&quot;Breed A&quot;</span>,</span>
-<span id="cb34-8"><a href="data-manipulation.html#cb34-8" aria-hidden="true" tabindex="-1"></a>                          breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Charolais&quot;</span>, <span class="st">&quot;Simmental&quot;</span>, <span class="st">&quot;Limousin&quot;</span>, <span class="st">&quot;Crossbreed&quot;</span>, <span class="st">&quot;Other&quot;</span>) <span class="sc">~</span> <span class="st">&quot;Breed B&quot;</span>))</span></code></pre></div>
-<pre><code># A tibble: 254 x 8
-    case   age breed      sex    attd                    dehy agegr   new_breed
-   &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;  &lt;fct&gt;                  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    
- 1  1670     5 Hereford   Male   unresponsive, comatose  12   Group A Breed A  
- 2  8124     3 Holstein   Female depressed               13.5 Group A Breed A  
- 3  6954     2 Angus      Male   unresponsive, comatose  NA   Group A Breed A  
- 4  2737     3 Shorthorn  Male   depressed                5   Group A Breed A  
- 5  5341     3 Charolais  Female depressed                0   Group A Breed B  
- 6  6749    10 Simmental  Female depressed                5.5 Group B Breed B  
- 7  3234     4 Limousin   Female unresponsive, comatose   7   Group A Breed B  
- 8  2325    14 Crossbreed Female depressed                7   Group B Breed B  
- 9  2925     4 Other      Female depressed                5   Group A Breed B  
-10  7108     8 Hereford   Female unresponsive, comatose  10   Group A Breed A  
+<span id="cb34-8"><a href="data-manipulation.html#cb34-8" aria-hidden="true" tabindex="-1"></a>                          breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Charolais&quot;</span>, <span class="st">&quot;Simmental&quot;</span>, <span class="st">&quot;Limousin&quot;</span>, <span class="st">&quot;Crossbreed&quot;</span>, <span class="st">&quot;Other&quot;</span>) <span class="sc">~</span> <span class="st">&quot;Breed B&quot;</span>),</span>
+<span id="cb34-9"><a href="data-manipulation.html#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">test =</span> <span class="fu">ifelse</span>((age <span class="sc">+</span> dehy) <span class="sc">&gt;=</span> <span class="dv">20</span>, <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>))</span></code></pre></div>
+<pre><code># A tibble: 254 x 9
+    case   age breed     sex    attd                 dehy agegr  new_breed test 
+   &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;fct&gt;               &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;
+ 1  1670     5 Hereford  Male   unresponsive, coma~  12   Group~ Breed A   No   
+ 2  8124     3 Holstein  Female depressed            13.5 Group~ Breed A   No   
+ 3  6954     2 Angus     Male   unresponsive, coma~  NA   Group~ Breed A   &lt;NA&gt; 
+ 4  2737     3 Shorthorn Male   depressed             5   Group~ Breed A   No   
+ 5  5341     3 Charolais Female depressed             0   Group~ Breed B   No   
+ 6  6749    10 Simmental Female depressed             5.5 Group~ Breed B   No   
+ 7  3234     4 Limousin  Female unresponsive, coma~   7   Group~ Breed B   No   
+ 8  2325    14 Crossbre~ Female depressed             7   Group~ Breed B   Yes  
+ 9  2925     4 Other     Female depressed             5   Group~ Breed B   No   
+10  7108     8 Hereford  Female unresponsive, coma~  10   Group~ Breed A   No   
 # ... with 244 more rows</code></pre>
+<p>Use can also use <code>mutate_all</code>, <code>mutate_at</code> and <code>mutate_if</code> for specific conditions:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="data-manipulation.html#cb36-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span></span>
+<span id="cb36-2"><a href="data-manipulation.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  raw <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="data-manipulation.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Remove non Unicode characters</span></span>
+<span id="cb36-4"><a href="data-manipulation.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(</span>
+<span id="cb36-5"><a href="data-manipulation.html#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.tbl =</span> raw,</span>
+<span id="cb36-6"><a href="data-manipulation.html#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.funs =</span> <span class="sc">~</span> stringi<span class="sc">::</span><span class="fu">stri_trans_general</span>(.,<span class="st">&quot;Latin-ASCII&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-7"><a href="data-manipulation.html#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Create variables with similar structure  </span></span>
+<span id="cb36-8"><a href="data-manipulation.html#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(</span>
+<span id="cb36-9"><a href="data-manipulation.html#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.vars =</span> <span class="fu">vars</span>(b1a1, b1a2, b1b1, b1b2),</span>
+<span id="cb36-10"><a href="data-manipulation.html#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.funs =</span> <span class="sc">~</span> <span class="fu">as_factor</span>(haven<span class="sc">::</span><span class="fu">labelled</span>(., <span class="fu">c</span>(</span>
+<span id="cb36-11"><a href="data-manipulation.html#cb36-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Chua bao gio&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Hiem khi&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>, <span class="st">&quot;Thinh thoang&quot;</span> <span class="ot">=</span> <span class="st">&quot;3&quot;</span>,</span>
+<span id="cb36-12"><a href="data-manipulation.html#cb36-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Thuong xuyen&quot;</span> <span class="ot">=</span> <span class="st">&quot;4&quot;</span>, <span class="st">&quot;Luon luon&quot;</span> <span class="ot">=</span> <span class="st">&quot;5&quot;</span>)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-13"><a href="data-manipulation.html#cb36-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Convert haven_labelled variables to factors ----</span></span>
+<span id="cb36-14"><a href="data-manipulation.html#cb36-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(haven<span class="sc">::</span>is.labelled, haven<span class="sc">::</span>as_factor)</span></code></pre></div>
 </div>
 <div id="python-2" class="section level4" number="2.4.3.2">
 <h4><span class="header-section-number">2.4.3.2</span> Python</h4>
+<p>Similarly, Python <code>pandas</code> also support functions to manipulate data like R. In this section, we also learn how to use alternative approach, using <code>siuba</code> library to mimic <code>dpylr</code> packge in R.</p>
+<ul>
+<li><p>Pick observations by their values <code>.loc[]</code>.</p></li>
+<li><p>Reorder the rows <code>.sort_values()</code>.</p></li>
+<li><p>Pick variables by their names <code>.loc[]</code>.</p></li>
+<li><p>Create new variables with functions of existing variables <code>.assign()</code>.</p></li>
+<li><p>Collapse many values down to a single summary <code>summarise()</code>.</p></li>
+</ul>
+<p>These can all be used in conjunction with <code>.groupby()</code> which changes the scope of each function from operating on the entire dataset to operating on it group-by-group. These six functions provide the verbs for a language of data manipulation.</p>
+<p><strong>Filter row with <code>.loc[]</code></strong></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="data-manipulation.html#cb37-1" aria-hidden="true" tabindex="-1"></a>lb_df.loc[(_.sex <span class="op">==</span> <span class="st">&quot;Male&quot;</span>) <span class="op">&amp;</span> (_.age <span class="op">&gt;=</span> <span class="dv">5</span>) <span class="op">&amp;</span> (_.breed.isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simental&quot;</span>]))]</span></code></pre></div>
+<pre><code>       case   age     breed   sex  ...  resp  temp  umb  sepsis
+0    1670.0   5.0  Hereford  Male  ...   NaN  37.6   No      No
+10   3600.0  19.0  Hereford  Male  ...  32.0  39.3   No      No
+11   1599.0   7.0  Hereford  Male  ...  20.0  39.0   No      No
+16   1619.0   7.0  Hereford  Male  ...  32.0  37.0  Yes      No
+17   1586.0   8.0  Hereford  Male  ...  36.0  36.0   No      No
+18   5206.0  12.0  Hereford  Male  ...  24.0  37.8   No     Yes
+19   7173.0   7.0  Hereford  Male  ...  42.0  39.5   No     Yes
+21   3021.0   6.0  Hereford  Male  ...  24.0  39.3   No     Yes
+23   4938.0  18.0  Hereford  Male  ...  40.0  36.5   No      No
+24   9005.0   7.0  Hereford  Male  ...  60.0   NaN   No     Yes
+25   1587.0   7.0  Hereford  Male  ...  40.0  40.0  Yes     Yes
+26   3167.0  12.0  Hereford  Male  ...  32.0  38.4   No      No
+27   3140.0  10.0  Hereford  Male  ...  30.0  35.2  Yes      No
+30   8868.0   7.0  Hereford  Male  ...  21.0  37.8   No      No
+36   9907.0   8.0  Hereford  Male  ...  40.0  37.1   No      No
+92   1494.0   8.0     Angus  Male  ...  24.0  35.4  Yes     Yes
+95   5319.0   7.0     Angus  Male  ...   NaN  38.2   No      No
+97   4960.0   5.0     Angus  Male  ...  52.0  38.5  Yes     Yes
+98   5113.0   8.0     Angus  Male  ...  28.0  37.9   No      No
+102  6940.0   8.0     Angus  Male  ...  20.0  36.2   No      No
+103  7169.0   8.0     Angus  Male  ...  30.0  39.4   No      No
+
+[21 rows x 14 columns]</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="data-manipulation.html#cb39-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> <span class="bu">filter</span>(_.sex <span class="op">==</span> <span class="st">&quot;Male&quot;</span>, _.age <span class="op">&gt;=</span> <span class="dv">5</span>, _.breed.isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simental&quot;</span>]))</span></code></pre></div>
+<pre><code>       case   age     breed   sex  ...  resp  temp  umb  sepsis
+0    1670.0   5.0  Hereford  Male  ...   NaN  37.6   No      No
+10   3600.0  19.0  Hereford  Male  ...  32.0  39.3   No      No
+11   1599.0   7.0  Hereford  Male  ...  20.0  39.0   No      No
+16   1619.0   7.0  Hereford  Male  ...  32.0  37.0  Yes      No
+17   1586.0   8.0  Hereford  Male  ...  36.0  36.0   No      No
+18   5206.0  12.0  Hereford  Male  ...  24.0  37.8   No     Yes
+19   7173.0   7.0  Hereford  Male  ...  42.0  39.5   No     Yes
+21   3021.0   6.0  Hereford  Male  ...  24.0  39.3   No     Yes
+23   4938.0  18.0  Hereford  Male  ...  40.0  36.5   No      No
+24   9005.0   7.0  Hereford  Male  ...  60.0   NaN   No     Yes
+25   1587.0   7.0  Hereford  Male  ...  40.0  40.0  Yes     Yes
+26   3167.0  12.0  Hereford  Male  ...  32.0  38.4   No      No
+27   3140.0  10.0  Hereford  Male  ...  30.0  35.2  Yes      No
+30   8868.0   7.0  Hereford  Male  ...  21.0  37.8   No      No
+36   9907.0   8.0  Hereford  Male  ...  40.0  37.1   No      No
+92   1494.0   8.0     Angus  Male  ...  24.0  35.4  Yes     Yes
+95   5319.0   7.0     Angus  Male  ...   NaN  38.2   No      No
+97   4960.0   5.0     Angus  Male  ...  52.0  38.5  Yes     Yes
+98   5113.0   8.0     Angus  Male  ...  28.0  37.9   No      No
+102  6940.0   8.0     Angus  Male  ...  20.0  36.2   No      No
+103  7169.0   8.0     Angus  Male  ...  30.0  39.4   No      No
+
+[21 rows x 14 columns]</code></pre>
+<p><strong>Arrange rows with <code>.sort_values()</code></strong></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="data-manipulation.html#cb41-1" aria-hidden="true" tabindex="-1"></a>lb_df.sort_values(by <span class="op">=</span> <span class="st">&quot;case&quot;</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
+<pre><code>        case   age       breed     sex  ...  resp  temp  umb  sepsis
+64   10354.0   5.0    Holstein  Female  ...  28.0  39.7   No      No
+50   10222.0   8.0    Holstein  Female  ...  60.0  38.8   No      No
+56   10179.0   3.0    Holstein  Female  ...  90.0  39.6   No     Yes
+55   10158.0   5.0    Holstein  Female  ...  42.0  39.1  Yes     Yes
+36    9907.0   8.0    Hereford    Male  ...  40.0  37.1   No      No
+..       ...   ...         ...     ...  ...   ...   ...  ...     ...
+40    1321.0  14.0    Holstein  Female  ...  28.0  36.5   No      No
+233   1320.0   6.0  Crossbreed  Female  ...  20.0  39.3   No      No
+86    1314.0  12.0    Holstein  Female  ...   NaN  36.1   No      No
+240   1303.0   8.0  Crossbreed    Male  ...  24.0  38.5  Yes     Yes
+12    1294.0   6.0    Hereford  Female  ...  20.0  40.0   No      No
+
+[254 rows x 14 columns]</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="data-manipulation.html#cb43-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> arrange(<span class="op">-</span>_.case) <span class="co">#&quot;-&quot; means sort in descending</span></span></code></pre></div>
+<pre><code>        case   age       breed     sex  ...  resp  temp  umb  sepsis
+64   10354.0   5.0    Holstein  Female  ...  28.0  39.7   No      No
+50   10222.0   8.0    Holstein  Female  ...  60.0  38.8   No      No
+56   10179.0   3.0    Holstein  Female  ...  90.0  39.6   No     Yes
+55   10158.0   5.0    Holstein  Female  ...  42.0  39.1  Yes     Yes
+36    9907.0   8.0    Hereford    Male  ...  40.0  37.1   No      No
+..       ...   ...         ...     ...  ...   ...   ...  ...     ...
+40    1321.0  14.0    Holstein  Female  ...  28.0  36.5   No      No
+233   1320.0   6.0  Crossbreed  Female  ...  20.0  39.3   No      No
+86    1314.0  12.0    Holstein  Female  ...   NaN  36.1   No      No
+240   1303.0   8.0  Crossbreed    Male  ...  24.0  38.5  Yes     Yes
+12    1294.0   6.0    Hereford  Female  ...  20.0  40.0   No      No
+
+[254 rows x 14 columns]</code></pre>
 </div>
 <div id="stata-2" class="section level4" number="2.4.3.3">
 <h4><span class="header-section-number">2.4.3.3</span> STATA</h4>

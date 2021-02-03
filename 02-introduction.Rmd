@@ -503,7 +503,7 @@ lb_df |>
   dplyr::rename(id = case)
 ```
 
-Another option is to use `select()` in conjunction with the `everything()` helper. This is useful if you have a handful of variables you’d like to move to the start of the data frame.
+Another option is to use `select()` in conjunction with the `everything()` helper. This is useful if you have a handful of variables you'd like to move to the start of the data frame.
 
 ```{r, message = FALSE, warning=FALSE}
 lb_df |>
@@ -514,7 +514,7 @@ You can see now `sepsis` and `sex` variable is moved to column first and second 
 
 **Add new variable with `mutate()`**
 
-`mutate()` always adds new columns at the end of your dataset so we’ll start by creating a narrower dataset so we can see the new variables. 
+Note: `mutate()` always adds new columns at the end of your dataset.
 
 ```{r, message = FALSE, warning=FALSE}
 lb_df |>
@@ -524,11 +524,61 @@ lb_df |>
                       age >= 10 & age < 15 ~ "Group B",
                       age >= 15 ~ "Group C"),
     new_breed = case_when(breed %in% c("Hereford", "Holstein", "Angus", "Shorthorn") ~ "Breed A",
-                          breed %in% c("Charolais", "Simmental", "Limousin", "Crossbreed", "Other") ~ "Breed B"))
+                          breed %in% c("Charolais", "Simmental", "Limousin", "Crossbreed", "Other") ~ "Breed B"),
+    test = ifelse((age + dehy) >= 20, "Yes", "No"))
 ```
 
+Use can also use `mutate_all`, `mutate_at` and `mutate_if` for specific conditions:
+
+```{r, message = FALSE, warning=FALSE, eval = FALSE}
+df <-
+  raw %>%
+  #Remove non Unicode characters
+  mutate_all(
+    .tbl = raw,
+    .funs = ~ stringi::stri_trans_general(.,"Latin-ASCII") %>% 
+  #Create variables with similar structure  
+  mutate_at(
+    .vars = vars(b1a1, b1a2, b1b1, b1b2),
+    .funs = ~ as_factor(haven::labelled(., c(
+      "Chua bao gio" = "1", "Hiem khi" = "2", "Thinh thoang" = "3",
+      "Thuong xuyen" = "4", "Luon luon" = "5")))) %>% 
+  #Convert haven_labelled variables to factors ----
+  mutate_if(haven::is.labelled, haven::as_factor)
+```
 
 #### Python
+
+Similarly, Python `pandas` also support functions to manipulate data like R. In this section, we also learn how to use alternative approach, using `siuba` library to mimic `dpylr` packge in R.
+
+-   Pick observations by their values `.loc[]`.
+
+-   Reorder the rows `.sort_values()`.
+
+-   Pick variables by their names `.loc[]`.
+
+-   Create new variables with functions of existing variables `.assign()`.
+
+-   Collapse many values down to a single summary `summarise()`.
+
+These can all be used in conjunction with `.groupby()` which changes the scope of each function from operating on the entire dataset to operating on it group-by-group. These six functions provide the verbs for a language of data manipulation.
+
+**Filter row with `.loc[]`**
+
+```{python, message = FALSE, warning = FALSE}
+lb_df.loc[(_.sex == "Male") & (_.age >= 5) & (_.breed.isin(["Hereford", "Angus", "Simental"]))]
+
+lb_df >> filter(_.sex == "Male", _.age >= 5, _.breed.isin(["Hereford", "Angus", "Simental"]))
+```
+
+**Arrange rows with `.sort_values()`**
+
+```{python, message = FALSE, warning = FALSE}
+lb_df.sort_values(by = "case", ascending = False)
+
+lb_df >> arrange(-_.case) #"-" means sort in descending
+```
+
 
 #### STATA
 
