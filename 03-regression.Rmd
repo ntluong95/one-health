@@ -4,6 +4,14 @@
 
 ## Linear regression 
 
+```{r}
+mtcars |> 
+  subset(cyl == 4) |> 
+  d => lm(mpg ~ disp, data = d) |> 
+  summary()
+```
+
+
 ## Logistic regression 
 
 ## Modelling multinomial data

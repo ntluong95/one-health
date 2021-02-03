@@ -453,7 +453,80 @@ All verbs work similarly:
 
 Together these properties make it easy to chain together multiple simple steps to achieve a complex result. Let's dive in and see how these verbs work.
 
-**Create new variable**
+**Filter rows with `filter()`**
+
+`filter()` allows you to subset observations based on their values. If you are familiar with *filter* in Excel, this function works same like this. The output of function is a dataframe. For example, if you want to subset a data with calves who are male, age at admission greater or equal than 5 days, the breed is Hereford, Angus or Simental, you can do like this. In total, we have 21 calves fulfil our filter condition.
+
+```{r, message = FALSE, warning=FALSE}
+lb_df |>
+  dplyr::filter(sex == "Male", age >= 5, breed %in% c("Hereford", "Angus", "Simental"))
+```
+
+**Arrange rows with `arrange()`**
+
+`arrange()` takes a data frame and a set of column names (or more complicated expressions) to order by. If you provide more than one column name, each additional column will be used to break ties in the values of preceding column. For example, if you want to sort case number in descending order:
+
+```{r, message = FALSE, warning=FALSE}
+lb_df |>
+  dplyr::arrange(desc(case))
+```
+
+**Select columns with `select()`**
+
+It's not uncommon to get datasets with hundreds or even thousands of variables. In this case, the first challenge is often narrowing in on the variables you're actually interested in. `select()` allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.
+
+*Select columns by name*
+
+```{r, message = FALSE, warning=FALSE}
+lb_df |>
+  dplyr::select(case, breed, sex, attd, post, dehy, temp, sepsis)
+```
+
+There are a number of helper functions you can use within select():
+
+-   abc: : ijk: select variable from abc to ijk
+
+-   starts_with("abc"): matches names that begin with "abc".
+
+-   ends_with("xyz"): matches names that end with "xyz".
+
+-   contains(c("ijk", "xyz")): matches names that contain "ijk" or "xyz".
+
+-   matches("(.)\\1"): selects variables that match a regular expression. This one matches any variables that contain repeated characters. You'll learn more about regular expressions in strings.
+
+-   num_range("x", 1:3): matches x1, x2 and x3.
+
+*Rename variable*
+
+```{r, message = FALSE, warning=FALSE}
+lb_df |>
+  dplyr::rename(id = case)
+```
+
+Another option is to use `select()` in conjunction with the `everything()` helper. This is useful if you have a handful of variables you’d like to move to the start of the data frame.
+
+```{r, message = FALSE, warning=FALSE}
+lb_df |>
+  dplyr::select(sepsis, sex, everything())
+```
+
+You can see now `sepsis` and `sex` variable is moved to column first and second of the dataframe.
+
+**Add new variable with `mutate()`**
+
+`mutate()` always adds new columns at the end of your dataset so we’ll start by creating a narrower dataset so we can see the new variables. 
+
+```{r, message = FALSE, warning=FALSE}
+lb_df |>
+  select(case:dehy) |> 
+  mutate(
+    agegr = case_when(age < 10 ~ "Group A",
+                      age >= 10 & age < 15 ~ "Group B",
+                      age >= 15 ~ "Group C"),
+    new_breed = case_when(breed %in% c("Hereford", "Holstein", "Angus", "Shorthorn") ~ "Breed A",
+                          breed %in% c("Charolais", "Simmental", "Limousin", "Crossbreed", "Other") ~ "Breed B"))
+```
+
 
 #### Python
 
@@ -541,12 +614,12 @@ Mastering code chunk options is essential to becoming a proficient R Markdown us
 
 ## ShinyApp
 
-https://blog.rstudio.com/2021/02/01/shiny-1-6-0/
+<https://blog.rstudio.com/2021/02/01/shiny-1-6-0/>
 
-https://www.youtube.com/watch?v=wSYt4IYIsdI
+<https://www.youtube.com/watch?v=wSYt4IYIsdI>
 
-https://yakdata.com/ultimate-guide-r-shiny-app-dashboards-2021/
+<https://yakdata.com/ultimate-guide-r-shiny-app-dashboards-2021/>
 
-https://github.com/nanxstats/awesome-shiny-extensions
+<https://github.com/nanxstats/awesome-shiny-extensions>
 
 ## A structred approach to data analysis
