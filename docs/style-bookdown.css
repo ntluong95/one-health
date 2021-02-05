@@ -216,6 +216,11 @@ code span.bu {
   font-weight: bold;
 }
 
+.hljs-pipe2{
+  color: #BD93F9;
+  font-weight: bold;
+}
+
 .hljs-fun-param {
   color: #ebff00;
 }

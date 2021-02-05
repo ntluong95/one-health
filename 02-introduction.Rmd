@@ -1,6 +1,4 @@
-# Basic Data Analysis 
-
-Thành ml
+# Basic Data Analysis
 
 **OBJECTIVES**
 
@@ -54,7 +52,7 @@ In this course, I will introduce you about the three most powerful statistical s
 
 The following sections have additional information about the purpose of each component, how to install it, and alternative configurations.
 
-### R
+### R 
 
 R is a popular data science language used to download, analyze, and visualize data. You can download it at the appropriate link for your operating system ([mac](https://cran.r-project.org/bin/macosx/), [windows](https://cran.r-project.org/bin/windows/base/)). At the link, click the appropriate download link and follow instructions:
 
@@ -477,7 +475,7 @@ lb_df |>
 
 It's not uncommon to get datasets with hundreds or even thousands of variables. In this case, the first challenge is often narrowing in on the variables you're actually interested in. `select()` allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.
 
-*Select columns by name*
+**Select columns by name**
 
 ```{r, message = FALSE, warning=FALSE}
 lb_df |>
@@ -498,7 +496,7 @@ There are a number of helper functions you can use within select():
 
 -   num_range("x", 1:3): matches x1, x2 and x3.
 
-*Rename variable*
+**Rename variable**
 
 ```{r, message = FALSE, warning=FALSE}
 lb_df |>
@@ -580,7 +578,6 @@ lb_df.sort_values(by = "case", ascending = False)
 
 lb_df >> arrange(-_.case) #"-" means sort in descending
 ```
-
 
 #### STATA
 
