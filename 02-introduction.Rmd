@@ -52,7 +52,7 @@ In this course, I will introduce you about the three most powerful statistical s
 
 The following sections have additional information about the purpose of each component, how to install it, and alternative configurations.
 
-### R 
+### R
 
 R is a popular data science language used to download, analyze, and visualize data. You can download it at the appropriate link for your operating system ([mac](https://cran.r-project.org/bin/macosx/), [windows](https://cran.r-project.org/bin/windows/base/)). At the link, click the appropriate download link and follow instructions:
 
@@ -484,17 +484,17 @@ lb_df |>
 
 There are a number of helper functions you can use within select():
 
--   abc: : ijk: select variable from abc to ijk
+-   abc : ijk : select variable from abc to ijk
 
--   starts_with("abc"): matches names that begin with "abc".
+-   starts_with("abc") : matches names that begin with "abc".
 
--   ends_with("xyz"): matches names that end with "xyz".
+-   ends_with("xyz") : matches names that end with "xyz".
 
--   contains(c("ijk", "xyz")): matches names that contain "ijk" or "xyz".
+-   contains(c("ijk", "xyz")) : matches names that contain "ijk" or "xyz".
 
--   matches("(.)\\1"): selects variables that match a regular expression. This one matches any variables that contain repeated characters. You'll learn more about regular expressions in strings.
+-   matches("(.)\\1") : selects variables that match a regular expression. This one matches any variables that contain repeated characters. You'll learn more about regular expressions in strings.
 
--   num_range("x", 1:3): matches x1, x2 and x3.
+-   num_range("x", 1:3) : matches x1, x2 and x3.
 
 **Rename variable**
 
@@ -551,7 +551,7 @@ df <-
 
 Similarly, Python `pandas` also support functions to manipulate data like R. In this section, we also learn how to use alternative approach, using `siuba` library to mimic `dpylr` packge in R.
 
--   Pick observations by their values `.loc[]`.
+-   Pick observations by their values `.query()`.
 
 -   Reorder the rows `.sort_values()`.
 
@@ -563,12 +563,19 @@ Similarly, Python `pandas` also support functions to manipulate data like R. In 
 
 These can all be used in conjunction with `.groupby()` which changes the scope of each function from operating on the entire dataset to operating on it group-by-group. These six functions provide the verbs for a language of data manipulation.
 
-**Filter row with `.loc[]`**
+**Filter row with `.query()`** Filtering rows from a Pandas dataframe can be done in different ways.
+
+Note: `.loc` works with column labels and indexes, whereas `query` works only with columns. An alternative candidate is `filter` from `siuba` library, which mimic the function of `dplyr` package in R.
 
 ```{python, message = FALSE, warning = FALSE}
-lb_df.loc[(_.sex == "Male") & (_.age >= 5) & (_.breed.isin(["Hereford", "Angus", "Simental"]))]
+lb_df.query("sex == 'Male' & age >= 5 & breed.isin(['Hereford', 'Angus', 'Simental'])")
+
+lb_df.loc[(lb_df["sex"] == "Male") & 
+          (lb_df["age"] >= 5) & 
+          (lb_df["breed"].isin(["Hereford", "Angus", "Simental"]))]
 
 lb_df >> filter(_.sex == "Male", _.age >= 5, _.breed.isin(["Hereford", "Angus", "Simental"]))
+
 ```
 
 **Arrange rows with `.sort_values()`**
@@ -579,7 +586,55 @@ lb_df.sort_values(by = "case", ascending = False)
 lb_df >> arrange(-_.case) #"-" means sort in descending
 ```
 
+**Select columns with `.loc[]`**
+
+```{python, message = FALSE, warning = FALSE}
+lb_df.loc[:, ["case", "breed", "sex", "attd", "post", "dehy", "temp", "sepsis"]]
+
+
+lb_df.loc[:, "case":"temp"]
+lb_df.iloc[:, 0:12]
+lb_df.loc[:, lb_df.columns.str.endswith("se", "mp")]
+
+lb_df1.loc[:, lb_df1.columns.str.contains('|'.join(['se', 'mp']))]
+
+search_values = 
+
+lb_df1 = lb_df
+lb_df1.rename(columns = {'case':'a1'}, inplace = True) 
+lb_df1.rename(columns = {'age':'a2'}, inplace = True) 
+
+lb_df1 >> select(_.contains('|'.join(['se', 'mp'])))
+```
+
+There are a number of helper functions you can use within select():
+
+-   abc: : ijk: select variable from abc to ijk
+
+    -   `lb_df.loc[:, "case":"temp"]`
+    -   `lb_df.iloc[:, 0:12]`
+
+-   starts_with("abc"): matches names that begin with "abc".
+
+    -   `lb_df.loc[:, lb_df.columns.str.startswith("se")]`
+
+-   ends_with("xyz"): matches names that end with "xyz".
+
+    -   `lb_df.loc[:, lb_df.columns.str.endswith("se")]`
+
+-   contains(c("ijk", "xyz")): matches names that contain "ijk" or "xyz".
+
+    -   `lb_df.loc[:, lb_df.columns.str.contains('|'.join(['se', 'mp']))]`
+    -   `lb_df1 >> select(_.contains('|'.join(['se', 'mp'])))`
+    
+-   num_range("x", 1:3): matches x1, x2 and x3.
+
+
+#Rename 
+lb_df1.rename(columns = {'umb':'ump'}, inplace = True) 
 #### STATA
+
+Nối dữ liệu, gather spread..., chuyển dữ liệu ngang thành dọc...
 
 ## Descriptive statistics
 
