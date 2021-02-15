@@ -1922,9 +1922,10 @@
         {cN:"pipe",b:"%.*?%",r:0},
         {cN:"pipe1",b:"\\|>",r:0},
         {cN:"pipe2",b:"\\=>",r:0},
-        {cN:"fun-param",b:"//=|\\*\\*=|>>=|<<=|//|\\*\\*|==|!=|>=|<=|:=|>>|<<|\\+=|-=|\\*=|/=|&=|%=|\\|=|\\^=|\\+|-|\\*|/|%|>|<|\\^|~|\\||&|=|:|\\.|;|,",r:0},
+        {cN:"fun-param",b:"//=|\\*\\*=|>>=|<<=|//|\\*\\*|==|!=|>=|<=|:=|>>|<<|\\+=|-=|\\*=|/=|&=|%=|\\|=|\\^=|\\+|-|\\*|/|%|>|<|\\^|~|\\||&|=|:|\\.|;|,",r:0}, 
+        {cN:"paren",b:"(?:[[({]|[\\])}])",r:0},
         {cN:"assign",b:" <- ",r:0},
-        {cN:"keyword",b:"([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*::",r:0},
+        {cN:"class",b:"([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*::",r:0},
   //    {cN:"dplyr",b:"tibble|mutate|select|filter|summari[sz]e|arrange|group_by",e:"[a-zA-Z0-9._]*",r:0},
         {b:r,l:r, k:
           {keyword:"function if in break next repeat else for return switch while try tryCatch stop warning require library attach detach source setMethod setGeneric setGroupGeneric setClass ...",
@@ -1947,7 +1948,9 @@
         {cN:"function1",b:"\\.([a-zA-Z_][\\w-]*)\\b",r:0},
         {cN:"pipe1",b:">>=",r:0},
         {cN:"pipe",b:">>",r:0},
+        {cN:"inplace",b:" inplace",r:0},
         {cN:"fun-param",b:"//=|\\*\\*=|>>=|<<=|//|\\*\\*|==|!=|>=|<=|:=|>>|<<|\\+=|-=|\\*=|/=|&=|%=|\\|=|\\^=|\\+|-|\\*|/|%|>|<|\\^|~|\\||&|=|:|\\.|;|,",r:0},
+        {cN:"paren",b:"(?:[[({]|[\\])}])",r:0},
         {cN:"support",b:"(`+)(.*?[^`])(\\1)",r:0},
         {cN:"string",c:[e.BE],v:[{b:'"',e:'"'},{b:"'",e:"'"}]},
         {cN:"storage",b:"pd|pandas|plt|matplotlib.pyplot|np|numpy|sns|seaborn|dfply|scipy.special|bokeh.plotting|scipy.integrate|odeint|ode|solve_bvp|sklearn.linear_model|LinearRegression|LogisticRegression|sklearn.model_selection|GridSearchCV|cross_val_score|sklearn.cluster|sklearn.metrics|KMeans|sklearn|svm|classification_report|confusion_matrix|accuracy_score|train_test_split|group_by|head|tail|select|drop|row_slice|mutate|transmute|arrange|rename|gather|spread|separate|unite|summarize|summarize_each|mean|var|sd|median|IQR|show|figure|output_file|siuba| _|glimpse|filter|anti_join|join", r:0},
@@ -1957,7 +1960,7 @@
         {cN:"number",b:"\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",r:0},
         {cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",r:0},
         {b:"`",e:"`",r:0},
-        {cN:"keyword",b:"False|None|True|and|as|assert|async|await|break|class|continue|def|del |elif|else|except|finally|for|from |global|if|import | in| is|lambda|nonlocal| not|or |pass|raise|return|try|while|with|yield",r:0}
+        {cN:"keyword",b:"False|None|True|and|as |assert|async|await|break|class|continue|def|del |elif|else|except|finally|for|from |global|if|import | in| is|lambda|nonlocal| not|or |pass|raise|return|try|while|with|yield",r:0}
       ]
     }
   })
@@ -1966,7 +1969,7 @@
     var r="([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*";
     return{
       c:[e.HCM,
-        {cN:"storage1",b:"co | value |def |define |val |variable ", r:0}
+        {cN:"storage1",b:"co | value |def |define |val |import |delimited |describe |variable ", r:0}
       ]
     }
   })

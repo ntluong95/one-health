@@ -20,11 +20,11 @@ After reading this chapter, reader should be able to:
 
 The picture below described about a normal working process of data analysis.
 
-First you must **import** your data. This typically means that you take data stored in a file, database, or web application programming interface (API), and load it into the software. In this course, we will work with *.xlsx* and *.csv* file, which are the most common type of storaging data.
+First you must **import** your data. This typically means that you take data stored in a file, database, or web application programming interface (API), and load it into the software. In this course, we will work with *.xlsx* and *.csv* file, which are the most common types of storaging data.
 
 <center>
 
-![Source: R for Data Science book](images/data-science.png){width="700"}
+![](images/data-science1.jpg)
 
 </center>
 
@@ -130,9 +130,6 @@ If you want to use STATA in Rstudio, you can do it through `statamarkdown` packa
 
 ```{r setup STATA environment, message = FALSE, warning=FALSE, eval=FALSE}
 install.packages("Statamarkdown")
-library(Statamarkdown)
-stataexe <- "C:/Program Files/Stata16/StataSE-64.exe"
-knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 ```
 
 ## Create working environment
@@ -266,6 +263,8 @@ Now, you can import CSV file by Python using library `pandas` with function `rea
 
 ```{python, message = FALSE, warning=FALSE}
 import pandas as pd
+import numpy as np
+
 raw_df = pd.read_csv("D:/Book Writing/1. Applied Epidemiology in One Health/data/calf.csv")
 
 raw_df.head()
@@ -284,7 +283,7 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 Then, use function `import delimited`, specify your path to the data
 
 ```{stata, collectcode=TRUE, cleanlog=FALSE}
-import delimited "D:\Book Writing\1. Applied Epidemiology in One Health\data\calf.csv"
+import delimited "D:\Book Writing\1. Applied Epidemiology in One Health\data\calf.csv", clear
 describe
 ```
 
@@ -453,7 +452,7 @@ All verbs work similarly:
 
 3.  The result is a new data frame.
 
-Together these properties make it easy to chain together multiple simple steps to achieve a complex result. Let's dive in and see how these verbs work.
+In the newest update of dplyr package ([version 1.0.4](https://www.tidyverse.org/blog/2021/02/dplyr-1-0-4-if-any/)), two new functions `if_all()` and `if_any()` were introduced, accompany with the performance improvements of `across()`. Together these properties make it easy to chain together multiple simple steps to achieve a complex result. Let's dive in and see how these verbs work.
 
 **Filter rows with `filter()`**
 
@@ -519,7 +518,7 @@ You can see now `sepsis` and `sex` variable is moved to column first and second 
 Note: `mutate()` always adds new columns at the end of your dataset.
 
 ```{r, message = FALSE, warning=FALSE}
-lb_df2 <- lb_df |>
+lb_df |>
   select(case:dehy) |> 
   mutate(
     agegr = case_when(age < 10 ~ "Group A",
@@ -565,7 +564,7 @@ Similarly, Python `pandas` also support functions to manipulate data like R. In 
 
 These can all be used in conjunction with `.groupby()` which changes the scope of each function from operating on the entire dataset to operating on it group-by-group. These six functions provide the verbs for a language of data manipulation.
 
-**Filter row with `.query()`** 
+**Filter row with `.query()`**
 
 Filtering rows from a Pandas dataframe can be done in different ways.
 
@@ -587,7 +586,8 @@ lb_df >> filter(_.sex == "Male", _.age >= 5, _.breed.isin(["Hereford", "Angus", 
 ```{python, message = FALSE, warning = FALSE}
 lb_df.sort_values(by = "case", ascending = False)
 
-lb_df >> arrange(-_.case) #"-" means sort in descending
+lb_df >> arrange(-_.case) 
+#"-" means sort in descending
 ```
 
 **Select columns with `.loc[]`**
@@ -631,15 +631,13 @@ lb_df1 >> rename(CASE = "case")
 **Add new variable with `.assign()`**
 
 ```{python, message = FALSE, warning=FALSE}
-lb_df1 = lb_df.assign(
-                agegr = pd.cut(lb_df["age"],bins=[0,9,14,99],labels=["Group A","Group B","Group C"]), 
-                new_breed = lb_df["breed"].replace(
+lb_df.assign(
+        agegr = pd.cut(lb_df["age"],bins=[0,9,14,99],labels=["Group A","Group B","Group C"]), 
+        new_breed = lb_df["breed"].replace(
                   {"Hereford": "Breed A", "Holstein": "Breed A", "Angus": "Breed A","Shorthorn": "Breed A", 
                   "Charolais" : "Breed B", "Simmental" : "Breed B", "Limousin" : "Breed B", "Crossbreed" : "Breed B", "Other" : "Breed B"}),
-                test = np.where(lb_df["age"] + lb_df["dehy"] >= 20, "Yes", "No"))
-
+        test = np.where(lb_df["age"] + lb_df["dehy"] >= 20, "Yes", "No"))
 ```
-
 
 #### STATA
 
@@ -649,7 +647,7 @@ Nối dữ liệu, gather spread..., chuyển dữ liệu ngang thành dọc...
 
 ## Descriptive statistics
 
-https://pbpython.com/sidetable.html
+<https://pbpython.com/sidetable.html>
 
 ## Data visualization
 

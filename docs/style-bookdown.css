@@ -225,6 +225,10 @@ code span.bu {
   color: #ebff00;
 }
 
+.hljs-paren {
+  color: /*#FFAE00*/ #92c1f0;
+}
+
 .hljs-storage{
   color: #00cc97;
 }
@@ -251,6 +255,14 @@ code span.bu {
 
 .hljs-attribute {
     color: #e6ffcf !important;
+}
+
+.hljs-inplace {
+color: #e6ffcf !important;
+}
+
+.hljs-class {
+color: #0cc2e2 !important;
 }
 
 .book .book-body .page-wrapper .page-inner section.normal pre .hljs-number, .book .book-body .page-wrapper .page-inner section.normal code .hljs-number, .book .book-body .page-wrapper .page-inner section.normal pre .hljs-preprocessor, .book .book-body .page-wrapper .page-inner section.normal code .hljs-preprocessor, .book .book-body .page-wrapper .page-inner section.normal pre .hljs-pragma, .book .book-body .page-wrapper .page-inner section.normal code .hljs-pragma, .book .book-body .page-wrapper .page-inner section.normal pre .hljs-built_in, .book .book-body .page-wrapper .page-inner section.normal code .hljs-built_in, .book .book-body .page-wrapper .page-inner section.normal pre .hljs-literal, .book .book-body .page-wrapper .page-inner section.normal code .hljs-literal, .book .book-body .page-wrapper .page-inner section.normal pre .hljs-params, .book .book-body .page-wrapper .page-inner section.normal code .hljs-params, .book .book-body .page-wrapper .page-inner section.normal pre .hljs-constant, .book .book-body .page-wrapper .page-inner section.normal code .hljs-constant {
