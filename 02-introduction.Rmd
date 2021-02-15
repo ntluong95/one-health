@@ -344,6 +344,8 @@ lb_df.loc[:, lb_df.dtypes == 'object'] =(lb_df.select_dtypes(['object'])
 glimpse(lb_df)                                            
 ```
 
+To access the values of categorical variable, you can use function `lb_df["breed"].values.codes` and `lb_df["breed"].values.categories`
+
 If you still want to try to handle purerly Python code, an alternative is creating a dictionary that contain all value of variables. Then using `mutate` function from `siuba` library which is similar to `dplyr` library in R Tidyverse to mutate new variable
 
 ```{python, message = FALSE, warning=FALSE}
@@ -371,13 +373,13 @@ You can do exactly same version with `assign` function from `pandas` library. Th
 
 ```{python, message = FALSE, warning = FALSE}
 lb_df2 =  raw_df.assign(
-                    sex = _.apply(lambda x: sex_dict.get(x["sex"], "NaN"), axis = 1),
-                    breed = _.apply(lambda x: breed_dict.get(x["breed"], "NaN"), axis = 1),
-                    attd = _.apply(lambda x: attd_dict.get(x["attd"], "NaN"), axis = 1),
-                    eye = _.apply(lambda x: eye_dict.get(x["eye"], "NaN"), axis = 1),
-                    post = _.apply(lambda x: post_dict.get(x["post"], "NaN"), axis = 1),
-                    umb = _.apply(lambda x: umb_dict.get(x["umb"], "NaN"), axis = 1),
-                    sepsis = _.apply(lambda x: sepsis_dict.get(x["sepsis"], "NaN"), axis = 1))
+                    sex = raw_df.apply(lambda x: sex_dict.get(x["sex"], "NaN"), axis = 1),
+                    breed = raw_df.apply(lambda x: breed_dict.get(x["breed"], "NaN"), axis = 1),
+                    attd = raw_df.apply(lambda x: attd_dict.get(x["attd"], "NaN"), axis = 1),
+                    eye = raw_df.apply(lambda x: eye_dict.get(x["eye"], "NaN"), axis = 1),
+                    post = raw_df.apply(lambda x: post_dict.get(x["post"], "NaN"), axis = 1),
+                    umb = raw_df.apply(lambda x: umb_dict.get(x["umb"], "NaN"), axis = 1),
+                    sepsis = raw_df.apply(lambda x: sepsis_dict.get(x["sepsis"], "NaN"), axis = 1))
 
 ```
 
@@ -425,7 +427,7 @@ label def sepsis 0 "No" 1 "Yes"
 label val sepsis sepsis
 ```
 
-### Data transformation
+### Querying, filtering
 
 #### R
 
@@ -517,7 +519,7 @@ You can see now `sepsis` and `sex` variable is moved to column first and second 
 Note: `mutate()` always adds new columns at the end of your dataset.
 
 ```{r, message = FALSE, warning=FALSE}
-lb_df |>
+lb_df2 <- lb_df |>
   select(case:dehy) |> 
   mutate(
     agegr = case_when(age < 10 ~ "Group A",
@@ -563,7 +565,9 @@ Similarly, Python `pandas` also support functions to manipulate data like R. In 
 
 These can all be used in conjunction with `.groupby()` which changes the scope of each function from operating on the entire dataset to operating on it group-by-group. These six functions provide the verbs for a language of data manipulation.
 
-**Filter row with `.query()`** Filtering rows from a Pandas dataframe can be done in different ways.
+**Filter row with `.query()`** 
+
+Filtering rows from a Pandas dataframe can be done in different ways.
 
 Note: `.loc` works with column labels and indexes, whereas `query` works only with columns. An alternative candidate is `filter` from `siuba` library, which mimic the function of `dplyr` package in R.
 
@@ -591,20 +595,7 @@ lb_df >> arrange(-_.case) #"-" means sort in descending
 ```{python, message = FALSE, warning = FALSE}
 lb_df.loc[:, ["case", "breed", "sex", "attd", "post", "dehy", "temp", "sepsis"]]
 
-
-lb_df.loc[:, "case":"temp"]
-lb_df.iloc[:, 0:12]
-lb_df.loc[:, lb_df.columns.str.endswith("se", "mp")]
-
-lb_df1.loc[:, lb_df1.columns.str.contains('|'.join(['se', 'mp']))]
-
-search_values = 
-
-lb_df1 = lb_df
-lb_df1.rename(columns = {'case':'a1'}, inplace = True) 
-lb_df1.rename(columns = {'age':'a2'}, inplace = True) 
-
-lb_df1 >> select(_.contains('|'.join(['se', 'mp'])))
+lb_df >> select("case", "breed", "sex", "attd", "post", "dehy", "temp", "sepsis")
 ```
 
 There are a number of helper functions you can use within select():
@@ -625,18 +616,40 @@ There are a number of helper functions you can use within select():
 -   contains(c("ijk", "xyz")): matches names that contain "ijk" or "xyz".
 
     -   `lb_df.loc[:, lb_df.columns.str.contains('|'.join(['se', 'mp']))]`
-    -   `lb_df1 >> select(_.contains('|'.join(['se', 'mp'])))`
-    
--   num_range("x", 1:3): matches x1, x2 and x3.
+    -   `lb_df >> select(_.contains('|'.join(['se', 'mp'])))`
 
+**Rename variable**
 
-#Rename 
+```{python, message = FALSE, warning = FALSE}
+lb_df1 = lb_df
+
 lb_df1.rename(columns = {'umb':'ump'}, inplace = True) 
+
+lb_df1 >> rename(CASE = "case")
+```
+
+**Add new variable with `.assign()`**
+
+```{python, message = FALSE, warning=FALSE}
+lb_df1 = lb_df.assign(
+                agegr = pd.cut(lb_df["age"],bins=[0,9,14,99],labels=["Group A","Group B","Group C"]), 
+                new_breed = lb_df["breed"].replace(
+                  {"Hereford": "Breed A", "Holstein": "Breed A", "Angus": "Breed A","Shorthorn": "Breed A", 
+                  "Charolais" : "Breed B", "Simmental" : "Breed B", "Limousin" : "Breed B", "Crossbreed" : "Breed B", "Other" : "Breed B"}),
+                test = np.where(lb_df["age"] + lb_df["dehy"] >= 20, "Yes", "No"))
+
+```
+
+
 #### STATA
+
+### Data transformation
 
 Nối dữ liệu, gather spread..., chuyển dữ liệu ngang thành dọc...
 
 ## Descriptive statistics
+
+https://pbpython.com/sidetable.html
 
 ## Data visualization
 

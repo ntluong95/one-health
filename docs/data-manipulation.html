@@ -180,7 +180,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="data-manipulation.html"><a href="data-manipulation.html#import-file"><i class="fa fa-check"></i><b>2.4.1</b> Import file</a></li>
 <li class="chapter" data-level="2.4.2" data-path="data-manipulation.html"><a href="data-manipulation.html#labelling-data"><i class="fa fa-check"></i><b>2.4.2</b> Labelling data</a></li>
-<li class="chapter" data-level="2.4.3" data-path="data-manipulation.html"><a href="data-manipulation.html#data-transformation"><i class="fa fa-check"></i><b>2.4.3</b> Data transformation</a></li>
+<li class="chapter" data-level="2.4.3" data-path="data-manipulation.html"><a href="data-manipulation.html#querying-filtering"><i class="fa fa-check"></i><b>2.4.3</b> Querying, filtering</a></li>
+<li class="chapter" data-level="2.4.4" data-path="data-manipulation.html"><a href="data-manipulation.html#data-transformation"><i class="fa fa-check"></i><b>2.4.4</b> Data transformation</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="descriptive-statistics.html"><a href="descriptive-statistics.html"><i class="fa fa-check"></i><b>2.5</b> Descriptive statistics</a></li>
 <li class="chapter" data-level="2.6" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>2.6</b> Data visualization</a></li>
@@ -501,6 +502,7 @@ resp   float64  19 (7%) NAs : nan, 120.0, nan, 40.0, 48.0, 48.0, 84.0, 20.0, 52.
 temp   float64   7 (3%) NAs : 37.6, 39.2, nan, 38.6, 38.6, 39.6, 39.0, 35.0, 39.5, 37.8
 umb    category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No
 sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></pre>
+<p>To access the values of categorical variable, you can use function <code>lb_df["breed"].values.codes</code> and <code>lb_df["breed"].values.categories</code></p>
 <p>If you still want to try to handle purerly Python code, an alternative is creating a dictionary that contain all value of variables. Then using <code>mutate</code> function from <code>siuba</code> library which is similar to <code>dplyr</code> library in R Tidyverse to mutate new variable</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="data-manipulation.html#cb21-1" aria-hidden="true" tabindex="-1"></a>breed_dict <span class="op">=</span> ({<span class="dv">1</span> : <span class="st">&quot;Hereford&quot;</span>, <span class="dv">2</span> : <span class="st">&quot;Holstein&quot;</span>, <span class="dv">3</span> : <span class="st">&quot;Angus&quot;</span>, <span class="dv">4</span> : <span class="st">&quot;Shorthorn&quot;</span>,</span>
 <span id="cb21-2"><a href="data-manipulation.html#cb21-2" aria-hidden="true" tabindex="-1"></a>              <span class="dv">5</span> : <span class="st">&quot;Charolais&quot;</span>, <span class="dv">6</span>: <span class="st">&quot;Simmental&quot;</span>, <span class="dv">7</span> : <span class="st">&quot;Limousin&quot;</span>, <span class="dv">8</span>: <span class="st">&quot;Crossbreed&quot;</span>, <span class="dv">9</span> : <span class="st">&quot;Other&quot;</span>})</span>
@@ -522,13 +524,13 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 <span id="cb21-18"><a href="data-manipulation.html#cb21-18" aria-hidden="true" tabindex="-1"></a>                    sepsis <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sepsis_dict.get(x[<span class="st">&quot;sepsis&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>))</span></code></pre></div>
 <p>You can do exactly same version with <code>assign</code> function from <code>pandas</code> library. The principle is same because <code>siuba</code> was developed inherited from <code>pandas</code>, but lighter and support for R users who are familiar with <code>tidyverse</code> ecosystem.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="data-manipulation.html#cb22-1" aria-hidden="true" tabindex="-1"></a>lb_df2 <span class="op">=</span>  raw_df.assign(</span>
-<span id="cb22-2"><a href="data-manipulation.html#cb22-2" aria-hidden="true" tabindex="-1"></a>                    sex <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sex_dict.get(x[<span class="st">&quot;sex&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb22-3"><a href="data-manipulation.html#cb22-3" aria-hidden="true" tabindex="-1"></a>                    breed <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: breed_dict.get(x[<span class="st">&quot;breed&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb22-4"><a href="data-manipulation.html#cb22-4" aria-hidden="true" tabindex="-1"></a>                    attd <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: attd_dict.get(x[<span class="st">&quot;attd&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb22-5"><a href="data-manipulation.html#cb22-5" aria-hidden="true" tabindex="-1"></a>                    eye <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: eye_dict.get(x[<span class="st">&quot;eye&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb22-6"><a href="data-manipulation.html#cb22-6" aria-hidden="true" tabindex="-1"></a>                    post <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: post_dict.get(x[<span class="st">&quot;post&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb22-7"><a href="data-manipulation.html#cb22-7" aria-hidden="true" tabindex="-1"></a>                    umb <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: umb_dict.get(x[<span class="st">&quot;umb&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb22-8"><a href="data-manipulation.html#cb22-8" aria-hidden="true" tabindex="-1"></a>                    sepsis <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sepsis_dict.get(x[<span class="st">&quot;sepsis&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>))</span></code></pre></div>
+<span id="cb22-2"><a href="data-manipulation.html#cb22-2" aria-hidden="true" tabindex="-1"></a>                    sex <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sex_dict.get(x[<span class="st">&quot;sex&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb22-3"><a href="data-manipulation.html#cb22-3" aria-hidden="true" tabindex="-1"></a>                    breed <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: breed_dict.get(x[<span class="st">&quot;breed&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb22-4"><a href="data-manipulation.html#cb22-4" aria-hidden="true" tabindex="-1"></a>                    attd <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: attd_dict.get(x[<span class="st">&quot;attd&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb22-5"><a href="data-manipulation.html#cb22-5" aria-hidden="true" tabindex="-1"></a>                    eye <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: eye_dict.get(x[<span class="st">&quot;eye&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb22-6"><a href="data-manipulation.html#cb22-6" aria-hidden="true" tabindex="-1"></a>                    post <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: post_dict.get(x[<span class="st">&quot;post&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb22-7"><a href="data-manipulation.html#cb22-7" aria-hidden="true" tabindex="-1"></a>                    umb <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: umb_dict.get(x[<span class="st">&quot;umb&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb22-8"><a href="data-manipulation.html#cb22-8" aria-hidden="true" tabindex="-1"></a>                    sepsis <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sepsis_dict.get(x[<span class="st">&quot;sepsis&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>))</span></code></pre></div>
 </div>
 <div id="stata-1" class="section level4" number="2.4.2.3">
 <h4><span class="header-section-number">2.4.2.3</span> STATA</h4>
@@ -573,8 +575,8 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 <span id="cb23-39"><a href="data-manipulation.html#cb23-39" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val sepsis sepsis</span></code></pre></div>
 </div>
 </div>
-<div id="data-transformation" class="section level3" number="2.4.3">
-<h3><span class="header-section-number">2.4.3</span> Data transformation</h3>
+<div id="querying-filtering" class="section level3" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Querying, filtering</h3>
 <div id="r-2" class="section level4" number="2.4.3.1">
 <h4><span class="header-section-number">2.4.3.1</span> R</h4>
 <p>In this section you are going to learn the five key dplyr functions that allow you to solve the vast majority of your data manipulation challenges:</p>
@@ -650,12 +652,12 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 # ... with 244 more rows</code></pre>
 <p>There are a number of helper functions you can use within select():</p>
 <ul>
-<li><p>abc: : ijk: select variable from abc to ijk</p></li>
-<li><p>starts_with(“abc”): matches names that begin with “abc”.</p></li>
-<li><p>ends_with(“xyz”): matches names that end with “xyz”.</p></li>
-<li><p>contains(c(“ijk”, “xyz”)): matches names that contain “ijk” or “xyz”.</p></li>
-<li><p>matches(“(.)\1”): selects variables that match a regular expression. This one matches any variables that contain repeated characters. You’ll learn more about regular expressions in strings.</p></li>
-<li><p>num_range(“x”, 1:3): matches x1, x2 and x3.</p></li>
+<li><p>abc : ijk : select variable from abc to ijk</p></li>
+<li><p>starts_with(“abc”) : matches names that begin with “abc”.</p></li>
+<li><p>ends_with(“xyz”) : matches names that end with “xyz”.</p></li>
+<li><p>contains(c(“ijk”, “xyz”)) : matches names that contain “ijk” or “xyz”.</p></li>
+<li><p>matches(“(.)\1”) : selects variables that match a regular expression. This one matches any variables that contain repeated characters. You’ll learn more about regular expressions in strings.</p></li>
+<li><p>num_range(“x”, 1:3) : matches x1, x2 and x3.</p></li>
 </ul>
 <p><strong>Rename variable</strong></p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="data-manipulation.html#cb30-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
@@ -694,7 +696,7 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 <p>You can see now <code>sepsis</code> and <code>sex</code> variable is moved to column first and second of the dataframe.</p>
 <p><strong>Add new variable with <code>mutate()</code></strong></p>
 <p>Note: <code>mutate()</code> always adds new columns at the end of your dataset.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="data-manipulation.html#cb34-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="data-manipulation.html#cb34-1" aria-hidden="true" tabindex="-1"></a>lb_df2 <span class="ot">&lt;-</span> lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
 <span id="cb34-2"><a href="data-manipulation.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case<span class="sc">:</span>dehy) <span class="sc">|</span><span class="er">&gt;</span> </span>
 <span id="cb34-3"><a href="data-manipulation.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb34-4"><a href="data-manipulation.html#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">agegr =</span> <span class="fu">case_when</span>(age <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">&quot;Group A&quot;</span>,</span>
@@ -703,49 +705,37 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 <span id="cb34-7"><a href="data-manipulation.html#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_breed =</span> <span class="fu">case_when</span>(breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Holstein&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Shorthorn&quot;</span>) <span class="sc">~</span> <span class="st">&quot;Breed A&quot;</span>,</span>
 <span id="cb34-8"><a href="data-manipulation.html#cb34-8" aria-hidden="true" tabindex="-1"></a>                          breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Charolais&quot;</span>, <span class="st">&quot;Simmental&quot;</span>, <span class="st">&quot;Limousin&quot;</span>, <span class="st">&quot;Crossbreed&quot;</span>, <span class="st">&quot;Other&quot;</span>) <span class="sc">~</span> <span class="st">&quot;Breed B&quot;</span>),</span>
 <span id="cb34-9"><a href="data-manipulation.html#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">test =</span> <span class="fu">ifelse</span>((age <span class="sc">+</span> dehy) <span class="sc">&gt;=</span> <span class="dv">20</span>, <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>))</span></code></pre></div>
-<pre><code># A tibble: 254 x 9
-    case   age breed     sex    attd                 dehy agegr  new_breed test 
-   &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;fct&gt;               &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;
- 1  1670     5 Hereford  Male   unresponsive, coma~  12   Group~ Breed A   No   
- 2  8124     3 Holstein  Female depressed            13.5 Group~ Breed A   No   
- 3  6954     2 Angus     Male   unresponsive, coma~  NA   Group~ Breed A   &lt;NA&gt; 
- 4  2737     3 Shorthorn Male   depressed             5   Group~ Breed A   No   
- 5  5341     3 Charolais Female depressed             0   Group~ Breed B   No   
- 6  6749    10 Simmental Female depressed             5.5 Group~ Breed B   No   
- 7  3234     4 Limousin  Female unresponsive, coma~   7   Group~ Breed B   No   
- 8  2325    14 Crossbre~ Female depressed             7   Group~ Breed B   Yes  
- 9  2925     4 Other     Female depressed             5   Group~ Breed B   No   
-10  7108     8 Hereford  Female unresponsive, coma~  10   Group~ Breed A   No   
-# ... with 244 more rows</code></pre>
 <p>Use can also use <code>mutate_all</code>, <code>mutate_at</code> and <code>mutate_if</code> for specific conditions:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="data-manipulation.html#cb36-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span></span>
-<span id="cb36-2"><a href="data-manipulation.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  raw <span class="sc">%&gt;%</span></span>
-<span id="cb36-3"><a href="data-manipulation.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Remove non Unicode characters</span></span>
-<span id="cb36-4"><a href="data-manipulation.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(</span>
-<span id="cb36-5"><a href="data-manipulation.html#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.tbl =</span> raw,</span>
-<span id="cb36-6"><a href="data-manipulation.html#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.funs =</span> <span class="sc">~</span> stringi<span class="sc">::</span><span class="fu">stri_trans_general</span>(.,<span class="st">&quot;Latin-ASCII&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-7"><a href="data-manipulation.html#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Create variables with similar structure  </span></span>
-<span id="cb36-8"><a href="data-manipulation.html#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(</span>
-<span id="cb36-9"><a href="data-manipulation.html#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.vars =</span> <span class="fu">vars</span>(b1a1, b1a2, b1b1, b1b2),</span>
-<span id="cb36-10"><a href="data-manipulation.html#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.funs =</span> <span class="sc">~</span> <span class="fu">as_factor</span>(haven<span class="sc">::</span><span class="fu">labelled</span>(., <span class="fu">c</span>(</span>
-<span id="cb36-11"><a href="data-manipulation.html#cb36-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Chua bao gio&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Hiem khi&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>, <span class="st">&quot;Thinh thoang&quot;</span> <span class="ot">=</span> <span class="st">&quot;3&quot;</span>,</span>
-<span id="cb36-12"><a href="data-manipulation.html#cb36-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Thuong xuyen&quot;</span> <span class="ot">=</span> <span class="st">&quot;4&quot;</span>, <span class="st">&quot;Luon luon&quot;</span> <span class="ot">=</span> <span class="st">&quot;5&quot;</span>)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-13"><a href="data-manipulation.html#cb36-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Convert haven_labelled variables to factors ----</span></span>
-<span id="cb36-14"><a href="data-manipulation.html#cb36-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(haven<span class="sc">::</span>is.labelled, haven<span class="sc">::</span>as_factor)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="data-manipulation.html#cb35-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span></span>
+<span id="cb35-2"><a href="data-manipulation.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  raw <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="data-manipulation.html#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Remove non Unicode characters</span></span>
+<span id="cb35-4"><a href="data-manipulation.html#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(</span>
+<span id="cb35-5"><a href="data-manipulation.html#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.tbl =</span> raw,</span>
+<span id="cb35-6"><a href="data-manipulation.html#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.funs =</span> <span class="sc">~</span> stringi<span class="sc">::</span><span class="fu">stri_trans_general</span>(.,<span class="st">&quot;Latin-ASCII&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-7"><a href="data-manipulation.html#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Create variables with similar structure  </span></span>
+<span id="cb35-8"><a href="data-manipulation.html#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(</span>
+<span id="cb35-9"><a href="data-manipulation.html#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.vars =</span> <span class="fu">vars</span>(b1a1, b1a2, b1b1, b1b2),</span>
+<span id="cb35-10"><a href="data-manipulation.html#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.funs =</span> <span class="sc">~</span> <span class="fu">as_factor</span>(haven<span class="sc">::</span><span class="fu">labelled</span>(., <span class="fu">c</span>(</span>
+<span id="cb35-11"><a href="data-manipulation.html#cb35-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Chua bao gio&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Hiem khi&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>, <span class="st">&quot;Thinh thoang&quot;</span> <span class="ot">=</span> <span class="st">&quot;3&quot;</span>,</span>
+<span id="cb35-12"><a href="data-manipulation.html#cb35-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Thuong xuyen&quot;</span> <span class="ot">=</span> <span class="st">&quot;4&quot;</span>, <span class="st">&quot;Luon luon&quot;</span> <span class="ot">=</span> <span class="st">&quot;5&quot;</span>)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-13"><a href="data-manipulation.html#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Convert haven_labelled variables to factors ----</span></span>
+<span id="cb35-14"><a href="data-manipulation.html#cb35-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(haven<span class="sc">::</span>is.labelled, haven<span class="sc">::</span>as_factor)</span></code></pre></div>
 </div>
 <div id="python-2" class="section level4" number="2.4.3.2">
 <h4><span class="header-section-number">2.4.3.2</span> Python</h4>
 <p>Similarly, Python <code>pandas</code> also support functions to manipulate data like R. In this section, we also learn how to use alternative approach, using <code>siuba</code> library to mimic <code>dpylr</code> packge in R.</p>
 <ul>
-<li><p>Pick observations by their values <code>.loc[]</code>.</p></li>
+<li><p>Pick observations by their values <code>.query()</code>.</p></li>
 <li><p>Reorder the rows <code>.sort_values()</code>.</p></li>
 <li><p>Pick variables by their names <code>.loc[]</code>.</p></li>
 <li><p>Create new variables with functions of existing variables <code>.assign()</code>.</p></li>
 <li><p>Collapse many values down to a single summary <code>summarise()</code>.</p></li>
 </ul>
 <p>These can all be used in conjunction with <code>.groupby()</code> which changes the scope of each function from operating on the entire dataset to operating on it group-by-group. These six functions provide the verbs for a language of data manipulation.</p>
-<p><strong>Filter row with <code>.loc[]</code></strong></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="data-manipulation.html#cb37-1" aria-hidden="true" tabindex="-1"></a>lb_df.loc[(_.sex <span class="op">==</span> <span class="st">&quot;Male&quot;</span>) <span class="op">&amp;</span> (_.age <span class="op">&gt;=</span> <span class="dv">5</span>) <span class="op">&amp;</span> (_.breed.isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simental&quot;</span>]))]</span></code></pre></div>
+<p><strong>Filter row with <code>.query()</code></strong></p>
+<p>Filtering rows from a Pandas dataframe can be done in different ways.</p>
+<p>Note: <code>.loc</code> works with column labels and indexes, whereas <code>query</code> works only with columns. An alternative candidate is <code>filter</code> from <code>siuba</code> library, which mimic the function of <code>dplyr</code> package in R.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="data-manipulation.html#cb36-1" aria-hidden="true" tabindex="-1"></a>lb_df.query(<span class="st">&quot;sex == &#39;Male&#39; &amp; age &gt;= 5 &amp; breed.isin([&#39;Hereford&#39;, &#39;Angus&#39;, &#39;Simental&#39;])&quot;</span>)</span></code></pre></div>
 <pre><code>       case   age     breed   sex  ...  resp  temp  umb  sepsis
 0    1670.0   5.0  Hereford  Male  ...   NaN  37.6   No      No
 10   3600.0  19.0  Hereford  Male  ...  32.0  39.3   No      No
@@ -770,7 +760,34 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 103  7169.0   8.0     Angus  Male  ...  30.0  39.4   No      No
 
 [21 rows x 14 columns]</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="data-manipulation.html#cb39-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> <span class="bu">filter</span>(_.sex <span class="op">==</span> <span class="st">&quot;Male&quot;</span>, _.age <span class="op">&gt;=</span> <span class="dv">5</span>, _.breed.isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simental&quot;</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="data-manipulation.html#cb38-1" aria-hidden="true" tabindex="-1"></a>lb_df.loc[(lb_df[<span class="st">&quot;sex&quot;</span>] <span class="op">==</span> <span class="st">&quot;Male&quot;</span>) <span class="op">&amp;</span> </span>
+<span id="cb38-2"><a href="data-manipulation.html#cb38-2" aria-hidden="true" tabindex="-1"></a>          (lb_df[<span class="st">&quot;age&quot;</span>] <span class="op">&gt;=</span> <span class="dv">5</span>) <span class="op">&amp;</span> </span>
+<span id="cb38-3"><a href="data-manipulation.html#cb38-3" aria-hidden="true" tabindex="-1"></a>          (lb_df[<span class="st">&quot;breed&quot;</span>].isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simental&quot;</span>]))]</span></code></pre></div>
+<pre><code>       case   age     breed   sex  ...  resp  temp  umb  sepsis
+0    1670.0   5.0  Hereford  Male  ...   NaN  37.6   No      No
+10   3600.0  19.0  Hereford  Male  ...  32.0  39.3   No      No
+11   1599.0   7.0  Hereford  Male  ...  20.0  39.0   No      No
+16   1619.0   7.0  Hereford  Male  ...  32.0  37.0  Yes      No
+17   1586.0   8.0  Hereford  Male  ...  36.0  36.0   No      No
+18   5206.0  12.0  Hereford  Male  ...  24.0  37.8   No     Yes
+19   7173.0   7.0  Hereford  Male  ...  42.0  39.5   No     Yes
+21   3021.0   6.0  Hereford  Male  ...  24.0  39.3   No     Yes
+23   4938.0  18.0  Hereford  Male  ...  40.0  36.5   No      No
+24   9005.0   7.0  Hereford  Male  ...  60.0   NaN   No     Yes
+25   1587.0   7.0  Hereford  Male  ...  40.0  40.0  Yes     Yes
+26   3167.0  12.0  Hereford  Male  ...  32.0  38.4   No      No
+27   3140.0  10.0  Hereford  Male  ...  30.0  35.2  Yes      No
+30   8868.0   7.0  Hereford  Male  ...  21.0  37.8   No      No
+36   9907.0   8.0  Hereford  Male  ...  40.0  37.1   No      No
+92   1494.0   8.0     Angus  Male  ...  24.0  35.4  Yes     Yes
+95   5319.0   7.0     Angus  Male  ...   NaN  38.2   No      No
+97   4960.0   5.0     Angus  Male  ...  52.0  38.5  Yes     Yes
+98   5113.0   8.0     Angus  Male  ...  28.0  37.9   No      No
+102  6940.0   8.0     Angus  Male  ...  20.0  36.2   No      No
+103  7169.0   8.0     Angus  Male  ...  30.0  39.4   No      No
+
+[21 rows x 14 columns]</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="data-manipulation.html#cb40-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> <span class="bu">filter</span>(_.sex <span class="op">==</span> <span class="st">&quot;Male&quot;</span>, _.age <span class="op">&gt;=</span> <span class="dv">5</span>, _.breed.isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simental&quot;</span>]))</span></code></pre></div>
 <pre><code>       case   age     breed   sex  ...  resp  temp  umb  sepsis
 0    1670.0   5.0  Hereford  Male  ...   NaN  37.6   No      No
 10   3600.0  19.0  Hereford  Male  ...  32.0  39.3   No      No
@@ -796,7 +813,7 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 
 [21 rows x 14 columns]</code></pre>
 <p><strong>Arrange rows with <code>.sort_values()</code></strong></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="data-manipulation.html#cb41-1" aria-hidden="true" tabindex="-1"></a>lb_df.sort_values(by <span class="op">=</span> <span class="st">&quot;case&quot;</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="data-manipulation.html#cb42-1" aria-hidden="true" tabindex="-1"></a>lb_df.sort_values(by <span class="op">=</span> <span class="st">&quot;case&quot;</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
 <pre><code>        case   age       breed     sex  ...  resp  temp  umb  sepsis
 64   10354.0   5.0    Holstein  Female  ...  28.0  39.7   No      No
 50   10222.0   8.0    Holstein  Female  ...  60.0  38.8   No      No
@@ -811,7 +828,7 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 12    1294.0   6.0    Hereford  Female  ...  20.0  40.0   No      No
 
 [254 rows x 14 columns]</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="data-manipulation.html#cb43-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> arrange(<span class="op">-</span>_.case) <span class="co">#&quot;-&quot; means sort in descending</span></span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="data-manipulation.html#cb44-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> arrange(<span class="op">-</span>_.case) <span class="co">#&quot;-&quot; means sort in descending</span></span></code></pre></div>
 <pre><code>        case   age       breed     sex  ...  resp  temp  umb  sepsis
 64   10354.0   5.0    Holstein  Female  ...  28.0  39.7   No      No
 50   10222.0   8.0    Holstein  Female  ...  60.0  38.8   No      No
@@ -826,10 +843,97 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 12    1294.0   6.0    Hereford  Female  ...  20.0  40.0   No      No
 
 [254 rows x 14 columns]</code></pre>
+<p><strong>Select columns with <code>.loc[]</code></strong></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="data-manipulation.html#cb46-1" aria-hidden="true" tabindex="-1"></a>lb_df.loc[:, [<span class="st">&quot;case&quot;</span>, <span class="st">&quot;breed&quot;</span>, <span class="st">&quot;sex&quot;</span>, <span class="st">&quot;attd&quot;</span>, <span class="st">&quot;post&quot;</span>, <span class="st">&quot;dehy&quot;</span>, <span class="st">&quot;temp&quot;</span>, <span class="st">&quot;sepsis&quot;</span>]]</span></code></pre></div>
+<pre><code>       case      breed     sex  ...  dehy  temp  sepsis
+0    1670.0   Hereford    Male  ...  12.0  37.6      No
+1    8124.0   Holstein  Female  ...  13.5  39.2      No
+2    6954.0      Angus    Male  ...   NaN   NaN     Yes
+3    2737.0  Shorthorn    Male  ...   5.0  38.6      No
+4    5341.0  Charolais  Female  ...   0.0  38.6     Yes
+..      ...        ...     ...  ...   ...   ...     ...
+249  4870.0      Other  Female  ...   0.0  39.3     Yes
+250  9805.0      Other  Female  ...   5.0  39.0      No
+251  4869.0      Other  Female  ...   5.0  39.3      No
+252  2926.0      Other  Female  ...   5.0  39.8      No
+253  4186.0      Other  Female  ...   0.0  39.7      No
+
+[254 rows x 8 columns]</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="data-manipulation.html#cb48-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> select(<span class="st">&quot;case&quot;</span>, <span class="st">&quot;breed&quot;</span>, <span class="st">&quot;sex&quot;</span>, <span class="st">&quot;attd&quot;</span>, <span class="st">&quot;post&quot;</span>, <span class="st">&quot;dehy&quot;</span>, <span class="st">&quot;temp&quot;</span>, <span class="st">&quot;sepsis&quot;</span>)</span></code></pre></div>
+<pre><code>       case      breed     sex  ...  dehy  temp  sepsis
+0    1670.0   Hereford    Male  ...  12.0  37.6      No
+1    8124.0   Holstein  Female  ...  13.5  39.2      No
+2    6954.0      Angus    Male  ...   NaN   NaN     Yes
+3    2737.0  Shorthorn    Male  ...   5.0  38.6      No
+4    5341.0  Charolais  Female  ...   0.0  38.6     Yes
+..      ...        ...     ...  ...   ...   ...     ...
+249  4870.0      Other  Female  ...   0.0  39.3     Yes
+250  9805.0      Other  Female  ...   5.0  39.0      No
+251  4869.0      Other  Female  ...   5.0  39.3      No
+252  2926.0      Other  Female  ...   5.0  39.8      No
+253  4186.0      Other  Female  ...   0.0  39.7      No
+
+[254 rows x 8 columns]</code></pre>
+<p>There are a number of helper functions you can use within select():</p>
+<ul>
+<li><p>abc: : ijk: select variable from abc to ijk</p>
+<ul>
+<li><code>lb_df.loc[:, "case":"temp"]</code></li>
+<li><code>lb_df.iloc[:, 0:12]</code></li>
+</ul></li>
+<li><p>starts_with(“abc”): matches names that begin with “abc”.</p>
+<ul>
+<li><code>lb_df.loc[:, lb_df.columns.str.startswith("se")]</code></li>
+</ul></li>
+<li><p>ends_with(“xyz”): matches names that end with “xyz”.</p>
+<ul>
+<li><code>lb_df.loc[:, lb_df.columns.str.endswith("se")]</code></li>
+</ul></li>
+<li><p>contains(c(“ijk”, “xyz”)): matches names that contain “ijk” or “xyz”.</p>
+<ul>
+<li><code>lb_df.loc[:, lb_df.columns.str.contains('|'.join(['se', 'mp']))]</code></li>
+<li><code>lb_df &gt;&gt; select(_.contains('|'.join(['se', 'mp'])))</code></li>
+</ul></li>
+</ul>
+<p><strong>Rename variable</strong></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="data-manipulation.html#cb50-1" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="op">=</span> lb_df</span>
+<span id="cb50-2"><a href="data-manipulation.html#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="data-manipulation.html#cb50-3" aria-hidden="true" tabindex="-1"></a>lb_df1.rename(columns <span class="op">=</span> {<span class="st">&#39;umb&#39;</span>:<span class="st">&#39;ump&#39;</span>}, inplace <span class="op">=</span> <span class="va">True</span>) </span>
+<span id="cb50-4"><a href="data-manipulation.html#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="data-manipulation.html#cb50-5" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="op">&gt;&gt;</span> rename(CASE <span class="op">=</span> <span class="st">&quot;case&quot;</span>)</span></code></pre></div>
+<pre><code>       CASE   age      breed     sex  ...   resp  temp  ump  sepsis
+0    1670.0   5.0   Hereford    Male  ...    NaN  37.6   No      No
+1    8124.0   3.0   Holstein  Female  ...  120.0  39.2   No      No
+2    6954.0   2.0      Angus    Male  ...    NaN   NaN  Yes     Yes
+3    2737.0   3.0  Shorthorn    Male  ...   40.0  38.6   No      No
+4    5341.0   3.0  Charolais  Female  ...   48.0  38.6  Yes     Yes
+..      ...   ...        ...     ...  ...    ...   ...  ...     ...
+249  4870.0   1.0      Other  Female  ...   48.0  39.3  Yes     Yes
+250  9805.0   3.0      Other  Female  ...   28.0  39.0   No      No
+251  4869.0   2.0      Other  Female  ...   30.0  39.3   No      No
+252  2926.0   3.0      Other  Female  ...   70.0  39.8   No      No
+253  4186.0  25.0      Other  Female  ...    NaN  39.7   NA      No
+
+[254 rows x 14 columns]</code></pre>
+<p><strong>Add new variable with <code>.assign()</code></strong></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="data-manipulation.html#cb52-1" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="op">=</span> lb_df.assign(</span>
+<span id="cb52-2"><a href="data-manipulation.html#cb52-2" aria-hidden="true" tabindex="-1"></a>                agegr <span class="op">=</span> pd.cut(lb_df[<span class="st">&quot;age&quot;</span>],bins<span class="op">=</span>[<span class="dv">0</span>,<span class="dv">9</span>,<span class="dv">14</span>,<span class="dv">99</span>],labels<span class="op">=</span>[<span class="st">&quot;Group A&quot;</span>,<span class="st">&quot;Group B&quot;</span>,<span class="st">&quot;Group C&quot;</span>]), </span>
+<span id="cb52-3"><a href="data-manipulation.html#cb52-3" aria-hidden="true" tabindex="-1"></a>                new_breed <span class="op">=</span> lb_df[<span class="st">&quot;breed&quot;</span>].replace(</span>
+<span id="cb52-4"><a href="data-manipulation.html#cb52-4" aria-hidden="true" tabindex="-1"></a>                  {<span class="st">&quot;Hereford&quot;</span>: <span class="st">&quot;Breed A&quot;</span>, <span class="st">&quot;Holstein&quot;</span>: <span class="st">&quot;Breed A&quot;</span>, <span class="st">&quot;Angus&quot;</span>: <span class="st">&quot;Breed A&quot;</span>,<span class="st">&quot;Shorthorn&quot;</span>: <span class="st">&quot;Breed A&quot;</span>, </span>
+<span id="cb52-5"><a href="data-manipulation.html#cb52-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Charolais&quot;</span> : <span class="st">&quot;Breed B&quot;</span>, <span class="st">&quot;Simmental&quot;</span> : <span class="st">&quot;Breed B&quot;</span>, <span class="st">&quot;Limousin&quot;</span> : <span class="st">&quot;Breed B&quot;</span>, <span class="st">&quot;Crossbreed&quot;</span> : <span class="st">&quot;Breed B&quot;</span>, <span class="st">&quot;Other&quot;</span> : <span class="st">&quot;Breed B&quot;</span>}),</span>
+<span id="cb52-6"><a href="data-manipulation.html#cb52-6" aria-hidden="true" tabindex="-1"></a>                test <span class="op">=</span> np.where(lb_df[<span class="st">&quot;age&quot;</span>] <span class="op">+</span> lb_df[<span class="st">&quot;dehy&quot;</span>] <span class="op">&gt;=</span> <span class="dv">20</span>, <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>))</span></code></pre></div>
+<pre><code>Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;np&#39; is not defined
+
+Detailed traceback: 
+  File &quot;&lt;string&gt;&quot;, line 6, in &lt;module&gt;</code></pre>
 </div>
 <div id="stata-2" class="section level4" number="2.4.3.3">
 <h4><span class="header-section-number">2.4.3.3</span> STATA</h4>
 </div>
+</div>
+<div id="data-transformation" class="section level3" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Data transformation</h3>
+<p>Nối dữ liệu, gather spread…, chuyển dữ liệu ngang thành dọc…</p>
 </div>
 </div>
             </section>

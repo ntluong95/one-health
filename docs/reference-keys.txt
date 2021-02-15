@@ -30,10 +30,11 @@ labelling-data
 r-1
 python-1
 stata-1
-data-transformation
+querying-filtering
 r-2
 python-2
 stata-2
+data-transformation
 descriptive-statistics
 data-visualization
 communication-with-rmarkdown

@@ -180,7 +180,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="data-manipulation.html"><a href="data-manipulation.html#import-file"><i class="fa fa-check"></i><b>2.4.1</b> Import file</a></li>
 <li class="chapter" data-level="2.4.2" data-path="data-manipulation.html"><a href="data-manipulation.html#labelling-data"><i class="fa fa-check"></i><b>2.4.2</b> Labelling data</a></li>
-<li class="chapter" data-level="2.4.3" data-path="data-manipulation.html"><a href="data-manipulation.html#data-transformation"><i class="fa fa-check"></i><b>2.4.3</b> Data transformation</a></li>
+<li class="chapter" data-level="2.4.3" data-path="data-manipulation.html"><a href="data-manipulation.html#querying-filtering"><i class="fa fa-check"></i><b>2.4.3</b> Querying, filtering</a></li>
+<li class="chapter" data-level="2.4.4" data-path="data-manipulation.html"><a href="data-manipulation.html#data-transformation"><i class="fa fa-check"></i><b>2.4.4</b> Data transformation</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="descriptive-statistics.html"><a href="descriptive-statistics.html"><i class="fa fa-check"></i><b>2.5</b> Descriptive statistics</a></li>
 <li class="chapter" data-level="2.6" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>2.6</b> Data visualization</a></li>
@@ -260,10 +261,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="linear-regression" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Linear regression</h2>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="linear-regression.html#cb46-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|</span><span class="er">&gt;</span> </span>
-<span id="cb46-2"><a href="linear-regression.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(cyl <span class="sc">==</span> <span class="dv">4</span>) <span class="sc">|</span><span class="er">&gt;</span> </span>
-<span id="cb46-3"><a href="linear-regression.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">=</span><span class="er">&gt;</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> d) <span class="sc">|</span><span class="er">&gt;</span> </span>
-<span id="cb46-4"><a href="linear-regression.html#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="linear-regression.html#cb55-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|</span><span class="er">&gt;</span> </span>
+<span id="cb55-2"><a href="linear-regression.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(cyl <span class="sc">==</span> <span class="dv">4</span>) <span class="sc">|</span><span class="er">&gt;</span> </span>
+<span id="cb55-3"><a href="linear-regression.html#cb55-3" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">=</span><span class="er">&gt;</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> d) <span class="sc">|</span><span class="er">&gt;</span> </span>
+<span id="cb55-4"><a href="linear-regression.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = mpg ~ disp, data = subset(mtcars, cyl == 4))
