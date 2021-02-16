@@ -601,8 +601,8 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 <p><strong>Filter rows with <code>filter()</code></strong></p>
 <p><code>filter()</code> allows you to subset observations based on their values. If you are familiar with <em>filter</em> in Excel, this function works same like this. The output of function is a dataframe. For example, if you want to subset a data with calves who are male, age at admission greater or equal than 5 days, the breed is Hereford, Angus or Simental, you can do like this. In total, we have 21 calves fulfil our filter condition.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="data-manipulation.html#cb24-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
-<span id="cb24-2"><a href="data-manipulation.html#cb24-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>, age <span class="sc">&gt;=</span> <span class="dv">5</span>, breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simental&quot;</span>))</span></code></pre></div>
-<pre><code># A tibble: 21 x 14
+<span id="cb24-2"><a href="data-manipulation.html#cb24-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>, age <span class="sc">&gt;=</span> <span class="dv">5</span>, breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simmental&quot;</span>))</span></code></pre></div>
+<pre><code># A tibble: 33 x 14
     case   age breed sex   attd   dehy eye    jnts post  pulse  resp  temp umb  
    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;
  1  1670     5 Here~ Male  unre~  12   &lt;NA&gt;      0 late~    NA    NA  37.6 No   
@@ -615,7 +615,7 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
  8  3021     6 Here~ Male  depr~   8   Yes       1 ster~   108    24  39.3 No   
  9  4938    18 Here~ Male  depr~   9   No        0 ster~   100    40  36.5 No   
 10  9005     7 Here~ Male  unre~  NA   Yes       0 late~   124    60  NA   No   
-# ... with 11 more rows, and 1 more variable: sepsis &lt;fct&gt;</code></pre>
+# ... with 23 more rows, and 1 more variable: sepsis &lt;fct&gt;</code></pre>
 <p><strong>Arrange rows with <code>arrange()</code></strong></p>
 <p><code>arrange()</code> takes a data frame and a set of column names (or more complicated expressions) to order by. If you provide more than one column name, each additional column will be used to break ties in the values of preceding column. For example, if you want to sort case number in descending order:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="data-manipulation.html#cb26-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
@@ -779,56 +779,80 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 [21 rows x 14 columns]</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="data-manipulation.html#cb39-1" aria-hidden="true" tabindex="-1"></a>lb_df.loc[(lb_df[<span class="st">&quot;sex&quot;</span>] <span class="op">==</span> <span class="st">&quot;Male&quot;</span>) <span class="op">&amp;</span> </span>
 <span id="cb39-2"><a href="data-manipulation.html#cb39-2" aria-hidden="true" tabindex="-1"></a>          (lb_df[<span class="st">&quot;age&quot;</span>] <span class="op">&gt;=</span> <span class="dv">5</span>) <span class="op">&amp;</span> </span>
-<span id="cb39-3"><a href="data-manipulation.html#cb39-3" aria-hidden="true" tabindex="-1"></a>          (lb_df[<span class="st">&quot;breed&quot;</span>].isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simental&quot;</span>]))]</span></code></pre></div>
-<pre><code>       case   age     breed   sex  ...  resp  temp  umb  sepsis
-0    1670.0   5.0  Hereford  Male  ...   NaN  37.6   No      No
-10   3600.0  19.0  Hereford  Male  ...  32.0  39.3   No      No
-11   1599.0   7.0  Hereford  Male  ...  20.0  39.0   No      No
-16   1619.0   7.0  Hereford  Male  ...  32.0  37.0  Yes      No
-17   1586.0   8.0  Hereford  Male  ...  36.0  36.0   No      No
-18   5206.0  12.0  Hereford  Male  ...  24.0  37.8   No     Yes
-19   7173.0   7.0  Hereford  Male  ...  42.0  39.5   No     Yes
-21   3021.0   6.0  Hereford  Male  ...  24.0  39.3   No     Yes
-23   4938.0  18.0  Hereford  Male  ...  40.0  36.5   No      No
-24   9005.0   7.0  Hereford  Male  ...  60.0   NaN   No     Yes
-25   1587.0   7.0  Hereford  Male  ...  40.0  40.0  Yes     Yes
-26   3167.0  12.0  Hereford  Male  ...  32.0  38.4   No      No
-27   3140.0  10.0  Hereford  Male  ...  30.0  35.2  Yes      No
-30   8868.0   7.0  Hereford  Male  ...  21.0  37.8   No      No
-36   9907.0   8.0  Hereford  Male  ...  40.0  37.1   No      No
-92   1494.0   8.0     Angus  Male  ...  24.0  35.4  Yes     Yes
-95   5319.0   7.0     Angus  Male  ...   NaN  38.2   No      No
-97   4960.0   5.0     Angus  Male  ...  52.0  38.5  Yes     Yes
-98   5113.0   8.0     Angus  Male  ...  28.0  37.9   No      No
-102  6940.0   8.0     Angus  Male  ...  20.0  36.2   No      No
-103  7169.0   8.0     Angus  Male  ...  30.0  39.4   No      No
+<span id="cb39-3"><a href="data-manipulation.html#cb39-3" aria-hidden="true" tabindex="-1"></a>          (lb_df[<span class="st">&quot;breed&quot;</span>].isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simmental&quot;</span>]))]</span></code></pre></div>
+<pre><code>       case   age      breed   sex  ...  resp  temp  umb  sepsis
+0    1670.0   5.0   Hereford  Male  ...   NaN  37.6   No      No
+10   3600.0  19.0   Hereford  Male  ...  32.0  39.3   No      No
+11   1599.0   7.0   Hereford  Male  ...  20.0  39.0   No      No
+16   1619.0   7.0   Hereford  Male  ...  32.0  37.0  Yes      No
+17   1586.0   8.0   Hereford  Male  ...  36.0  36.0   No      No
+18   5206.0  12.0   Hereford  Male  ...  24.0  37.8   No     Yes
+19   7173.0   7.0   Hereford  Male  ...  42.0  39.5   No     Yes
+21   3021.0   6.0   Hereford  Male  ...  24.0  39.3   No     Yes
+23   4938.0  18.0   Hereford  Male  ...  40.0  36.5   No      No
+24   9005.0   7.0   Hereford  Male  ...  60.0   NaN   No     Yes
+25   1587.0   7.0   Hereford  Male  ...  40.0  40.0  Yes     Yes
+26   3167.0  12.0   Hereford  Male  ...  32.0  38.4   No      No
+27   3140.0  10.0   Hereford  Male  ...  30.0  35.2  Yes      No
+30   8868.0   7.0   Hereford  Male  ...  21.0  37.8   No      No
+36   9907.0   8.0   Hereford  Male  ...  40.0  37.1   No      No
+92   1494.0   8.0      Angus  Male  ...  24.0  35.4  Yes     Yes
+95   5319.0   7.0      Angus  Male  ...   NaN  38.2   No      No
+97   4960.0   5.0      Angus  Male  ...  52.0  38.5  Yes     Yes
+98   5113.0   8.0      Angus  Male  ...  28.0  37.9   No      No
+102  6940.0   8.0      Angus  Male  ...  20.0  36.2   No      No
+103  7169.0   8.0      Angus  Male  ...  30.0  39.4   No      No
+123  8920.0   7.0  Simmental  Male  ...  16.0  37.4   No      No
+124  4734.0  10.0  Simmental  Male  ...  40.0  38.8  Yes      No
+125  4974.0   5.0  Simmental  Male  ...  40.0  39.4   No     Yes
+129  7212.0  10.0  Simmental  Male  ...  56.0  40.2  Yes      No
+131  8885.0  23.0  Simmental  Male  ...  24.0  39.2  Yes      No
+132  2744.0  20.0  Simmental  Male  ...  20.0  36.1   No     Yes
+133  2437.0   5.0  Simmental  Male  ...  48.0  39.9  Yes     Yes
+135  8695.0   7.0  Simmental  Male  ...  40.0  37.8   No      No
+138  9020.0   9.0  Simmental  Male  ...  24.0  38.0   No      No
+141  9019.0  11.0  Simmental  Male  ...  30.0  39.0   No     Yes
+144  8933.0  11.0  Simmental  Male  ...  45.0  36.6   No      No
+146  7102.0   7.0  Simmental  Male  ...  20.0  37.0   No      No
 
-[21 rows x 14 columns]</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="data-manipulation.html#cb41-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> <span class="bu">filter</span>(_.sex <span class="op">==</span> <span class="st">&quot;Male&quot;</span>, _.age <span class="op">&gt;=</span> <span class="dv">5</span>, _.breed.isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simental&quot;</span>]))</span></code></pre></div>
-<pre><code>       case   age     breed   sex  ...  resp  temp  umb  sepsis
-0    1670.0   5.0  Hereford  Male  ...   NaN  37.6   No      No
-10   3600.0  19.0  Hereford  Male  ...  32.0  39.3   No      No
-11   1599.0   7.0  Hereford  Male  ...  20.0  39.0   No      No
-16   1619.0   7.0  Hereford  Male  ...  32.0  37.0  Yes      No
-17   1586.0   8.0  Hereford  Male  ...  36.0  36.0   No      No
-18   5206.0  12.0  Hereford  Male  ...  24.0  37.8   No     Yes
-19   7173.0   7.0  Hereford  Male  ...  42.0  39.5   No     Yes
-21   3021.0   6.0  Hereford  Male  ...  24.0  39.3   No     Yes
-23   4938.0  18.0  Hereford  Male  ...  40.0  36.5   No      No
-24   9005.0   7.0  Hereford  Male  ...  60.0   NaN   No     Yes
-25   1587.0   7.0  Hereford  Male  ...  40.0  40.0  Yes     Yes
-26   3167.0  12.0  Hereford  Male  ...  32.0  38.4   No      No
-27   3140.0  10.0  Hereford  Male  ...  30.0  35.2  Yes      No
-30   8868.0   7.0  Hereford  Male  ...  21.0  37.8   No      No
-36   9907.0   8.0  Hereford  Male  ...  40.0  37.1   No      No
-92   1494.0   8.0     Angus  Male  ...  24.0  35.4  Yes     Yes
-95   5319.0   7.0     Angus  Male  ...   NaN  38.2   No      No
-97   4960.0   5.0     Angus  Male  ...  52.0  38.5  Yes     Yes
-98   5113.0   8.0     Angus  Male  ...  28.0  37.9   No      No
-102  6940.0   8.0     Angus  Male  ...  20.0  36.2   No      No
-103  7169.0   8.0     Angus  Male  ...  30.0  39.4   No      No
+[33 rows x 14 columns]</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="data-manipulation.html#cb41-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> <span class="bu">filter</span>(_.sex <span class="op">==</span> <span class="st">&quot;Male&quot;</span>, _.age <span class="op">&gt;=</span> <span class="dv">5</span>, _.breed.isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simmental&quot;</span>]))</span></code></pre></div>
+<pre><code>       case   age      breed   sex  ...  resp  temp  umb  sepsis
+0    1670.0   5.0   Hereford  Male  ...   NaN  37.6   No      No
+10   3600.0  19.0   Hereford  Male  ...  32.0  39.3   No      No
+11   1599.0   7.0   Hereford  Male  ...  20.0  39.0   No      No
+16   1619.0   7.0   Hereford  Male  ...  32.0  37.0  Yes      No
+17   1586.0   8.0   Hereford  Male  ...  36.0  36.0   No      No
+18   5206.0  12.0   Hereford  Male  ...  24.0  37.8   No     Yes
+19   7173.0   7.0   Hereford  Male  ...  42.0  39.5   No     Yes
+21   3021.0   6.0   Hereford  Male  ...  24.0  39.3   No     Yes
+23   4938.0  18.0   Hereford  Male  ...  40.0  36.5   No      No
+24   9005.0   7.0   Hereford  Male  ...  60.0   NaN   No     Yes
+25   1587.0   7.0   Hereford  Male  ...  40.0  40.0  Yes     Yes
+26   3167.0  12.0   Hereford  Male  ...  32.0  38.4   No      No
+27   3140.0  10.0   Hereford  Male  ...  30.0  35.2  Yes      No
+30   8868.0   7.0   Hereford  Male  ...  21.0  37.8   No      No
+36   9907.0   8.0   Hereford  Male  ...  40.0  37.1   No      No
+92   1494.0   8.0      Angus  Male  ...  24.0  35.4  Yes     Yes
+95   5319.0   7.0      Angus  Male  ...   NaN  38.2   No      No
+97   4960.0   5.0      Angus  Male  ...  52.0  38.5  Yes     Yes
+98   5113.0   8.0      Angus  Male  ...  28.0  37.9   No      No
+102  6940.0   8.0      Angus  Male  ...  20.0  36.2   No      No
+103  7169.0   8.0      Angus  Male  ...  30.0  39.4   No      No
+123  8920.0   7.0  Simmental  Male  ...  16.0  37.4   No      No
+124  4734.0  10.0  Simmental  Male  ...  40.0  38.8  Yes      No
+125  4974.0   5.0  Simmental  Male  ...  40.0  39.4   No     Yes
+129  7212.0  10.0  Simmental  Male  ...  56.0  40.2  Yes      No
+131  8885.0  23.0  Simmental  Male  ...  24.0  39.2  Yes      No
+132  2744.0  20.0  Simmental  Male  ...  20.0  36.1   No     Yes
+133  2437.0   5.0  Simmental  Male  ...  48.0  39.9  Yes     Yes
+135  8695.0   7.0  Simmental  Male  ...  40.0  37.8   No      No
+138  9020.0   9.0  Simmental  Male  ...  24.0  38.0   No      No
+141  9019.0  11.0  Simmental  Male  ...  30.0  39.0   No     Yes
+144  8933.0  11.0  Simmental  Male  ...  45.0  36.6   No      No
+146  7102.0   7.0  Simmental  Male  ...  20.0  37.0   No      No
 
-[21 rows x 14 columns]</code></pre>
+[33 rows x 14 columns]</code></pre>
 <p><strong>Arrange rows with <code>.sort_values()</code></strong></p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="data-manipulation.html#cb43-1" aria-hidden="true" tabindex="-1"></a>lb_df.sort_values(by <span class="op">=</span> <span class="st">&quot;case&quot;</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
 <pre><code>        case   age       breed     sex  ...  resp  temp  umb  sepsis
@@ -957,6 +981,26 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 </div>
 <div id="stata-2" class="section level4" number="2.4.3.3">
 <h4><span class="header-section-number">2.4.3.3</span> STATA</h4>
+<p><strong>Filter rows with <code>list</code></strong></p>
+<p><em>list [varlist] [if] [in] [, options]</em></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb55-1"><a href="data-manipulation.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="ot">list</span> <span class="kw">if</span> sex == 1 &amp; age &gt;= 5 &amp; <span class="fu">inlist</span>(breed, 1,3,6)</span></code></pre></div>
+<p><strong>Arrange rows with <code>gsort</code></strong></p>
+<p><code>gsort</code> arranges observations to be in ascending or descending order of the specified variables and so differs from sort in that sort produces ascending-order arrangements only. The observations are placed in ascending order of varname if + or nothing is typed in front of the name and are placed in descending order if - is typed.</p>
+<p><em>gsort [+|-] varname [[+|-] varname …] [, generate(newvar) mfirst]</em></p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb56-1"><a href="data-manipulation.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gsort</span> -<span class="kw">case</span></span></code></pre></div>
+<p><strong>Select columns with <code>keep</code></strong></p>
+<p><em>keep varlist</em></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb57-1"><a href="data-manipulation.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">keep</span> <span class="kw">case</span> breed sex attd <span class="kw">post</span> dehy temp sepsis</span>
+<span id="cb57-2"><a href="data-manipulation.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> sex</span></code></pre></div>
+<p><strong>Rename variable</strong></p>
+<p><em>rename old_varname new_varname</em></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb58-1"><a href="data-manipulation.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">rename</span> <span class="kw">case</span> id</span></code></pre></div>
+<p><strong>Add new variable with <code>generate</code></strong></p>
+<p><em>generate [type] newvar[:lblname] =exp [if] [in] [, before(varname) | after(varname)]</em></p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb59-1"><a href="data-manipulation.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> agegr =.</span>
+<span id="cb59-2"><a href="data-manipulation.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> agegr = 1 <span class="kw">if</span> age &lt; 10</span>
+<span id="cb59-3"><a href="data-manipulation.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> agegr = 2 <span class="kw">if</span> age &gt;= 10 &amp; age &lt; 15</span>
+<span id="cb59-4"><a href="data-manipulation.html#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> agegr = 3 <span class="kw">if</span> age &gt;= 15</span></code></pre></div>
 </div>
 </div>
 <div id="data-transformation" class="section level3" number="2.4.4">
