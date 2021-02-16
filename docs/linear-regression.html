@@ -261,28 +261,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="linear-regression" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Linear regression</h2>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="linear-regression.html#cb61-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|</span><span class="er">&gt;</span> </span>
-<span id="cb61-2"><a href="linear-regression.html#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(cyl <span class="sc">==</span> <span class="dv">4</span>) <span class="sc">|</span><span class="er">&gt;</span> </span>
-<span id="cb61-3"><a href="linear-regression.html#cb61-3" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">=</span><span class="er">&gt;</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> d) <span class="sc">|</span><span class="er">&gt;</span> </span>
-<span id="cb61-4"><a href="linear-regression.html#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
-<pre><code>
-Call:
-lm(formula = mpg ~ disp, data = subset(mtcars, cyl == 4))
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--3.477 -3.008  0.956  2.272  3.353 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 40.87196    3.58961  11.386  1.2e-06 ***
-disp        -0.13514    0.03317  -4.074  0.00278 ** 
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-Residual standard error: 2.819 on 9 degrees of freedom
-Multiple R-squared:  0.6484,    Adjusted R-squared:  0.6093 
-F-statistic:  16.6 on 1 and 9 DF,  p-value: 0.002783</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="linear-regression.html#cb60-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|</span><span class="er">&gt;</span> </span>
+<span id="cb60-2"><a href="linear-regression.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(cyl <span class="sc">==</span> <span class="dv">4</span>) <span class="sc">|</span><span class="er">&gt;</span> </span>
+<span id="cb60-3"><a href="linear-regression.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">=</span><span class="er">&gt;</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> d) <span class="sc">|</span><span class="er">&gt;</span> </span>
+<span id="cb60-4"><a href="linear-regression.html#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ disp, data = subset(mtcars, cyl == 4))
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.477 -3.008  0.956  2.272  3.353 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 40.87196    3.58961  11.386  1.2e-06 ***
+## disp        -0.13514    0.03317  -4.074  0.00278 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.819 on 9 degrees of freedom
+## Multiple R-squared:  0.6484, Adjusted R-squared:  0.6093 
+## F-statistic:  16.6 on 1 and 9 DF,  p-value: 0.002783</code></pre>
 </div>
             </section>
 

@@ -420,61 +420,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb13-2"><a href="data-manipulation.html#cb13-2" aria-hidden="true" tabindex="-1"></a>stataexe <span class="ot">&lt;-</span> <span class="st">&quot;C:/Program Files/Stata16/StataSE-64.exe&quot;</span></span>
 <span id="cb13-3"><a href="data-manipulation.html#cb13-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">engine.path=</span><span class="fu">list</span>(<span class="at">stata=</span>stataexe))</span></code></pre></div>
 <p>Then, use function <code>import delimited</code>, specify your path to the data</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb14-1"><a href="data-manipulation.html#cb14-1" aria-hidden="true" tabindex="-1"></a>import delimited <span class="st">&quot;D:\Book Writing\1. Applied Epidemiology in One Health\data\calf.csv&quot;</span>, <span class="kw">clear</span></span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb14-1"><a href="data-manipulation.html#cb14-1" aria-hidden="true" tabindex="-1"></a>import delimited <span class="st">&quot;D:\Book Writing\1. Applied Epidemiology in One Health\data\calf.csv&quot;</span></span>
 <span id="cb14-2"><a href="data-manipulation.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">describe</span></span></code></pre></div>
-<pre><code> . import delimited &quot;D:\Book Writing\1. Applied Epidemiology in One Health\data\
-&gt; calf.csv&quot;, clear
-(14 vars, 254 obs)
-
-. describe
-
-Contains data
-  obs:           254                          
- vars:            14                          
--------------------------------------------------------------------------------
-              storage   display    value
-variable name   type    format     label      variable label
--------------------------------------------------------------------------------
-case            int     %8.0g                 
-age             byte    %8.0g                 
-breed           byte    %8.0g                 
-sex             byte    %8.0g                 
-attd            byte    %8.0g                 
-dehy            float   %9.0g                 
-eye             byte    %8.0g                 
-jnts            byte    %8.0g                 
-post            byte    %8.0g                 
-pulse           int     %8.0g                 
-resp            int     %8.0g                 
-temp            float   %9.0g                 
-umb             byte    %8.0g                 
-sepsis          byte    %8.0g                 
--------------------------------------------------------------------------------
-Sorted by: 
-     Note: Dataset has changed since last saved.</code></pre>
 </div>
 <div id="labelling-data" class="section level3" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Labelling data</h3>
 <div id="r-1" class="section level4" number="2.4.2.1">
 <h4><span class="header-section-number">2.4.2.1</span> R</h4>
 <p>To <strong>label for value of variables</strong> in dataset, you can use function <code>mutate</code> to create new varibales (will present in details later) combining with <code>factor</code> function. Remember that you can only do that for categorical variables, in R they is storaged as <em>factor</em> data. Noted that the operation <code>|&gt;</code> means <em>forwarding</em>. It is R native piping, similar to <code>%&gt;%</code> if you know <code>magrittr</code> package</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="data-manipulation.html#cb16-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="ot">&lt;-</span> raw_df <span class="sc">|</span><span class="er">&gt;</span> </span>
-<span id="cb16-2"><a href="data-manipulation.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">breed =</span> <span class="fu">factor</span>(breed, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Holstein&quot;</span>,<span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Shorthorn&quot;</span>, <span class="st">&quot;Charolais&quot;</span>, <span class="st">&quot;Simmental&quot;</span>, <span class="st">&quot;Limousin&quot;</span>, <span class="st">&quot;Crossbreed&quot;</span>, <span class="st">&quot;Other&quot;</span>)),</span>
-<span id="cb16-3"><a href="data-manipulation.html#cb16-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="fu">factor</span>(sex, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Female&quot;</span>,<span class="st">&quot;Male&quot;</span>)),</span>
-<span id="cb16-4"><a href="data-manipulation.html#cb16-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">attd =</span> <span class="fu">factor</span>(attd, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;bright, alert&quot;</span>,<span class="st">&quot;depressed&quot;</span>, <span class="st">&quot;unresponsive, comatose&quot;</span>)),</span>
-<span id="cb16-5"><a href="data-manipulation.html#cb16-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">eye =</span> <span class="fu">factor</span>(eye, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)),</span>
-<span id="cb16-6"><a href="data-manipulation.html#cb16-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">post =</span> <span class="fu">factor</span>(post, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;standing&quot;</span>,<span class="st">&quot;sternal&quot;</span>, <span class="st">&quot;lateral&quot;</span>)),</span>
-<span id="cb16-7"><a href="data-manipulation.html#cb16-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">umb =</span> <span class="fu">factor</span>(umb, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)),</span>
-<span id="cb16-8"><a href="data-manipulation.html#cb16-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">sepsis =</span> <span class="fu">factor</span>(sepsis, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="data-manipulation.html#cb15-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="ot">&lt;-</span> raw_df <span class="sc">|</span><span class="er">&gt;</span> </span>
+<span id="cb15-2"><a href="data-manipulation.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">breed =</span> <span class="fu">factor</span>(breed, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Holstein&quot;</span>,<span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Shorthorn&quot;</span>, <span class="st">&quot;Charolais&quot;</span>, <span class="st">&quot;Simmental&quot;</span>, <span class="st">&quot;Limousin&quot;</span>, <span class="st">&quot;Crossbreed&quot;</span>, <span class="st">&quot;Other&quot;</span>)),</span>
+<span id="cb15-3"><a href="data-manipulation.html#cb15-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="fu">factor</span>(sex, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Female&quot;</span>,<span class="st">&quot;Male&quot;</span>)),</span>
+<span id="cb15-4"><a href="data-manipulation.html#cb15-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">attd =</span> <span class="fu">factor</span>(attd, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;bright, alert&quot;</span>,<span class="st">&quot;depressed&quot;</span>, <span class="st">&quot;unresponsive, comatose&quot;</span>)),</span>
+<span id="cb15-5"><a href="data-manipulation.html#cb15-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">eye =</span> <span class="fu">factor</span>(eye, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)),</span>
+<span id="cb15-6"><a href="data-manipulation.html#cb15-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">post =</span> <span class="fu">factor</span>(post, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;standing&quot;</span>,<span class="st">&quot;sternal&quot;</span>, <span class="st">&quot;lateral&quot;</span>)),</span>
+<span id="cb15-7"><a href="data-manipulation.html#cb15-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">umb =</span> <span class="fu">factor</span>(umb, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)),</span>
+<span id="cb15-8"><a href="data-manipulation.html#cb15-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">sepsis =</span> <span class="fu">factor</span>(sepsis, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)))</span></code></pre></div>
 <p>To <strong>label for variables</strong> in dataset, you can use function <code>var_labels</code> in package <code>sjlabelled</code>.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="data-manipulation.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb17-2"><a href="data-manipulation.html#cb17-2" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">%&lt;&gt;%</span>  </span>
-<span id="cb17-3"><a href="data-manipulation.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  sjlabelled<span class="sc">::</span><span class="fu">var_labels</span>(</span>
-<span id="cb17-4"><a href="data-manipulation.html#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">case =</span> <span class="st">&quot;hospital case number&quot;</span>, <span class="at">age =</span> <span class="st">&quot;age at admission&quot;</span>, <span class="at">breed =</span> <span class="st">&quot;breed&quot;</span>, <span class="at">sex =</span> <span class="st">&quot;sex&quot;</span>,</span>
-<span id="cb17-5"><a href="data-manipulation.html#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">attd =</span> <span class="st">&quot;attitude of calf&quot;</span>, <span class="at">dehy =</span> <span class="st">&quot;% dehydration&quot;</span>, <span class="at">eye =</span> <span class="st">&quot;uveitis/hypopyon clinically evident&quot;</span>,</span>
-<span id="cb17-6"><a href="data-manipulation.html#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">jnts =</span> <span class="st">&quot;swollen joints clinically evident&quot;</span>, <span class="at">post =</span> <span class="st">&quot;posture of caIf&quot;</span>, <span class="at">pulse =</span> <span class="st">&quot;pulse rate&quot;</span>,</span>
-<span id="cb17-7"><a href="data-manipulation.html#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">resp =</span> <span class="st">&quot;respiratory rate&quot;</span>, <span class="at">temp =</span> <span class="st">&quot;rectal temperature&quot;</span>, <span class="at">umb =</span> <span class="st">&quot;swollen umbilicus clinically evident&quot;</span>,</span>
-<span id="cb17-8"><a href="data-manipulation.html#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">sepsis =</span> <span class="st">&quot;sepsis&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="data-manipulation.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb16-2"><a href="data-manipulation.html#cb16-2" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">%&lt;&gt;%</span>  </span>
+<span id="cb16-3"><a href="data-manipulation.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  sjlabelled<span class="sc">::</span><span class="fu">var_labels</span>(</span>
+<span id="cb16-4"><a href="data-manipulation.html#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">case =</span> <span class="st">&quot;hospital case number&quot;</span>, <span class="at">age =</span> <span class="st">&quot;age at admission&quot;</span>, <span class="at">breed =</span> <span class="st">&quot;breed&quot;</span>, <span class="at">sex =</span> <span class="st">&quot;sex&quot;</span>,</span>
+<span id="cb16-5"><a href="data-manipulation.html#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">attd =</span> <span class="st">&quot;attitude of calf&quot;</span>, <span class="at">dehy =</span> <span class="st">&quot;% dehydration&quot;</span>, <span class="at">eye =</span> <span class="st">&quot;uveitis/hypopyon clinically evident&quot;</span>,</span>
+<span id="cb16-6"><a href="data-manipulation.html#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">jnts =</span> <span class="st">&quot;swollen joints clinically evident&quot;</span>, <span class="at">post =</span> <span class="st">&quot;posture of caIf&quot;</span>, <span class="at">pulse =</span> <span class="st">&quot;pulse rate&quot;</span>,</span>
+<span id="cb16-7"><a href="data-manipulation.html#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">resp =</span> <span class="st">&quot;respiratory rate&quot;</span>, <span class="at">temp =</span> <span class="st">&quot;rectal temperature&quot;</span>, <span class="at">umb =</span> <span class="st">&quot;swollen umbilicus clinically evident&quot;</span>,</span>
+<span id="cb16-8"><a href="data-manipulation.html#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">sepsis =</span> <span class="st">&quot;sepsis&quot;</span>)</span></code></pre></div>
 <p>You can view the result through function <code>view(lb_df)</code>, it will open the window like this:</p>
 <center>
 <p><img src="docs/images/Screenshot%202021-01-30%20135810.png" width="2998" /></p>
@@ -483,99 +453,99 @@ Sorted by:
 <div id="python-1" class="section level4" number="2.4.2.2">
 <h4><span class="header-section-number">2.4.2.2</span> Python</h4>
 <p>Python doesn’t support to handle with labelled data, or complicated to do. One simple solution is we do it in R and then pass to Pandas data frame by calling function <code>r.</code>. Noted: You should convert all factor variables into character variables before transforming.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="data-manipulation.html#cb18-1" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="ot">&lt;-</span> lb_df <span class="sc">|</span><span class="er">&gt;</span> <span class="fu">mutate_if</span>(is.factor, as.character)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="data-manipulation.html#cb17-1" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="ot">&lt;-</span> lb_df <span class="sc">|</span><span class="er">&gt;</span> <span class="fu">mutate_if</span>(is.factor, as.character)</span></code></pre></div>
 <p>If needed, you should also convert all object variables into category variables in pandas dataframe</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="data-manipulation.html#cb19-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">=</span> r.lb_df1</span>
-<span id="cb19-2"><a href="data-manipulation.html#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="data-manipulation.html#cb19-3" aria-hidden="true" tabindex="-1"></a>lb_df.loc[:, lb_df.dtypes <span class="op">==</span> <span class="st">&#39;object&#39;</span>] <span class="op">=</span>(lb_df.select_dtypes([<span class="st">&#39;object&#39;</span>])</span>
-<span id="cb19-4"><a href="data-manipulation.html#cb19-4" aria-hidden="true" tabindex="-1"></a>                                              .<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.astype(<span class="st">&#39;category&#39;</span>)))</span>
-<span id="cb19-5"><a href="data-manipulation.html#cb19-5" aria-hidden="true" tabindex="-1"></a>glimpse(lb_df)                                            </span></code></pre></div>
-<pre><code>Shape:  (254, 14)
-case   float64   0 (0%) NAs : 1670.0, 8124.0, 6954.0, 2737.0, 5341.0, 6749.0, 3234.0, 2325.0, 2925.0, 7108.0
-age    float64   1 (0%) NAs : 5.0, 3.0, 2.0, 3.0, 3.0, 10.0, 4.0, 14.0, 4.0, 8.0
-breed  category  0 (0%) NAs : Hereford, Holstein, Angus, Shorthorn, Charolais, Simmental, Limousin, Crossbreed
-sex    category  0 (0%) NAs : Male, Female, Male, Male, Female, Female, Female, Female, Female, Female
-attd   category  0 (0%) NAs : unresponsive, comatose, depressed, unresponsive, comatose, depressed, depressed,
-dehy   float64  14 (6%) NAs : 12.0, 13.5, nan, 5.0, 0.0, 5.5, 7.0, 7.0, 5.0, 10.0
-eye    category  0 (0%) NAs : NA, No, Yes, No, No, No, No, No, No, No
-jnts   float64  11 (4%) NAs : 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0
-post   category  0 (0%) NAs : lateral, standing, lateral, standing, sternal, standing, lateral, standing, stan
-pulse  float64   9 (4%) NAs : nan, 130.0, nan, 132.0, 128.0, 160.0, 180.0, 100.0, 150.0, 120.0
-resp   float64  19 (7%) NAs : nan, 120.0, nan, 40.0, 48.0, 48.0, 84.0, 20.0, 52.0, 68.0
-temp   float64   7 (3%) NAs : 37.6, 39.2, nan, 38.6, 38.6, 39.6, 39.0, 35.0, 39.5, 37.8
-umb    category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No
-sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="data-manipulation.html#cb18-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">=</span> r.lb_df1</span>
+<span id="cb18-2"><a href="data-manipulation.html#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="data-manipulation.html#cb18-3" aria-hidden="true" tabindex="-1"></a>lb_df.loc[:, lb_df.dtypes <span class="op">==</span> <span class="st">&#39;object&#39;</span>] <span class="op">=</span>(lb_df.select_dtypes([<span class="st">&#39;object&#39;</span>])</span>
+<span id="cb18-4"><a href="data-manipulation.html#cb18-4" aria-hidden="true" tabindex="-1"></a>                                              .<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.astype(<span class="st">&#39;category&#39;</span>)))</span>
+<span id="cb18-5"><a href="data-manipulation.html#cb18-5" aria-hidden="true" tabindex="-1"></a>glimpse(lb_df)                                            </span></code></pre></div>
+<pre><code>## Shape:  (254, 14)
+## case   float64   0 (0%) NAs : 1670.0, 8124.0, 6954.0, 2737.0, 5341.0, 6749.0, 3234.0, 2325.0, 2925.0, 7108.0
+## age    float64   1 (0%) NAs : 5.0, 3.0, 2.0, 3.0, 3.0, 10.0, 4.0, 14.0, 4.0, 8.0
+## breed  category  0 (0%) NAs : Hereford, Holstein, Angus, Shorthorn, Charolais, Simmental, Limousin, Crossbreed
+## sex    category  0 (0%) NAs : Male, Female, Male, Male, Female, Female, Female, Female, Female, Female
+## attd   category  0 (0%) NAs : unresponsive, comatose, depressed, unresponsive, comatose, depressed, depressed,
+## dehy   float64  14 (6%) NAs : 12.0, 13.5, nan, 5.0, 0.0, 5.5, 7.0, 7.0, 5.0, 10.0
+## eye    category  0 (0%) NAs : NA, No, Yes, No, No, No, No, No, No, No
+## jnts   float64  11 (4%) NAs : 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0
+## post   category  0 (0%) NAs : lateral, standing, lateral, standing, sternal, standing, lateral, standing, stan
+## pulse  float64   9 (4%) NAs : nan, 130.0, nan, 132.0, 128.0, 160.0, 180.0, 100.0, 150.0, 120.0
+## resp   float64  19 (7%) NAs : nan, 120.0, nan, 40.0, 48.0, 48.0, 84.0, 20.0, 52.0, 68.0
+## temp   float64   7 (3%) NAs : 37.6, 39.2, nan, 38.6, 38.6, 39.6, 39.0, 35.0, 39.5, 37.8
+## umb    category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No
+## sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></pre>
 <p>To access the values of categorical variable, you can use function <code>lb_df["breed"].values.codes</code> and <code>lb_df["breed"].values.categories</code></p>
 <p>If you still want to try to handle purerly Python code, an alternative is creating a dictionary that contain all value of variables. Then using <code>mutate</code> function from <code>siuba</code> library which is similar to <code>dplyr</code> library in R Tidyverse to mutate new variable</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="data-manipulation.html#cb21-1" aria-hidden="true" tabindex="-1"></a>breed_dict <span class="op">=</span> ({<span class="dv">1</span> : <span class="st">&quot;Hereford&quot;</span>, <span class="dv">2</span> : <span class="st">&quot;Holstein&quot;</span>, <span class="dv">3</span> : <span class="st">&quot;Angus&quot;</span>, <span class="dv">4</span> : <span class="st">&quot;Shorthorn&quot;</span>,</span>
-<span id="cb21-2"><a href="data-manipulation.html#cb21-2" aria-hidden="true" tabindex="-1"></a>              <span class="dv">5</span> : <span class="st">&quot;Charolais&quot;</span>, <span class="dv">6</span>: <span class="st">&quot;Simmental&quot;</span>, <span class="dv">7</span> : <span class="st">&quot;Limousin&quot;</span>, <span class="dv">8</span>: <span class="st">&quot;Crossbreed&quot;</span>, <span class="dv">9</span> : <span class="st">&quot;Other&quot;</span>})</span>
-<span id="cb21-3"><a href="data-manipulation.html#cb21-3" aria-hidden="true" tabindex="-1"></a>sex_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;Female&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Male&quot;</span>}</span>
-<span id="cb21-4"><a href="data-manipulation.html#cb21-4" aria-hidden="true" tabindex="-1"></a>attd_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;bright, alert&quot;</span>, <span class="dv">1</span>: <span class="st">&quot;depressed&quot;</span>, <span class="dv">2</span>: <span class="st">&quot;unresponsive, comatose&quot;</span>}</span>
-<span id="cb21-5"><a href="data-manipulation.html#cb21-5" aria-hidden="true" tabindex="-1"></a>eye_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;No&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Yes&quot;</span>}</span>
-<span id="cb21-6"><a href="data-manipulation.html#cb21-6" aria-hidden="true" tabindex="-1"></a>post_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;standing&quot;</span>, <span class="dv">1</span>: <span class="st">&quot;sternal&quot;</span>, <span class="dv">2</span> : <span class="st">&quot;lateral&quot;</span>}</span>
-<span id="cb21-7"><a href="data-manipulation.html#cb21-7" aria-hidden="true" tabindex="-1"></a>umb_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;No&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Yes&quot;</span>}</span>
-<span id="cb21-8"><a href="data-manipulation.html#cb21-8" aria-hidden="true" tabindex="-1"></a>sepsis_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;No&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Yes&quot;</span>}</span>
-<span id="cb21-9"><a href="data-manipulation.html#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="data-manipulation.html#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> <span class="op">*</span>   </span>
-<span id="cb21-11"><a href="data-manipulation.html#cb21-11" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="op">=</span> raw_df <span class="op">&gt;&gt;</span> mutate(</span>
-<span id="cb21-12"><a href="data-manipulation.html#cb21-12" aria-hidden="true" tabindex="-1"></a>                    sex <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sex_dict.get(x[<span class="st">&quot;sex&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb21-13"><a href="data-manipulation.html#cb21-13" aria-hidden="true" tabindex="-1"></a>                    breed <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: breed_dict.get(x[<span class="st">&quot;breed&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb21-14"><a href="data-manipulation.html#cb21-14" aria-hidden="true" tabindex="-1"></a>                    attd <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: attd_dict.get(x[<span class="st">&quot;attd&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb21-15"><a href="data-manipulation.html#cb21-15" aria-hidden="true" tabindex="-1"></a>                    eye <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: eye_dict.get(x[<span class="st">&quot;eye&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb21-16"><a href="data-manipulation.html#cb21-16" aria-hidden="true" tabindex="-1"></a>                    post <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: post_dict.get(x[<span class="st">&quot;post&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb21-17"><a href="data-manipulation.html#cb21-17" aria-hidden="true" tabindex="-1"></a>                    umb <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: umb_dict.get(x[<span class="st">&quot;umb&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb21-18"><a href="data-manipulation.html#cb21-18" aria-hidden="true" tabindex="-1"></a>                    sepsis <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sepsis_dict.get(x[<span class="st">&quot;sepsis&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="data-manipulation.html#cb20-1" aria-hidden="true" tabindex="-1"></a>breed_dict <span class="op">=</span> ({<span class="dv">1</span> : <span class="st">&quot;Hereford&quot;</span>, <span class="dv">2</span> : <span class="st">&quot;Holstein&quot;</span>, <span class="dv">3</span> : <span class="st">&quot;Angus&quot;</span>, <span class="dv">4</span> : <span class="st">&quot;Shorthorn&quot;</span>,</span>
+<span id="cb20-2"><a href="data-manipulation.html#cb20-2" aria-hidden="true" tabindex="-1"></a>              <span class="dv">5</span> : <span class="st">&quot;Charolais&quot;</span>, <span class="dv">6</span>: <span class="st">&quot;Simmental&quot;</span>, <span class="dv">7</span> : <span class="st">&quot;Limousin&quot;</span>, <span class="dv">8</span>: <span class="st">&quot;Crossbreed&quot;</span>, <span class="dv">9</span> : <span class="st">&quot;Other&quot;</span>})</span>
+<span id="cb20-3"><a href="data-manipulation.html#cb20-3" aria-hidden="true" tabindex="-1"></a>sex_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;Female&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Male&quot;</span>}</span>
+<span id="cb20-4"><a href="data-manipulation.html#cb20-4" aria-hidden="true" tabindex="-1"></a>attd_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;bright, alert&quot;</span>, <span class="dv">1</span>: <span class="st">&quot;depressed&quot;</span>, <span class="dv">2</span>: <span class="st">&quot;unresponsive, comatose&quot;</span>}</span>
+<span id="cb20-5"><a href="data-manipulation.html#cb20-5" aria-hidden="true" tabindex="-1"></a>eye_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;No&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Yes&quot;</span>}</span>
+<span id="cb20-6"><a href="data-manipulation.html#cb20-6" aria-hidden="true" tabindex="-1"></a>post_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;standing&quot;</span>, <span class="dv">1</span>: <span class="st">&quot;sternal&quot;</span>, <span class="dv">2</span> : <span class="st">&quot;lateral&quot;</span>}</span>
+<span id="cb20-7"><a href="data-manipulation.html#cb20-7" aria-hidden="true" tabindex="-1"></a>umb_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;No&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Yes&quot;</span>}</span>
+<span id="cb20-8"><a href="data-manipulation.html#cb20-8" aria-hidden="true" tabindex="-1"></a>sepsis_dict <span class="op">=</span> {<span class="dv">0</span> : <span class="st">&quot;No&quot;</span>, <span class="dv">1</span> : <span class="st">&quot;Yes&quot;</span>}</span>
+<span id="cb20-9"><a href="data-manipulation.html#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="data-manipulation.html#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> <span class="op">*</span>   </span>
+<span id="cb20-11"><a href="data-manipulation.html#cb20-11" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="op">=</span> raw_df <span class="op">&gt;&gt;</span> mutate(</span>
+<span id="cb20-12"><a href="data-manipulation.html#cb20-12" aria-hidden="true" tabindex="-1"></a>                    sex <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sex_dict.get(x[<span class="st">&quot;sex&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb20-13"><a href="data-manipulation.html#cb20-13" aria-hidden="true" tabindex="-1"></a>                    breed <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: breed_dict.get(x[<span class="st">&quot;breed&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb20-14"><a href="data-manipulation.html#cb20-14" aria-hidden="true" tabindex="-1"></a>                    attd <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: attd_dict.get(x[<span class="st">&quot;attd&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb20-15"><a href="data-manipulation.html#cb20-15" aria-hidden="true" tabindex="-1"></a>                    eye <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: eye_dict.get(x[<span class="st">&quot;eye&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb20-16"><a href="data-manipulation.html#cb20-16" aria-hidden="true" tabindex="-1"></a>                    post <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: post_dict.get(x[<span class="st">&quot;post&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb20-17"><a href="data-manipulation.html#cb20-17" aria-hidden="true" tabindex="-1"></a>                    umb <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: umb_dict.get(x[<span class="st">&quot;umb&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb20-18"><a href="data-manipulation.html#cb20-18" aria-hidden="true" tabindex="-1"></a>                    sepsis <span class="op">=</span> _.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sepsis_dict.get(x[<span class="st">&quot;sepsis&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>))</span></code></pre></div>
 <p>You can do exactly same version with <code>assign</code> function from <code>pandas</code> library. The principle is same because <code>siuba</code> was developed inherited from <code>pandas</code>, but lighter and support for R users who are familiar with <code>tidyverse</code> ecosystem.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="data-manipulation.html#cb22-1" aria-hidden="true" tabindex="-1"></a>lb_df2 <span class="op">=</span>  raw_df.assign(</span>
-<span id="cb22-2"><a href="data-manipulation.html#cb22-2" aria-hidden="true" tabindex="-1"></a>                    sex <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sex_dict.get(x[<span class="st">&quot;sex&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb22-3"><a href="data-manipulation.html#cb22-3" aria-hidden="true" tabindex="-1"></a>                    breed <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: breed_dict.get(x[<span class="st">&quot;breed&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb22-4"><a href="data-manipulation.html#cb22-4" aria-hidden="true" tabindex="-1"></a>                    attd <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: attd_dict.get(x[<span class="st">&quot;attd&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb22-5"><a href="data-manipulation.html#cb22-5" aria-hidden="true" tabindex="-1"></a>                    eye <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: eye_dict.get(x[<span class="st">&quot;eye&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb22-6"><a href="data-manipulation.html#cb22-6" aria-hidden="true" tabindex="-1"></a>                    post <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: post_dict.get(x[<span class="st">&quot;post&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb22-7"><a href="data-manipulation.html#cb22-7" aria-hidden="true" tabindex="-1"></a>                    umb <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: umb_dict.get(x[<span class="st">&quot;umb&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
-<span id="cb22-8"><a href="data-manipulation.html#cb22-8" aria-hidden="true" tabindex="-1"></a>                    sepsis <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sepsis_dict.get(x[<span class="st">&quot;sepsis&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="data-manipulation.html#cb21-1" aria-hidden="true" tabindex="-1"></a>lb_df2 <span class="op">=</span>  raw_df.assign(</span>
+<span id="cb21-2"><a href="data-manipulation.html#cb21-2" aria-hidden="true" tabindex="-1"></a>                    sex <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sex_dict.get(x[<span class="st">&quot;sex&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb21-3"><a href="data-manipulation.html#cb21-3" aria-hidden="true" tabindex="-1"></a>                    breed <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: breed_dict.get(x[<span class="st">&quot;breed&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb21-4"><a href="data-manipulation.html#cb21-4" aria-hidden="true" tabindex="-1"></a>                    attd <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: attd_dict.get(x[<span class="st">&quot;attd&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb21-5"><a href="data-manipulation.html#cb21-5" aria-hidden="true" tabindex="-1"></a>                    eye <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: eye_dict.get(x[<span class="st">&quot;eye&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb21-6"><a href="data-manipulation.html#cb21-6" aria-hidden="true" tabindex="-1"></a>                    post <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: post_dict.get(x[<span class="st">&quot;post&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb21-7"><a href="data-manipulation.html#cb21-7" aria-hidden="true" tabindex="-1"></a>                    umb <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: umb_dict.get(x[<span class="st">&quot;umb&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>),</span>
+<span id="cb21-8"><a href="data-manipulation.html#cb21-8" aria-hidden="true" tabindex="-1"></a>                    sepsis <span class="op">=</span> raw_df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: sepsis_dict.get(x[<span class="st">&quot;sepsis&quot;</span>], <span class="st">&quot;NaN&quot;</span>), axis <span class="op">=</span> <span class="dv">1</span>))</span></code></pre></div>
 </div>
 <div id="stata-1" class="section level4" number="2.4.2.3">
 <h4><span class="header-section-number">2.4.2.3</span> STATA</h4>
-<div class="sourceCode" id="cb23"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb23-1"><a href="data-manipulation.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> <span class="kw">case</span> <span class="st">&quot;hospital case number&quot;</span></span>
-<span id="cb23-2"><a href="data-manipulation.html#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="data-manipulation.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> age <span class="st">&quot;age at admission&quot;</span></span>
-<span id="cb23-4"><a href="data-manipulation.html#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="data-manipulation.html#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> breed <span class="st">&quot;breed&quot;</span></span>
-<span id="cb23-6"><a href="data-manipulation.html#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def breed 1 <span class="st">&quot;Hereford&quot;</span> 2 <span class="st">&quot;Holstein&quot;</span> 3 <span class="st">&quot;Angus&quot;</span> 4 <span class="st">&quot;Shorthorn&quot;</span> 5 <span class="st">&quot;Charolais&quot;</span> 6 <span class="st">&quot;Simmental&quot;</span> 7 <span class="st">&quot;Limousin&quot;</span> 8 <span class="st">&quot;Crossbreed&quot;</span> 9 <span class="st">&quot;Other&quot;</span></span>
-<span id="cb23-7"><a href="data-manipulation.html#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val breed breed</span>
-<span id="cb23-8"><a href="data-manipulation.html#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-9"><a href="data-manipulation.html#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> sex <span class="st">&quot;sex&quot;</span> </span>
-<span id="cb23-10"><a href="data-manipulation.html#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def sex 0 <span class="st">&quot;Female&quot;</span> 1 <span class="st">&quot;Male&quot;</span></span>
-<span id="cb23-11"><a href="data-manipulation.html#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val sex sex</span>
-<span id="cb23-12"><a href="data-manipulation.html#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-13"><a href="data-manipulation.html#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> attd <span class="st">&quot;attitude of calf&quot;</span></span>
-<span id="cb23-14"><a href="data-manipulation.html#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def attd 0 <span class="st">&quot;bright, alert&quot;</span> 1 <span class="st">&quot;depressed&quot;</span> 2 <span class="st">&quot;unresponsive, comatose&quot;</span></span>
-<span id="cb23-15"><a href="data-manipulation.html#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val attd attd</span>
-<span id="cb23-16"><a href="data-manipulation.html#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-17"><a href="data-manipulation.html#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> dehy <span class="st">&quot;% dehydration&quot;</span></span>
-<span id="cb23-18"><a href="data-manipulation.html#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-19"><a href="data-manipulation.html#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> eye <span class="st">&quot;uveitis/hypopyon clinically evident&quot;</span></span>
-<span id="cb23-20"><a href="data-manipulation.html#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def eye 0 <span class="st">&quot;No&quot;</span> 1 <span class="st">&quot;Yes&quot;</span></span>
-<span id="cb23-21"><a href="data-manipulation.html#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val eye eye</span>
-<span id="cb23-22"><a href="data-manipulation.html#cb23-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-23"><a href="data-manipulation.html#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> jnts <span class="st">&quot;swollen joints clinically evident&quot;</span></span>
-<span id="cb23-24"><a href="data-manipulation.html#cb23-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-25"><a href="data-manipulation.html#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> <span class="kw">post</span> <span class="st">&quot;posture of caIf&quot;</span> </span>
-<span id="cb23-26"><a href="data-manipulation.html#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def <span class="kw">post</span> 0 <span class="st">&quot;standing&quot;</span> 1 <span class="st">&quot;sternal&quot;</span> 2 <span class="st">&quot;lateral&quot;</span></span>
-<span id="cb23-27"><a href="data-manipulation.html#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val <span class="kw">post</span> <span class="kw">post</span></span>
-<span id="cb23-28"><a href="data-manipulation.html#cb23-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-29"><a href="data-manipulation.html#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> pulse <span class="st">&quot;pulse rate&quot;</span></span>
-<span id="cb23-30"><a href="data-manipulation.html#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> resp <span class="st">&quot;respiratory rate&quot;</span></span>
-<span id="cb23-31"><a href="data-manipulation.html#cb23-31" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> temp <span class="st">&quot;rectal temperature&quot;</span></span>
-<span id="cb23-32"><a href="data-manipulation.html#cb23-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-33"><a href="data-manipulation.html#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> umb <span class="st">&quot;swollen umbilicus clinically evident&quot;</span></span>
-<span id="cb23-34"><a href="data-manipulation.html#cb23-34" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def umb 0 <span class="st">&quot;No&quot;</span> 1 <span class="st">&quot;Yes&quot;</span></span>
-<span id="cb23-35"><a href="data-manipulation.html#cb23-35" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val umb umb</span>
-<span id="cb23-36"><a href="data-manipulation.html#cb23-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-37"><a href="data-manipulation.html#cb23-37" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> sepsis <span class="st">&quot;sepsis&quot;</span></span>
-<span id="cb23-38"><a href="data-manipulation.html#cb23-38" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def sepsis 0 <span class="st">&quot;No&quot;</span> 1 <span class="st">&quot;Yes&quot;</span></span>
-<span id="cb23-39"><a href="data-manipulation.html#cb23-39" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val sepsis sepsis</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb22-1"><a href="data-manipulation.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> <span class="kw">case</span> <span class="st">&quot;hospital case number&quot;</span></span>
+<span id="cb22-2"><a href="data-manipulation.html#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="data-manipulation.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> age <span class="st">&quot;age at admission&quot;</span></span>
+<span id="cb22-4"><a href="data-manipulation.html#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="data-manipulation.html#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> breed <span class="st">&quot;breed&quot;</span></span>
+<span id="cb22-6"><a href="data-manipulation.html#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def breed 1 <span class="st">&quot;Hereford&quot;</span> 2 <span class="st">&quot;Holstein&quot;</span> 3 <span class="st">&quot;Angus&quot;</span> 4 <span class="st">&quot;Shorthorn&quot;</span> 5 <span class="st">&quot;Charolais&quot;</span> 6 <span class="st">&quot;Simmental&quot;</span> 7 <span class="st">&quot;Limousin&quot;</span> 8 <span class="st">&quot;Crossbreed&quot;</span> 9 <span class="st">&quot;Other&quot;</span></span>
+<span id="cb22-7"><a href="data-manipulation.html#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val breed breed</span>
+<span id="cb22-8"><a href="data-manipulation.html#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="data-manipulation.html#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> sex <span class="st">&quot;sex&quot;</span> </span>
+<span id="cb22-10"><a href="data-manipulation.html#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def sex 0 <span class="st">&quot;Female&quot;</span> 1 <span class="st">&quot;Male&quot;</span></span>
+<span id="cb22-11"><a href="data-manipulation.html#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val sex sex</span>
+<span id="cb22-12"><a href="data-manipulation.html#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="data-manipulation.html#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> attd <span class="st">&quot;attitude of calf&quot;</span></span>
+<span id="cb22-14"><a href="data-manipulation.html#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def attd 0 <span class="st">&quot;bright, alert&quot;</span> 1 <span class="st">&quot;depressed&quot;</span> 2 <span class="st">&quot;unresponsive, comatose&quot;</span></span>
+<span id="cb22-15"><a href="data-manipulation.html#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val attd attd</span>
+<span id="cb22-16"><a href="data-manipulation.html#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="data-manipulation.html#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> dehy <span class="st">&quot;% dehydration&quot;</span></span>
+<span id="cb22-18"><a href="data-manipulation.html#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="data-manipulation.html#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> eye <span class="st">&quot;uveitis/hypopyon clinically evident&quot;</span></span>
+<span id="cb22-20"><a href="data-manipulation.html#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def eye 0 <span class="st">&quot;No&quot;</span> 1 <span class="st">&quot;Yes&quot;</span></span>
+<span id="cb22-21"><a href="data-manipulation.html#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val eye eye</span>
+<span id="cb22-22"><a href="data-manipulation.html#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-23"><a href="data-manipulation.html#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> jnts <span class="st">&quot;swollen joints clinically evident&quot;</span></span>
+<span id="cb22-24"><a href="data-manipulation.html#cb22-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-25"><a href="data-manipulation.html#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> <span class="kw">post</span> <span class="st">&quot;posture of caIf&quot;</span> </span>
+<span id="cb22-26"><a href="data-manipulation.html#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def <span class="kw">post</span> 0 <span class="st">&quot;standing&quot;</span> 1 <span class="st">&quot;sternal&quot;</span> 2 <span class="st">&quot;lateral&quot;</span></span>
+<span id="cb22-27"><a href="data-manipulation.html#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val <span class="kw">post</span> <span class="kw">post</span></span>
+<span id="cb22-28"><a href="data-manipulation.html#cb22-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-29"><a href="data-manipulation.html#cb22-29" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> pulse <span class="st">&quot;pulse rate&quot;</span></span>
+<span id="cb22-30"><a href="data-manipulation.html#cb22-30" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> resp <span class="st">&quot;respiratory rate&quot;</span></span>
+<span id="cb22-31"><a href="data-manipulation.html#cb22-31" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> temp <span class="st">&quot;rectal temperature&quot;</span></span>
+<span id="cb22-32"><a href="data-manipulation.html#cb22-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-33"><a href="data-manipulation.html#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> umb <span class="st">&quot;swollen umbilicus clinically evident&quot;</span></span>
+<span id="cb22-34"><a href="data-manipulation.html#cb22-34" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def umb 0 <span class="st">&quot;No&quot;</span> 1 <span class="st">&quot;Yes&quot;</span></span>
+<span id="cb22-35"><a href="data-manipulation.html#cb22-35" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val umb umb</span>
+<span id="cb22-36"><a href="data-manipulation.html#cb22-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-37"><a href="data-manipulation.html#cb22-37" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> sepsis <span class="st">&quot;sepsis&quot;</span></span>
+<span id="cb22-38"><a href="data-manipulation.html#cb22-38" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> def sepsis 0 <span class="st">&quot;No&quot;</span> 1 <span class="st">&quot;Yes&quot;</span></span>
+<span id="cb22-39"><a href="data-manipulation.html#cb22-39" aria-hidden="true" tabindex="-1"></a><span class="kw">label</span> val sepsis sepsis</span></code></pre></div>
 </div>
 </div>
 <div id="querying-filtering" class="section level3" number="2.4.3">
@@ -600,59 +570,59 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 <p>In the newest update of dplyr package (<a href="https://www.tidyverse.org/blog/2021/02/dplyr-1-0-4-if-any/">version 1.0.4</a>), two new functions <code>if_all()</code> and <code>if_any()</code> were introduced, accompany with the performance improvements of <code>across()</code>. Together these properties make it easy to chain together multiple simple steps to achieve a complex result. Let’s dive in and see how these verbs work.</p>
 <p><strong>Filter rows with <code>filter()</code></strong></p>
 <p><code>filter()</code> allows you to subset observations based on their values. If you are familiar with <em>filter</em> in Excel, this function works same like this. The output of function is a dataframe. For example, if you want to subset a data with calves who are male, age at admission greater or equal than 5 days, the breed is Hereford, Angus or Simental, you can do like this. In total, we have 21 calves fulfil our filter condition.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="data-manipulation.html#cb24-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
-<span id="cb24-2"><a href="data-manipulation.html#cb24-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>, age <span class="sc">&gt;=</span> <span class="dv">5</span>, breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simmental&quot;</span>))</span></code></pre></div>
-<pre><code># A tibble: 33 x 14
-    case   age breed sex   attd   dehy eye    jnts post  pulse  resp  temp umb  
-   &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;
- 1  1670     5 Here~ Male  unre~  12   &lt;NA&gt;      0 late~    NA    NA  37.6 No   
- 2  3600    19 Here~ Male  depr~   8   &lt;NA&gt;      0 stan~   140    32  39.3 No   
- 3  1599     7 Here~ Male  depr~   4   No        0 stan~   126    20  39   No   
- 4  1619     7 Here~ Male  depr~   7.5 No        0 stan~   110    32  37   Yes  
- 5  1586     8 Here~ Male  unre~  10   No        0 late~    88    36  36   No   
- 6  5206    12 Here~ Male  brig~   9   No        0 stan~    88    24  37.8 No   
- 7  7173     7 Here~ Male  depr~  10   No        0 ster~   120    42  39.5 No   
- 8  3021     6 Here~ Male  depr~   8   Yes       1 ster~   108    24  39.3 No   
- 9  4938    18 Here~ Male  depr~   9   No        0 ster~   100    40  36.5 No   
-10  9005     7 Here~ Male  unre~  NA   Yes       0 late~   124    60  NA   No   
-# ... with 23 more rows, and 1 more variable: sepsis &lt;fct&gt;</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="data-manipulation.html#cb23-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
+<span id="cb23-2"><a href="data-manipulation.html#cb23-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>, age <span class="sc">&gt;=</span> <span class="dv">5</span>, breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simmental&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 33 x 14
+##     case   age breed sex   attd   dehy eye    jnts post  pulse  resp  temp umb  
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;
+##  1  1670     5 Here~ Male  unre~  12   &lt;NA&gt;      0 late~    NA    NA  37.6 No   
+##  2  3600    19 Here~ Male  depr~   8   &lt;NA&gt;      0 stan~   140    32  39.3 No   
+##  3  1599     7 Here~ Male  depr~   4   No        0 stan~   126    20  39   No   
+##  4  1619     7 Here~ Male  depr~   7.5 No        0 stan~   110    32  37   Yes  
+##  5  1586     8 Here~ Male  unre~  10   No        0 late~    88    36  36   No   
+##  6  5206    12 Here~ Male  brig~   9   No        0 stan~    88    24  37.8 No   
+##  7  7173     7 Here~ Male  depr~  10   No        0 ster~   120    42  39.5 No   
+##  8  3021     6 Here~ Male  depr~   8   Yes       1 ster~   108    24  39.3 No   
+##  9  4938    18 Here~ Male  depr~   9   No        0 ster~   100    40  36.5 No   
+## 10  9005     7 Here~ Male  unre~  NA   Yes       0 late~   124    60  NA   No   
+## # ... with 23 more rows, and 1 more variable: sepsis &lt;fct&gt;</code></pre>
 <p><strong>Arrange rows with <code>arrange()</code></strong></p>
 <p><code>arrange()</code> takes a data frame and a set of column names (or more complicated expressions) to order by. If you provide more than one column name, each additional column will be used to break ties in the values of preceding column. For example, if you want to sort case number in descending order:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="data-manipulation.html#cb26-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
-<span id="cb26-2"><a href="data-manipulation.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(case))</span></code></pre></div>
-<pre><code># A tibble: 254 x 14
-    case   age breed sex   attd   dehy eye    jnts post  pulse  resp  temp umb  
-   &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;
- 1 10354     5 Hols~ Fema~ brig~   7   No        0 stan~   150    28  39.7 No   
- 2 10222     8 Hols~ Fema~ depr~   5   No        0 ster~   100    60  38.8 No   
- 3 10179     3 Hols~ Fema~ depr~   6.5 No        0 late~    85    90  39.6 No   
- 4 10158     5 Hols~ Fema~ depr~  15   No        0 ster~   100    42  39.1 Yes  
- 5  9907     8 Here~ Male  depr~  10   No        0 late~   100    40  37.1 No   
- 6  9869    11 Cros~ Male  depr~   5   No        0 stan~   100    40  38.5 No   
- 7  9864    21 Hols~ Male  depr~   8   No        0 ster~   138    54  37.9 No   
- 8  9805     3 Other Fema~ depr~   5   No        0 ster~   132    28  39   No   
- 9  9773     6 Cros~ Fema~ unre~   9   No        0 late~    80    84  38.4 Yes  
-10  9761    11 Hols~ Fema~ depr~   8   No        0 late~   120    80  37.8 No   
-# ... with 244 more rows, and 1 more variable: sepsis &lt;fct&gt;</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="data-manipulation.html#cb25-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
+<span id="cb25-2"><a href="data-manipulation.html#cb25-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(case))</span></code></pre></div>
+<pre><code>## # A tibble: 254 x 14
+##     case   age breed sex   attd   dehy eye    jnts post  pulse  resp  temp umb  
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;
+##  1 10354     5 Hols~ Fema~ brig~   7   No        0 stan~   150    28  39.7 No   
+##  2 10222     8 Hols~ Fema~ depr~   5   No        0 ster~   100    60  38.8 No   
+##  3 10179     3 Hols~ Fema~ depr~   6.5 No        0 late~    85    90  39.6 No   
+##  4 10158     5 Hols~ Fema~ depr~  15   No        0 ster~   100    42  39.1 Yes  
+##  5  9907     8 Here~ Male  depr~  10   No        0 late~   100    40  37.1 No   
+##  6  9869    11 Cros~ Male  depr~   5   No        0 stan~   100    40  38.5 No   
+##  7  9864    21 Hols~ Male  depr~   8   No        0 ster~   138    54  37.9 No   
+##  8  9805     3 Other Fema~ depr~   5   No        0 ster~   132    28  39   No   
+##  9  9773     6 Cros~ Fema~ unre~   9   No        0 late~    80    84  38.4 Yes  
+## 10  9761    11 Hols~ Fema~ depr~   8   No        0 late~   120    80  37.8 No   
+## # ... with 244 more rows, and 1 more variable: sepsis &lt;fct&gt;</code></pre>
 <p><strong>Select columns with <code>select()</code></strong></p>
 <p>It’s not uncommon to get datasets with hundreds or even thousands of variables. In this case, the first challenge is often narrowing in on the variables you’re actually interested in. <code>select()</code> allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.</p>
 <p><strong>Select columns by name</strong></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="data-manipulation.html#cb28-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
-<span id="cb28-2"><a href="data-manipulation.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(case, breed, sex, attd, post, dehy, temp, sepsis)</span></code></pre></div>
-<pre><code># A tibble: 254 x 8
-    case breed      sex    attd                   post      dehy  temp sepsis
-   &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;  &lt;fct&gt;                  &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; 
- 1  1670 Hereford   Male   unresponsive, comatose lateral   12    37.6 No    
- 2  8124 Holstein   Female depressed              standing  13.5  39.2 No    
- 3  6954 Angus      Male   unresponsive, comatose lateral   NA    NA   Yes   
- 4  2737 Shorthorn  Male   depressed              standing   5    38.6 No    
- 5  5341 Charolais  Female depressed              sternal    0    38.6 Yes   
- 6  6749 Simmental  Female depressed              standing   5.5  39.6 No    
- 7  3234 Limousin   Female unresponsive, comatose lateral    7    39   Yes   
- 8  2325 Crossbreed Female depressed              standing   7    35   No    
- 9  2925 Other      Female depressed              standing   5    39.5 No    
-10  7108 Hereford   Female unresponsive, comatose lateral   10    37.8 No    
-# ... with 244 more rows</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="data-manipulation.html#cb27-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
+<span id="cb27-2"><a href="data-manipulation.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(case, breed, sex, attd, post, dehy, temp, sepsis)</span></code></pre></div>
+<pre><code>## # A tibble: 254 x 8
+##     case breed      sex    attd                   post      dehy  temp sepsis
+##    &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;  &lt;fct&gt;                  &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; 
+##  1  1670 Hereford   Male   unresponsive, comatose lateral   12    37.6 No    
+##  2  8124 Holstein   Female depressed              standing  13.5  39.2 No    
+##  3  6954 Angus      Male   unresponsive, comatose lateral   NA    NA   Yes   
+##  4  2737 Shorthorn  Male   depressed              standing   5    38.6 No    
+##  5  5341 Charolais  Female depressed              sternal    0    38.6 Yes   
+##  6  6749 Simmental  Female depressed              standing   5.5  39.6 No    
+##  7  3234 Limousin   Female unresponsive, comatose lateral    7    39   Yes   
+##  8  2325 Crossbreed Female depressed              standing   7    35   No    
+##  9  2925 Other      Female depressed              standing   5    39.5 No    
+## 10  7108 Hereford   Female unresponsive, comatose lateral   10    37.8 No    
+## # ... with 244 more rows</code></pre>
 <p>There are a number of helper functions you can use within select():</p>
 <ul>
 <li><p>abc : ijk : select variable from abc to ijk</p></li>
@@ -663,80 +633,80 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 <li><p>num_range(“x”, 1:3) : matches x1, x2 and x3.</p></li>
 </ul>
 <p><strong>Rename variable</strong></p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="data-manipulation.html#cb30-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
-<span id="cb30-2"><a href="data-manipulation.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">id =</span> case)</span></code></pre></div>
-<pre><code># A tibble: 254 x 14
-      id   age breed sex   attd   dehy eye    jnts post  pulse  resp  temp umb  
-   &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;
- 1  1670     5 Here~ Male  unre~  12   &lt;NA&gt;      0 late~    NA    NA  37.6 No   
- 2  8124     3 Hols~ Fema~ depr~  13.5 No        0 stan~   130   120  39.2 No   
- 3  6954     2 Angus Male  unre~  NA   Yes       0 late~    NA    NA  NA   Yes  
- 4  2737     3 Shor~ Male  depr~   5   No        0 stan~   132    40  38.6 No   
- 5  5341     3 Char~ Fema~ depr~   0   No        0 ster~   128    48  38.6 Yes  
- 6  6749    10 Simm~ Fema~ depr~   5.5 No        0 stan~   160    48  39.6 No   
- 7  3234     4 Limo~ Fema~ unre~   7   No        1 late~   180    84  39   Yes  
- 8  2325    14 Cros~ Fema~ depr~   7   No        0 stan~   100    20  35   No   
- 9  2925     4 Other Fema~ depr~   5   No        0 stan~   150    52  39.5 No   
-10  7108     8 Here~ Fema~ unre~  10   No        0 late~   120    68  37.8 No   
-# ... with 244 more rows, and 1 more variable: sepsis &lt;fct&gt;</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="data-manipulation.html#cb29-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
+<span id="cb29-2"><a href="data-manipulation.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">id =</span> case)</span></code></pre></div>
+<pre><code>## # A tibble: 254 x 14
+##       id   age breed sex   attd   dehy eye    jnts post  pulse  resp  temp umb  
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;
+##  1  1670     5 Here~ Male  unre~  12   &lt;NA&gt;      0 late~    NA    NA  37.6 No   
+##  2  8124     3 Hols~ Fema~ depr~  13.5 No        0 stan~   130   120  39.2 No   
+##  3  6954     2 Angus Male  unre~  NA   Yes       0 late~    NA    NA  NA   Yes  
+##  4  2737     3 Shor~ Male  depr~   5   No        0 stan~   132    40  38.6 No   
+##  5  5341     3 Char~ Fema~ depr~   0   No        0 ster~   128    48  38.6 Yes  
+##  6  6749    10 Simm~ Fema~ depr~   5.5 No        0 stan~   160    48  39.6 No   
+##  7  3234     4 Limo~ Fema~ unre~   7   No        1 late~   180    84  39   Yes  
+##  8  2325    14 Cros~ Fema~ depr~   7   No        0 stan~   100    20  35   No   
+##  9  2925     4 Other Fema~ depr~   5   No        0 stan~   150    52  39.5 No   
+## 10  7108     8 Here~ Fema~ unre~  10   No        0 late~   120    68  37.8 No   
+## # ... with 244 more rows, and 1 more variable: sepsis &lt;fct&gt;</code></pre>
 <p>Another option is to use <code>select()</code> in conjunction with the <code>everything()</code> helper. This is useful if you have a handful of variables you’d like to move to the start of the data frame.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="data-manipulation.html#cb32-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
-<span id="cb32-2"><a href="data-manipulation.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sepsis, sex, <span class="fu">everything</span>())</span></code></pre></div>
-<pre><code># A tibble: 254 x 14
-   sepsis sex    case   age breed attd   dehy eye    jnts post  pulse  resp
-   &lt;fct&gt;  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 No     Male   1670     5 Here~ unre~  12   &lt;NA&gt;      0 late~    NA    NA
- 2 No     Fema~  8124     3 Hols~ depr~  13.5 No        0 stan~   130   120
- 3 Yes    Male   6954     2 Angus unre~  NA   Yes       0 late~    NA    NA
- 4 No     Male   2737     3 Shor~ depr~   5   No        0 stan~   132    40
- 5 Yes    Fema~  5341     3 Char~ depr~   0   No        0 ster~   128    48
- 6 No     Fema~  6749    10 Simm~ depr~   5.5 No        0 stan~   160    48
- 7 Yes    Fema~  3234     4 Limo~ unre~   7   No        1 late~   180    84
- 8 No     Fema~  2325    14 Cros~ depr~   7   No        0 stan~   100    20
- 9 No     Fema~  2925     4 Other depr~   5   No        0 stan~   150    52
-10 No     Fema~  7108     8 Here~ unre~  10   No        0 late~   120    68
-# ... with 244 more rows, and 2 more variables: temp &lt;dbl&gt;, umb &lt;fct&gt;</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="data-manipulation.html#cb31-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
+<span id="cb31-2"><a href="data-manipulation.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sepsis, sex, <span class="fu">everything</span>())</span></code></pre></div>
+<pre><code>## # A tibble: 254 x 14
+##    sepsis sex    case   age breed attd   dehy eye    jnts post  pulse  resp
+##    &lt;fct&gt;  &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 No     Male   1670     5 Here~ unre~  12   &lt;NA&gt;      0 late~    NA    NA
+##  2 No     Fema~  8124     3 Hols~ depr~  13.5 No        0 stan~   130   120
+##  3 Yes    Male   6954     2 Angus unre~  NA   Yes       0 late~    NA    NA
+##  4 No     Male   2737     3 Shor~ depr~   5   No        0 stan~   132    40
+##  5 Yes    Fema~  5341     3 Char~ depr~   0   No        0 ster~   128    48
+##  6 No     Fema~  6749    10 Simm~ depr~   5.5 No        0 stan~   160    48
+##  7 Yes    Fema~  3234     4 Limo~ unre~   7   No        1 late~   180    84
+##  8 No     Fema~  2325    14 Cros~ depr~   7   No        0 stan~   100    20
+##  9 No     Fema~  2925     4 Other depr~   5   No        0 stan~   150    52
+## 10 No     Fema~  7108     8 Here~ unre~  10   No        0 late~   120    68
+## # ... with 244 more rows, and 2 more variables: temp &lt;dbl&gt;, umb &lt;fct&gt;</code></pre>
 <p>You can see now <code>sepsis</code> and <code>sex</code> variable is moved to column first and second of the dataframe.</p>
 <p><strong>Add new variable with <code>mutate()</code></strong></p>
 <p>Note: <code>mutate()</code> always adds new columns at the end of your dataset.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="data-manipulation.html#cb34-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
-<span id="cb34-2"><a href="data-manipulation.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case<span class="sc">:</span>dehy) <span class="sc">|</span><span class="er">&gt;</span> </span>
-<span id="cb34-3"><a href="data-manipulation.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb34-4"><a href="data-manipulation.html#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">agegr =</span> <span class="fu">case_when</span>(age <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">&quot;Group A&quot;</span>,</span>
-<span id="cb34-5"><a href="data-manipulation.html#cb34-5" aria-hidden="true" tabindex="-1"></a>                      age <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> age <span class="sc">&lt;</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">&quot;Group B&quot;</span>,</span>
-<span id="cb34-6"><a href="data-manipulation.html#cb34-6" aria-hidden="true" tabindex="-1"></a>                      age <span class="sc">&gt;=</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">&quot;Group C&quot;</span>),</span>
-<span id="cb34-7"><a href="data-manipulation.html#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_breed =</span> <span class="fu">case_when</span>(breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Holstein&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Shorthorn&quot;</span>) <span class="sc">~</span> <span class="st">&quot;Breed A&quot;</span>,</span>
-<span id="cb34-8"><a href="data-manipulation.html#cb34-8" aria-hidden="true" tabindex="-1"></a>                          breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Charolais&quot;</span>, <span class="st">&quot;Simmental&quot;</span>, <span class="st">&quot;Limousin&quot;</span>, <span class="st">&quot;Crossbreed&quot;</span>, <span class="st">&quot;Other&quot;</span>) <span class="sc">~</span> <span class="st">&quot;Breed B&quot;</span>),</span>
-<span id="cb34-9"><a href="data-manipulation.html#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">test =</span> <span class="fu">ifelse</span>((age <span class="sc">+</span> dehy) <span class="sc">&gt;=</span> <span class="dv">20</span>, <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>))</span></code></pre></div>
-<pre><code># A tibble: 254 x 9
-    case   age breed     sex    attd                 dehy agegr  new_breed test 
-   &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;fct&gt;               &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;
- 1  1670     5 Hereford  Male   unresponsive, coma~  12   Group~ Breed A   No   
- 2  8124     3 Holstein  Female depressed            13.5 Group~ Breed A   No   
- 3  6954     2 Angus     Male   unresponsive, coma~  NA   Group~ Breed A   &lt;NA&gt; 
- 4  2737     3 Shorthorn Male   depressed             5   Group~ Breed A   No   
- 5  5341     3 Charolais Female depressed             0   Group~ Breed B   No   
- 6  6749    10 Simmental Female depressed             5.5 Group~ Breed B   No   
- 7  3234     4 Limousin  Female unresponsive, coma~   7   Group~ Breed B   No   
- 8  2325    14 Crossbre~ Female depressed             7   Group~ Breed B   Yes  
- 9  2925     4 Other     Female depressed             5   Group~ Breed B   No   
-10  7108     8 Hereford  Female unresponsive, coma~  10   Group~ Breed A   No   
-# ... with 244 more rows</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="data-manipulation.html#cb33-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="sc">|</span><span class="er">&gt;</span></span>
+<span id="cb33-2"><a href="data-manipulation.html#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case<span class="sc">:</span>dehy) <span class="sc">|</span><span class="er">&gt;</span> </span>
+<span id="cb33-3"><a href="data-manipulation.html#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb33-4"><a href="data-manipulation.html#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">agegr =</span> <span class="fu">case_when</span>(age <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">&quot;Group A&quot;</span>,</span>
+<span id="cb33-5"><a href="data-manipulation.html#cb33-5" aria-hidden="true" tabindex="-1"></a>                      age <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> age <span class="sc">&lt;</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">&quot;Group B&quot;</span>,</span>
+<span id="cb33-6"><a href="data-manipulation.html#cb33-6" aria-hidden="true" tabindex="-1"></a>                      age <span class="sc">&gt;=</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">&quot;Group C&quot;</span>),</span>
+<span id="cb33-7"><a href="data-manipulation.html#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_breed =</span> <span class="fu">case_when</span>(breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Holstein&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Shorthorn&quot;</span>) <span class="sc">~</span> <span class="st">&quot;Breed A&quot;</span>,</span>
+<span id="cb33-8"><a href="data-manipulation.html#cb33-8" aria-hidden="true" tabindex="-1"></a>                          breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Charolais&quot;</span>, <span class="st">&quot;Simmental&quot;</span>, <span class="st">&quot;Limousin&quot;</span>, <span class="st">&quot;Crossbreed&quot;</span>, <span class="st">&quot;Other&quot;</span>) <span class="sc">~</span> <span class="st">&quot;Breed B&quot;</span>),</span>
+<span id="cb33-9"><a href="data-manipulation.html#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">test =</span> <span class="fu">ifelse</span>((age <span class="sc">+</span> dehy) <span class="sc">&gt;=</span> <span class="dv">20</span>, <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 254 x 9
+##     case   age breed     sex    attd                 dehy agegr  new_breed test 
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;fct&gt;               &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;
+##  1  1670     5 Hereford  Male   unresponsive, coma~  12   Group~ Breed A   No   
+##  2  8124     3 Holstein  Female depressed            13.5 Group~ Breed A   No   
+##  3  6954     2 Angus     Male   unresponsive, coma~  NA   Group~ Breed A   &lt;NA&gt; 
+##  4  2737     3 Shorthorn Male   depressed             5   Group~ Breed A   No   
+##  5  5341     3 Charolais Female depressed             0   Group~ Breed B   No   
+##  6  6749    10 Simmental Female depressed             5.5 Group~ Breed B   No   
+##  7  3234     4 Limousin  Female unresponsive, coma~   7   Group~ Breed B   No   
+##  8  2325    14 Crossbre~ Female depressed             7   Group~ Breed B   Yes  
+##  9  2925     4 Other     Female depressed             5   Group~ Breed B   No   
+## 10  7108     8 Hereford  Female unresponsive, coma~  10   Group~ Breed A   No   
+## # ... with 244 more rows</code></pre>
 <p>Use can also use <code>mutate_all</code>, <code>mutate_at</code> and <code>mutate_if</code> for specific conditions:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="data-manipulation.html#cb36-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span></span>
-<span id="cb36-2"><a href="data-manipulation.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  raw <span class="sc">%&gt;%</span></span>
-<span id="cb36-3"><a href="data-manipulation.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Remove non Unicode characters</span></span>
-<span id="cb36-4"><a href="data-manipulation.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(</span>
-<span id="cb36-5"><a href="data-manipulation.html#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.tbl =</span> raw,</span>
-<span id="cb36-6"><a href="data-manipulation.html#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.funs =</span> <span class="sc">~</span> stringi<span class="sc">::</span><span class="fu">stri_trans_general</span>(.,<span class="st">&quot;Latin-ASCII&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-7"><a href="data-manipulation.html#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Create variables with similar structure  </span></span>
-<span id="cb36-8"><a href="data-manipulation.html#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(</span>
-<span id="cb36-9"><a href="data-manipulation.html#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.vars =</span> <span class="fu">vars</span>(b1a1, b1a2, b1b1, b1b2),</span>
-<span id="cb36-10"><a href="data-manipulation.html#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.funs =</span> <span class="sc">~</span> <span class="fu">as_factor</span>(haven<span class="sc">::</span><span class="fu">labelled</span>(., <span class="fu">c</span>(</span>
-<span id="cb36-11"><a href="data-manipulation.html#cb36-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Chua bao gio&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Hiem khi&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>, <span class="st">&quot;Thinh thoang&quot;</span> <span class="ot">=</span> <span class="st">&quot;3&quot;</span>,</span>
-<span id="cb36-12"><a href="data-manipulation.html#cb36-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Thuong xuyen&quot;</span> <span class="ot">=</span> <span class="st">&quot;4&quot;</span>, <span class="st">&quot;Luon luon&quot;</span> <span class="ot">=</span> <span class="st">&quot;5&quot;</span>)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-13"><a href="data-manipulation.html#cb36-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Convert haven_labelled variables to factors ----</span></span>
-<span id="cb36-14"><a href="data-manipulation.html#cb36-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(haven<span class="sc">::</span>is.labelled, haven<span class="sc">::</span>as_factor)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="data-manipulation.html#cb35-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span></span>
+<span id="cb35-2"><a href="data-manipulation.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  raw <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="data-manipulation.html#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Remove non Unicode characters</span></span>
+<span id="cb35-4"><a href="data-manipulation.html#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(</span>
+<span id="cb35-5"><a href="data-manipulation.html#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.tbl =</span> raw,</span>
+<span id="cb35-6"><a href="data-manipulation.html#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.funs =</span> <span class="sc">~</span> stringi<span class="sc">::</span><span class="fu">stri_trans_general</span>(.,<span class="st">&quot;Latin-ASCII&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-7"><a href="data-manipulation.html#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Create variables with similar structure  </span></span>
+<span id="cb35-8"><a href="data-manipulation.html#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(</span>
+<span id="cb35-9"><a href="data-manipulation.html#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.vars =</span> <span class="fu">vars</span>(b1a1, b1a2, b1b1, b1b2),</span>
+<span id="cb35-10"><a href="data-manipulation.html#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.funs =</span> <span class="sc">~</span> <span class="fu">as_factor</span>(haven<span class="sc">::</span><span class="fu">labelled</span>(., <span class="fu">c</span>(</span>
+<span id="cb35-11"><a href="data-manipulation.html#cb35-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Chua bao gio&quot;</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span>, <span class="st">&quot;Hiem khi&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>, <span class="st">&quot;Thinh thoang&quot;</span> <span class="ot">=</span> <span class="st">&quot;3&quot;</span>,</span>
+<span id="cb35-12"><a href="data-manipulation.html#cb35-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Thuong xuyen&quot;</span> <span class="ot">=</span> <span class="st">&quot;4&quot;</span>, <span class="st">&quot;Luon luon&quot;</span> <span class="ot">=</span> <span class="st">&quot;5&quot;</span>)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-13"><a href="data-manipulation.html#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Convert haven_labelled variables to factors ----</span></span>
+<span id="cb35-14"><a href="data-manipulation.html#cb35-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(haven<span class="sc">::</span>is.labelled, haven<span class="sc">::</span>as_factor)</span></code></pre></div>
 </div>
 <div id="python-2" class="section level4" number="2.4.3.2">
 <h4><span class="header-section-number">2.4.3.2</span> Python</h4>
@@ -752,170 +722,170 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 <p><strong>Filter row with <code>.query()</code></strong></p>
 <p>Filtering rows from a Pandas dataframe can be done in different ways.</p>
 <p>Note: <code>.loc</code> works with column labels and indexes, whereas <code>query</code> works only with columns. An alternative candidate is <code>filter</code> from <code>siuba</code> library, which mimic the function of <code>dplyr</code> package in R.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="data-manipulation.html#cb37-1" aria-hidden="true" tabindex="-1"></a>lb_df.query(<span class="st">&quot;sex == &#39;Male&#39; &amp; age &gt;= 5 &amp; breed.isin([&#39;Hereford&#39;, &#39;Angus&#39;, &#39;Simental&#39;])&quot;</span>)</span></code></pre></div>
-<pre><code>       case   age     breed   sex  ...  resp  temp  umb  sepsis
-0    1670.0   5.0  Hereford  Male  ...   NaN  37.6   No      No
-10   3600.0  19.0  Hereford  Male  ...  32.0  39.3   No      No
-11   1599.0   7.0  Hereford  Male  ...  20.0  39.0   No      No
-16   1619.0   7.0  Hereford  Male  ...  32.0  37.0  Yes      No
-17   1586.0   8.0  Hereford  Male  ...  36.0  36.0   No      No
-18   5206.0  12.0  Hereford  Male  ...  24.0  37.8   No     Yes
-19   7173.0   7.0  Hereford  Male  ...  42.0  39.5   No     Yes
-21   3021.0   6.0  Hereford  Male  ...  24.0  39.3   No     Yes
-23   4938.0  18.0  Hereford  Male  ...  40.0  36.5   No      No
-24   9005.0   7.0  Hereford  Male  ...  60.0   NaN   No     Yes
-25   1587.0   7.0  Hereford  Male  ...  40.0  40.0  Yes     Yes
-26   3167.0  12.0  Hereford  Male  ...  32.0  38.4   No      No
-27   3140.0  10.0  Hereford  Male  ...  30.0  35.2  Yes      No
-30   8868.0   7.0  Hereford  Male  ...  21.0  37.8   No      No
-36   9907.0   8.0  Hereford  Male  ...  40.0  37.1   No      No
-92   1494.0   8.0     Angus  Male  ...  24.0  35.4  Yes     Yes
-95   5319.0   7.0     Angus  Male  ...   NaN  38.2   No      No
-97   4960.0   5.0     Angus  Male  ...  52.0  38.5  Yes     Yes
-98   5113.0   8.0     Angus  Male  ...  28.0  37.9   No      No
-102  6940.0   8.0     Angus  Male  ...  20.0  36.2   No      No
-103  7169.0   8.0     Angus  Male  ...  30.0  39.4   No      No
-
-[21 rows x 14 columns]</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="data-manipulation.html#cb39-1" aria-hidden="true" tabindex="-1"></a>lb_df.loc[(lb_df[<span class="st">&quot;sex&quot;</span>] <span class="op">==</span> <span class="st">&quot;Male&quot;</span>) <span class="op">&amp;</span> </span>
-<span id="cb39-2"><a href="data-manipulation.html#cb39-2" aria-hidden="true" tabindex="-1"></a>          (lb_df[<span class="st">&quot;age&quot;</span>] <span class="op">&gt;=</span> <span class="dv">5</span>) <span class="op">&amp;</span> </span>
-<span id="cb39-3"><a href="data-manipulation.html#cb39-3" aria-hidden="true" tabindex="-1"></a>          (lb_df[<span class="st">&quot;breed&quot;</span>].isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simmental&quot;</span>]))]</span></code></pre></div>
-<pre><code>       case   age      breed   sex  ...  resp  temp  umb  sepsis
-0    1670.0   5.0   Hereford  Male  ...   NaN  37.6   No      No
-10   3600.0  19.0   Hereford  Male  ...  32.0  39.3   No      No
-11   1599.0   7.0   Hereford  Male  ...  20.0  39.0   No      No
-16   1619.0   7.0   Hereford  Male  ...  32.0  37.0  Yes      No
-17   1586.0   8.0   Hereford  Male  ...  36.0  36.0   No      No
-18   5206.0  12.0   Hereford  Male  ...  24.0  37.8   No     Yes
-19   7173.0   7.0   Hereford  Male  ...  42.0  39.5   No     Yes
-21   3021.0   6.0   Hereford  Male  ...  24.0  39.3   No     Yes
-23   4938.0  18.0   Hereford  Male  ...  40.0  36.5   No      No
-24   9005.0   7.0   Hereford  Male  ...  60.0   NaN   No     Yes
-25   1587.0   7.0   Hereford  Male  ...  40.0  40.0  Yes     Yes
-26   3167.0  12.0   Hereford  Male  ...  32.0  38.4   No      No
-27   3140.0  10.0   Hereford  Male  ...  30.0  35.2  Yes      No
-30   8868.0   7.0   Hereford  Male  ...  21.0  37.8   No      No
-36   9907.0   8.0   Hereford  Male  ...  40.0  37.1   No      No
-92   1494.0   8.0      Angus  Male  ...  24.0  35.4  Yes     Yes
-95   5319.0   7.0      Angus  Male  ...   NaN  38.2   No      No
-97   4960.0   5.0      Angus  Male  ...  52.0  38.5  Yes     Yes
-98   5113.0   8.0      Angus  Male  ...  28.0  37.9   No      No
-102  6940.0   8.0      Angus  Male  ...  20.0  36.2   No      No
-103  7169.0   8.0      Angus  Male  ...  30.0  39.4   No      No
-123  8920.0   7.0  Simmental  Male  ...  16.0  37.4   No      No
-124  4734.0  10.0  Simmental  Male  ...  40.0  38.8  Yes      No
-125  4974.0   5.0  Simmental  Male  ...  40.0  39.4   No     Yes
-129  7212.0  10.0  Simmental  Male  ...  56.0  40.2  Yes      No
-131  8885.0  23.0  Simmental  Male  ...  24.0  39.2  Yes      No
-132  2744.0  20.0  Simmental  Male  ...  20.0  36.1   No     Yes
-133  2437.0   5.0  Simmental  Male  ...  48.0  39.9  Yes     Yes
-135  8695.0   7.0  Simmental  Male  ...  40.0  37.8   No      No
-138  9020.0   9.0  Simmental  Male  ...  24.0  38.0   No      No
-141  9019.0  11.0  Simmental  Male  ...  30.0  39.0   No     Yes
-144  8933.0  11.0  Simmental  Male  ...  45.0  36.6   No      No
-146  7102.0   7.0  Simmental  Male  ...  20.0  37.0   No      No
-
-[33 rows x 14 columns]</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="data-manipulation.html#cb41-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> <span class="bu">filter</span>(_.sex <span class="op">==</span> <span class="st">&quot;Male&quot;</span>, _.age <span class="op">&gt;=</span> <span class="dv">5</span>, _.breed.isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simmental&quot;</span>]))</span></code></pre></div>
-<pre><code>       case   age      breed   sex  ...  resp  temp  umb  sepsis
-0    1670.0   5.0   Hereford  Male  ...   NaN  37.6   No      No
-10   3600.0  19.0   Hereford  Male  ...  32.0  39.3   No      No
-11   1599.0   7.0   Hereford  Male  ...  20.0  39.0   No      No
-16   1619.0   7.0   Hereford  Male  ...  32.0  37.0  Yes      No
-17   1586.0   8.0   Hereford  Male  ...  36.0  36.0   No      No
-18   5206.0  12.0   Hereford  Male  ...  24.0  37.8   No     Yes
-19   7173.0   7.0   Hereford  Male  ...  42.0  39.5   No     Yes
-21   3021.0   6.0   Hereford  Male  ...  24.0  39.3   No     Yes
-23   4938.0  18.0   Hereford  Male  ...  40.0  36.5   No      No
-24   9005.0   7.0   Hereford  Male  ...  60.0   NaN   No     Yes
-25   1587.0   7.0   Hereford  Male  ...  40.0  40.0  Yes     Yes
-26   3167.0  12.0   Hereford  Male  ...  32.0  38.4   No      No
-27   3140.0  10.0   Hereford  Male  ...  30.0  35.2  Yes      No
-30   8868.0   7.0   Hereford  Male  ...  21.0  37.8   No      No
-36   9907.0   8.0   Hereford  Male  ...  40.0  37.1   No      No
-92   1494.0   8.0      Angus  Male  ...  24.0  35.4  Yes     Yes
-95   5319.0   7.0      Angus  Male  ...   NaN  38.2   No      No
-97   4960.0   5.0      Angus  Male  ...  52.0  38.5  Yes     Yes
-98   5113.0   8.0      Angus  Male  ...  28.0  37.9   No      No
-102  6940.0   8.0      Angus  Male  ...  20.0  36.2   No      No
-103  7169.0   8.0      Angus  Male  ...  30.0  39.4   No      No
-123  8920.0   7.0  Simmental  Male  ...  16.0  37.4   No      No
-124  4734.0  10.0  Simmental  Male  ...  40.0  38.8  Yes      No
-125  4974.0   5.0  Simmental  Male  ...  40.0  39.4   No     Yes
-129  7212.0  10.0  Simmental  Male  ...  56.0  40.2  Yes      No
-131  8885.0  23.0  Simmental  Male  ...  24.0  39.2  Yes      No
-132  2744.0  20.0  Simmental  Male  ...  20.0  36.1   No     Yes
-133  2437.0   5.0  Simmental  Male  ...  48.0  39.9  Yes     Yes
-135  8695.0   7.0  Simmental  Male  ...  40.0  37.8   No      No
-138  9020.0   9.0  Simmental  Male  ...  24.0  38.0   No      No
-141  9019.0  11.0  Simmental  Male  ...  30.0  39.0   No     Yes
-144  8933.0  11.0  Simmental  Male  ...  45.0  36.6   No      No
-146  7102.0   7.0  Simmental  Male  ...  20.0  37.0   No      No
-
-[33 rows x 14 columns]</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="data-manipulation.html#cb36-1" aria-hidden="true" tabindex="-1"></a>lb_df.query(<span class="st">&quot;sex == &#39;Male&#39; &amp; age &gt;= 5 &amp; breed.isin([&#39;Hereford&#39;, &#39;Angus&#39;, &#39;Simental&#39;])&quot;</span>)</span></code></pre></div>
+<pre><code>##        case   age     breed   sex  ...  resp  temp  umb  sepsis
+## 0    1670.0   5.0  Hereford  Male  ...   NaN  37.6   No      No
+## 10   3600.0  19.0  Hereford  Male  ...  32.0  39.3   No      No
+## 11   1599.0   7.0  Hereford  Male  ...  20.0  39.0   No      No
+## 16   1619.0   7.0  Hereford  Male  ...  32.0  37.0  Yes      No
+## 17   1586.0   8.0  Hereford  Male  ...  36.0  36.0   No      No
+## 18   5206.0  12.0  Hereford  Male  ...  24.0  37.8   No     Yes
+## 19   7173.0   7.0  Hereford  Male  ...  42.0  39.5   No     Yes
+## 21   3021.0   6.0  Hereford  Male  ...  24.0  39.3   No     Yes
+## 23   4938.0  18.0  Hereford  Male  ...  40.0  36.5   No      No
+## 24   9005.0   7.0  Hereford  Male  ...  60.0   NaN   No     Yes
+## 25   1587.0   7.0  Hereford  Male  ...  40.0  40.0  Yes     Yes
+## 26   3167.0  12.0  Hereford  Male  ...  32.0  38.4   No      No
+## 27   3140.0  10.0  Hereford  Male  ...  30.0  35.2  Yes      No
+## 30   8868.0   7.0  Hereford  Male  ...  21.0  37.8   No      No
+## 36   9907.0   8.0  Hereford  Male  ...  40.0  37.1   No      No
+## 92   1494.0   8.0     Angus  Male  ...  24.0  35.4  Yes     Yes
+## 95   5319.0   7.0     Angus  Male  ...   NaN  38.2   No      No
+## 97   4960.0   5.0     Angus  Male  ...  52.0  38.5  Yes     Yes
+## 98   5113.0   8.0     Angus  Male  ...  28.0  37.9   No      No
+## 102  6940.0   8.0     Angus  Male  ...  20.0  36.2   No      No
+## 103  7169.0   8.0     Angus  Male  ...  30.0  39.4   No      No
+## 
+## [21 rows x 14 columns]</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="data-manipulation.html#cb38-1" aria-hidden="true" tabindex="-1"></a>lb_df.loc[(lb_df[<span class="st">&quot;sex&quot;</span>] <span class="op">==</span> <span class="st">&quot;Male&quot;</span>) <span class="op">&amp;</span> </span>
+<span id="cb38-2"><a href="data-manipulation.html#cb38-2" aria-hidden="true" tabindex="-1"></a>          (lb_df[<span class="st">&quot;age&quot;</span>] <span class="op">&gt;=</span> <span class="dv">5</span>) <span class="op">&amp;</span> </span>
+<span id="cb38-3"><a href="data-manipulation.html#cb38-3" aria-hidden="true" tabindex="-1"></a>          (lb_df[<span class="st">&quot;breed&quot;</span>].isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simmental&quot;</span>]))]</span></code></pre></div>
+<pre><code>##        case   age      breed   sex  ...  resp  temp  umb  sepsis
+## 0    1670.0   5.0   Hereford  Male  ...   NaN  37.6   No      No
+## 10   3600.0  19.0   Hereford  Male  ...  32.0  39.3   No      No
+## 11   1599.0   7.0   Hereford  Male  ...  20.0  39.0   No      No
+## 16   1619.0   7.0   Hereford  Male  ...  32.0  37.0  Yes      No
+## 17   1586.0   8.0   Hereford  Male  ...  36.0  36.0   No      No
+## 18   5206.0  12.0   Hereford  Male  ...  24.0  37.8   No     Yes
+## 19   7173.0   7.0   Hereford  Male  ...  42.0  39.5   No     Yes
+## 21   3021.0   6.0   Hereford  Male  ...  24.0  39.3   No     Yes
+## 23   4938.0  18.0   Hereford  Male  ...  40.0  36.5   No      No
+## 24   9005.0   7.0   Hereford  Male  ...  60.0   NaN   No     Yes
+## 25   1587.0   7.0   Hereford  Male  ...  40.0  40.0  Yes     Yes
+## 26   3167.0  12.0   Hereford  Male  ...  32.0  38.4   No      No
+## 27   3140.0  10.0   Hereford  Male  ...  30.0  35.2  Yes      No
+## 30   8868.0   7.0   Hereford  Male  ...  21.0  37.8   No      No
+## 36   9907.0   8.0   Hereford  Male  ...  40.0  37.1   No      No
+## 92   1494.0   8.0      Angus  Male  ...  24.0  35.4  Yes     Yes
+## 95   5319.0   7.0      Angus  Male  ...   NaN  38.2   No      No
+## 97   4960.0   5.0      Angus  Male  ...  52.0  38.5  Yes     Yes
+## 98   5113.0   8.0      Angus  Male  ...  28.0  37.9   No      No
+## 102  6940.0   8.0      Angus  Male  ...  20.0  36.2   No      No
+## 103  7169.0   8.0      Angus  Male  ...  30.0  39.4   No      No
+## 123  8920.0   7.0  Simmental  Male  ...  16.0  37.4   No      No
+## 124  4734.0  10.0  Simmental  Male  ...  40.0  38.8  Yes      No
+## 125  4974.0   5.0  Simmental  Male  ...  40.0  39.4   No     Yes
+## 129  7212.0  10.0  Simmental  Male  ...  56.0  40.2  Yes      No
+## 131  8885.0  23.0  Simmental  Male  ...  24.0  39.2  Yes      No
+## 132  2744.0  20.0  Simmental  Male  ...  20.0  36.1   No     Yes
+## 133  2437.0   5.0  Simmental  Male  ...  48.0  39.9  Yes     Yes
+## 135  8695.0   7.0  Simmental  Male  ...  40.0  37.8   No      No
+## 138  9020.0   9.0  Simmental  Male  ...  24.0  38.0   No      No
+## 141  9019.0  11.0  Simmental  Male  ...  30.0  39.0   No     Yes
+## 144  8933.0  11.0  Simmental  Male  ...  45.0  36.6   No      No
+## 146  7102.0   7.0  Simmental  Male  ...  20.0  37.0   No      No
+## 
+## [33 rows x 14 columns]</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="data-manipulation.html#cb40-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> <span class="bu">filter</span>(_.sex <span class="op">==</span> <span class="st">&quot;Male&quot;</span>, _.age <span class="op">&gt;=</span> <span class="dv">5</span>, _.breed.isin([<span class="st">&quot;Hereford&quot;</span>, <span class="st">&quot;Angus&quot;</span>, <span class="st">&quot;Simmental&quot;</span>]))</span></code></pre></div>
+<pre><code>##        case   age      breed   sex  ...  resp  temp  umb  sepsis
+## 0    1670.0   5.0   Hereford  Male  ...   NaN  37.6   No      No
+## 10   3600.0  19.0   Hereford  Male  ...  32.0  39.3   No      No
+## 11   1599.0   7.0   Hereford  Male  ...  20.0  39.0   No      No
+## 16   1619.0   7.0   Hereford  Male  ...  32.0  37.0  Yes      No
+## 17   1586.0   8.0   Hereford  Male  ...  36.0  36.0   No      No
+## 18   5206.0  12.0   Hereford  Male  ...  24.0  37.8   No     Yes
+## 19   7173.0   7.0   Hereford  Male  ...  42.0  39.5   No     Yes
+## 21   3021.0   6.0   Hereford  Male  ...  24.0  39.3   No     Yes
+## 23   4938.0  18.0   Hereford  Male  ...  40.0  36.5   No      No
+## 24   9005.0   7.0   Hereford  Male  ...  60.0   NaN   No     Yes
+## 25   1587.0   7.0   Hereford  Male  ...  40.0  40.0  Yes     Yes
+## 26   3167.0  12.0   Hereford  Male  ...  32.0  38.4   No      No
+## 27   3140.0  10.0   Hereford  Male  ...  30.0  35.2  Yes      No
+## 30   8868.0   7.0   Hereford  Male  ...  21.0  37.8   No      No
+## 36   9907.0   8.0   Hereford  Male  ...  40.0  37.1   No      No
+## 92   1494.0   8.0      Angus  Male  ...  24.0  35.4  Yes     Yes
+## 95   5319.0   7.0      Angus  Male  ...   NaN  38.2   No      No
+## 97   4960.0   5.0      Angus  Male  ...  52.0  38.5  Yes     Yes
+## 98   5113.0   8.0      Angus  Male  ...  28.0  37.9   No      No
+## 102  6940.0   8.0      Angus  Male  ...  20.0  36.2   No      No
+## 103  7169.0   8.0      Angus  Male  ...  30.0  39.4   No      No
+## 123  8920.0   7.0  Simmental  Male  ...  16.0  37.4   No      No
+## 124  4734.0  10.0  Simmental  Male  ...  40.0  38.8  Yes      No
+## 125  4974.0   5.0  Simmental  Male  ...  40.0  39.4   No     Yes
+## 129  7212.0  10.0  Simmental  Male  ...  56.0  40.2  Yes      No
+## 131  8885.0  23.0  Simmental  Male  ...  24.0  39.2  Yes      No
+## 132  2744.0  20.0  Simmental  Male  ...  20.0  36.1   No     Yes
+## 133  2437.0   5.0  Simmental  Male  ...  48.0  39.9  Yes     Yes
+## 135  8695.0   7.0  Simmental  Male  ...  40.0  37.8   No      No
+## 138  9020.0   9.0  Simmental  Male  ...  24.0  38.0   No      No
+## 141  9019.0  11.0  Simmental  Male  ...  30.0  39.0   No     Yes
+## 144  8933.0  11.0  Simmental  Male  ...  45.0  36.6   No      No
+## 146  7102.0   7.0  Simmental  Male  ...  20.0  37.0   No      No
+## 
+## [33 rows x 14 columns]</code></pre>
 <p><strong>Arrange rows with <code>.sort_values()</code></strong></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="data-manipulation.html#cb43-1" aria-hidden="true" tabindex="-1"></a>lb_df.sort_values(by <span class="op">=</span> <span class="st">&quot;case&quot;</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
-<pre><code>        case   age       breed     sex  ...  resp  temp  umb  sepsis
-64   10354.0   5.0    Holstein  Female  ...  28.0  39.7   No      No
-50   10222.0   8.0    Holstein  Female  ...  60.0  38.8   No      No
-56   10179.0   3.0    Holstein  Female  ...  90.0  39.6   No     Yes
-55   10158.0   5.0    Holstein  Female  ...  42.0  39.1  Yes     Yes
-36    9907.0   8.0    Hereford    Male  ...  40.0  37.1   No      No
-..       ...   ...         ...     ...  ...   ...   ...  ...     ...
-40    1321.0  14.0    Holstein  Female  ...  28.0  36.5   No      No
-233   1320.0   6.0  Crossbreed  Female  ...  20.0  39.3   No      No
-86    1314.0  12.0    Holstein  Female  ...   NaN  36.1   No      No
-240   1303.0   8.0  Crossbreed    Male  ...  24.0  38.5  Yes     Yes
-12    1294.0   6.0    Hereford  Female  ...  20.0  40.0   No      No
-
-[254 rows x 14 columns]</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="data-manipulation.html#cb45-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> arrange(<span class="op">-</span>_.case) </span>
-<span id="cb45-2"><a href="data-manipulation.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&quot;-&quot; means sort in descending</span></span></code></pre></div>
-<pre><code>        case   age       breed     sex  ...  resp  temp  umb  sepsis
-64   10354.0   5.0    Holstein  Female  ...  28.0  39.7   No      No
-50   10222.0   8.0    Holstein  Female  ...  60.0  38.8   No      No
-56   10179.0   3.0    Holstein  Female  ...  90.0  39.6   No     Yes
-55   10158.0   5.0    Holstein  Female  ...  42.0  39.1  Yes     Yes
-36    9907.0   8.0    Hereford    Male  ...  40.0  37.1   No      No
-..       ...   ...         ...     ...  ...   ...   ...  ...     ...
-40    1321.0  14.0    Holstein  Female  ...  28.0  36.5   No      No
-233   1320.0   6.0  Crossbreed  Female  ...  20.0  39.3   No      No
-86    1314.0  12.0    Holstein  Female  ...   NaN  36.1   No      No
-240   1303.0   8.0  Crossbreed    Male  ...  24.0  38.5  Yes     Yes
-12    1294.0   6.0    Hereford  Female  ...  20.0  40.0   No      No
-
-[254 rows x 14 columns]</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="data-manipulation.html#cb42-1" aria-hidden="true" tabindex="-1"></a>lb_df.sort_values(by <span class="op">=</span> <span class="st">&quot;case&quot;</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
+<pre><code>##         case   age       breed     sex  ...  resp  temp  umb  sepsis
+## 64   10354.0   5.0    Holstein  Female  ...  28.0  39.7   No      No
+## 50   10222.0   8.0    Holstein  Female  ...  60.0  38.8   No      No
+## 56   10179.0   3.0    Holstein  Female  ...  90.0  39.6   No     Yes
+## 55   10158.0   5.0    Holstein  Female  ...  42.0  39.1  Yes     Yes
+## 36    9907.0   8.0    Hereford    Male  ...  40.0  37.1   No      No
+## ..       ...   ...         ...     ...  ...   ...   ...  ...     ...
+## 40    1321.0  14.0    Holstein  Female  ...  28.0  36.5   No      No
+## 233   1320.0   6.0  Crossbreed  Female  ...  20.0  39.3   No      No
+## 86    1314.0  12.0    Holstein  Female  ...   NaN  36.1   No      No
+## 240   1303.0   8.0  Crossbreed    Male  ...  24.0  38.5  Yes     Yes
+## 12    1294.0   6.0    Hereford  Female  ...  20.0  40.0   No      No
+## 
+## [254 rows x 14 columns]</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="data-manipulation.html#cb44-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> arrange(<span class="op">-</span>_.case) </span>
+<span id="cb44-2"><a href="data-manipulation.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&quot;-&quot; means sort in descending</span></span></code></pre></div>
+<pre><code>##         case   age       breed     sex  ...  resp  temp  umb  sepsis
+## 64   10354.0   5.0    Holstein  Female  ...  28.0  39.7   No      No
+## 50   10222.0   8.0    Holstein  Female  ...  60.0  38.8   No      No
+## 56   10179.0   3.0    Holstein  Female  ...  90.0  39.6   No     Yes
+## 55   10158.0   5.0    Holstein  Female  ...  42.0  39.1  Yes     Yes
+## 36    9907.0   8.0    Hereford    Male  ...  40.0  37.1   No      No
+## ..       ...   ...         ...     ...  ...   ...   ...  ...     ...
+## 40    1321.0  14.0    Holstein  Female  ...  28.0  36.5   No      No
+## 233   1320.0   6.0  Crossbreed  Female  ...  20.0  39.3   No      No
+## 86    1314.0  12.0    Holstein  Female  ...   NaN  36.1   No      No
+## 240   1303.0   8.0  Crossbreed    Male  ...  24.0  38.5  Yes     Yes
+## 12    1294.0   6.0    Hereford  Female  ...  20.0  40.0   No      No
+## 
+## [254 rows x 14 columns]</code></pre>
 <p><strong>Select columns with <code>.loc[]</code></strong></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="data-manipulation.html#cb47-1" aria-hidden="true" tabindex="-1"></a>lb_df.loc[:, [<span class="st">&quot;case&quot;</span>, <span class="st">&quot;breed&quot;</span>, <span class="st">&quot;sex&quot;</span>, <span class="st">&quot;attd&quot;</span>, <span class="st">&quot;post&quot;</span>, <span class="st">&quot;dehy&quot;</span>, <span class="st">&quot;temp&quot;</span>, <span class="st">&quot;sepsis&quot;</span>]]</span></code></pre></div>
-<pre><code>       case      breed     sex  ...  dehy  temp  sepsis
-0    1670.0   Hereford    Male  ...  12.0  37.6      No
-1    8124.0   Holstein  Female  ...  13.5  39.2      No
-2    6954.0      Angus    Male  ...   NaN   NaN     Yes
-3    2737.0  Shorthorn    Male  ...   5.0  38.6      No
-4    5341.0  Charolais  Female  ...   0.0  38.6     Yes
-..      ...        ...     ...  ...   ...   ...     ...
-249  4870.0      Other  Female  ...   0.0  39.3     Yes
-250  9805.0      Other  Female  ...   5.0  39.0      No
-251  4869.0      Other  Female  ...   5.0  39.3      No
-252  2926.0      Other  Female  ...   5.0  39.8      No
-253  4186.0      Other  Female  ...   0.0  39.7      No
-
-[254 rows x 8 columns]</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="data-manipulation.html#cb49-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> select(<span class="st">&quot;case&quot;</span>, <span class="st">&quot;breed&quot;</span>, <span class="st">&quot;sex&quot;</span>, <span class="st">&quot;attd&quot;</span>, <span class="st">&quot;post&quot;</span>, <span class="st">&quot;dehy&quot;</span>, <span class="st">&quot;temp&quot;</span>, <span class="st">&quot;sepsis&quot;</span>)</span></code></pre></div>
-<pre><code>       case      breed     sex  ...  dehy  temp  sepsis
-0    1670.0   Hereford    Male  ...  12.0  37.6      No
-1    8124.0   Holstein  Female  ...  13.5  39.2      No
-2    6954.0      Angus    Male  ...   NaN   NaN     Yes
-3    2737.0  Shorthorn    Male  ...   5.0  38.6      No
-4    5341.0  Charolais  Female  ...   0.0  38.6     Yes
-..      ...        ...     ...  ...   ...   ...     ...
-249  4870.0      Other  Female  ...   0.0  39.3     Yes
-250  9805.0      Other  Female  ...   5.0  39.0      No
-251  4869.0      Other  Female  ...   5.0  39.3      No
-252  2926.0      Other  Female  ...   5.0  39.8      No
-253  4186.0      Other  Female  ...   0.0  39.7      No
-
-[254 rows x 8 columns]</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="data-manipulation.html#cb46-1" aria-hidden="true" tabindex="-1"></a>lb_df.loc[:, [<span class="st">&quot;case&quot;</span>, <span class="st">&quot;breed&quot;</span>, <span class="st">&quot;sex&quot;</span>, <span class="st">&quot;attd&quot;</span>, <span class="st">&quot;post&quot;</span>, <span class="st">&quot;dehy&quot;</span>, <span class="st">&quot;temp&quot;</span>, <span class="st">&quot;sepsis&quot;</span>]]</span></code></pre></div>
+<pre><code>##        case      breed     sex  ...  dehy  temp  sepsis
+## 0    1670.0   Hereford    Male  ...  12.0  37.6      No
+## 1    8124.0   Holstein  Female  ...  13.5  39.2      No
+## 2    6954.0      Angus    Male  ...   NaN   NaN     Yes
+## 3    2737.0  Shorthorn    Male  ...   5.0  38.6      No
+## 4    5341.0  Charolais  Female  ...   0.0  38.6     Yes
+## ..      ...        ...     ...  ...   ...   ...     ...
+## 249  4870.0      Other  Female  ...   0.0  39.3     Yes
+## 250  9805.0      Other  Female  ...   5.0  39.0      No
+## 251  4869.0      Other  Female  ...   5.0  39.3      No
+## 252  2926.0      Other  Female  ...   5.0  39.8      No
+## 253  4186.0      Other  Female  ...   0.0  39.7      No
+## 
+## [254 rows x 8 columns]</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="data-manipulation.html#cb48-1" aria-hidden="true" tabindex="-1"></a>lb_df <span class="op">&gt;&gt;</span> select(<span class="st">&quot;case&quot;</span>, <span class="st">&quot;breed&quot;</span>, <span class="st">&quot;sex&quot;</span>, <span class="st">&quot;attd&quot;</span>, <span class="st">&quot;post&quot;</span>, <span class="st">&quot;dehy&quot;</span>, <span class="st">&quot;temp&quot;</span>, <span class="st">&quot;sepsis&quot;</span>)</span></code></pre></div>
+<pre><code>##        case      breed     sex  ...  dehy  temp  sepsis
+## 0    1670.0   Hereford    Male  ...  12.0  37.6      No
+## 1    8124.0   Holstein  Female  ...  13.5  39.2      No
+## 2    6954.0      Angus    Male  ...   NaN   NaN     Yes
+## 3    2737.0  Shorthorn    Male  ...   5.0  38.6      No
+## 4    5341.0  Charolais  Female  ...   0.0  38.6     Yes
+## ..      ...        ...     ...  ...   ...   ...     ...
+## 249  4870.0      Other  Female  ...   0.0  39.3     Yes
+## 250  9805.0      Other  Female  ...   5.0  39.0      No
+## 251  4869.0      Other  Female  ...   5.0  39.3      No
+## 252  2926.0      Other  Female  ...   5.0  39.8      No
+## 253  4186.0      Other  Female  ...   0.0  39.7      No
+## 
+## [254 rows x 8 columns]</code></pre>
 <p>There are a number of helper functions you can use within select():</p>
 <ul>
 <li><p>abc: : ijk: select variable from abc to ijk</p>
@@ -938,69 +908,69 @@ sepsis category  0 (0%) NAs : No, No, Yes, No, Yes, No, Yes, No, No, No</code></
 </ul></li>
 </ul>
 <p><strong>Rename variable</strong></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="data-manipulation.html#cb51-1" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="op">=</span> lb_df</span>
-<span id="cb51-2"><a href="data-manipulation.html#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-3"><a href="data-manipulation.html#cb51-3" aria-hidden="true" tabindex="-1"></a>lb_df1.rename(columns <span class="op">=</span> {<span class="st">&#39;umb&#39;</span>:<span class="st">&#39;ump&#39;</span>}, inplace <span class="op">=</span> <span class="va">True</span>) </span>
-<span id="cb51-4"><a href="data-manipulation.html#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-5"><a href="data-manipulation.html#cb51-5" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="op">&gt;&gt;</span> rename(CASE <span class="op">=</span> <span class="st">&quot;case&quot;</span>)</span></code></pre></div>
-<pre><code>       CASE   age      breed     sex  ...   resp  temp  ump  sepsis
-0    1670.0   5.0   Hereford    Male  ...    NaN  37.6   No      No
-1    8124.0   3.0   Holstein  Female  ...  120.0  39.2   No      No
-2    6954.0   2.0      Angus    Male  ...    NaN   NaN  Yes     Yes
-3    2737.0   3.0  Shorthorn    Male  ...   40.0  38.6   No      No
-4    5341.0   3.0  Charolais  Female  ...   48.0  38.6  Yes     Yes
-..      ...   ...        ...     ...  ...    ...   ...  ...     ...
-249  4870.0   1.0      Other  Female  ...   48.0  39.3  Yes     Yes
-250  9805.0   3.0      Other  Female  ...   28.0  39.0   No      No
-251  4869.0   2.0      Other  Female  ...   30.0  39.3   No      No
-252  2926.0   3.0      Other  Female  ...   70.0  39.8   No      No
-253  4186.0  25.0      Other  Female  ...    NaN  39.7   NA      No
-
-[254 rows x 14 columns]</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="data-manipulation.html#cb50-1" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="op">=</span> lb_df</span>
+<span id="cb50-2"><a href="data-manipulation.html#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="data-manipulation.html#cb50-3" aria-hidden="true" tabindex="-1"></a>lb_df1.rename(columns <span class="op">=</span> {<span class="st">&#39;umb&#39;</span>:<span class="st">&#39;ump&#39;</span>}, inplace <span class="op">=</span> <span class="va">True</span>) </span>
+<span id="cb50-4"><a href="data-manipulation.html#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="data-manipulation.html#cb50-5" aria-hidden="true" tabindex="-1"></a>lb_df1 <span class="op">&gt;&gt;</span> rename(CASE <span class="op">=</span> <span class="st">&quot;case&quot;</span>)</span></code></pre></div>
+<pre><code>##        CASE   age      breed     sex  ...   resp  temp  ump  sepsis
+## 0    1670.0   5.0   Hereford    Male  ...    NaN  37.6   No      No
+## 1    8124.0   3.0   Holstein  Female  ...  120.0  39.2   No      No
+## 2    6954.0   2.0      Angus    Male  ...    NaN   NaN  Yes     Yes
+## 3    2737.0   3.0  Shorthorn    Male  ...   40.0  38.6   No      No
+## 4    5341.0   3.0  Charolais  Female  ...   48.0  38.6  Yes     Yes
+## ..      ...   ...        ...     ...  ...    ...   ...  ...     ...
+## 249  4870.0   1.0      Other  Female  ...   48.0  39.3  Yes     Yes
+## 250  9805.0   3.0      Other  Female  ...   28.0  39.0   No      No
+## 251  4869.0   2.0      Other  Female  ...   30.0  39.3   No      No
+## 252  2926.0   3.0      Other  Female  ...   70.0  39.8   No      No
+## 253  4186.0  25.0      Other  Female  ...    NaN  39.7   NA      No
+## 
+## [254 rows x 14 columns]</code></pre>
 <p><strong>Add new variable with <code>.assign()</code></strong></p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="data-manipulation.html#cb53-1" aria-hidden="true" tabindex="-1"></a>lb_df.assign(</span>
-<span id="cb53-2"><a href="data-manipulation.html#cb53-2" aria-hidden="true" tabindex="-1"></a>        agegr <span class="op">=</span> pd.cut(lb_df[<span class="st">&quot;age&quot;</span>],bins<span class="op">=</span>[<span class="dv">0</span>,<span class="dv">9</span>,<span class="dv">14</span>,<span class="dv">99</span>],labels<span class="op">=</span>[<span class="st">&quot;Group A&quot;</span>,<span class="st">&quot;Group B&quot;</span>,<span class="st">&quot;Group C&quot;</span>]), </span>
-<span id="cb53-3"><a href="data-manipulation.html#cb53-3" aria-hidden="true" tabindex="-1"></a>        new_breed <span class="op">=</span> lb_df[<span class="st">&quot;breed&quot;</span>].replace(</span>
-<span id="cb53-4"><a href="data-manipulation.html#cb53-4" aria-hidden="true" tabindex="-1"></a>                  {<span class="st">&quot;Hereford&quot;</span>: <span class="st">&quot;Breed A&quot;</span>, <span class="st">&quot;Holstein&quot;</span>: <span class="st">&quot;Breed A&quot;</span>, <span class="st">&quot;Angus&quot;</span>: <span class="st">&quot;Breed A&quot;</span>,<span class="st">&quot;Shorthorn&quot;</span>: <span class="st">&quot;Breed A&quot;</span>, </span>
-<span id="cb53-5"><a href="data-manipulation.html#cb53-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Charolais&quot;</span> : <span class="st">&quot;Breed B&quot;</span>, <span class="st">&quot;Simmental&quot;</span> : <span class="st">&quot;Breed B&quot;</span>, <span class="st">&quot;Limousin&quot;</span> : <span class="st">&quot;Breed B&quot;</span>, <span class="st">&quot;Crossbreed&quot;</span> : <span class="st">&quot;Breed B&quot;</span>, <span class="st">&quot;Other&quot;</span> : <span class="st">&quot;Breed B&quot;</span>}),</span>
-<span id="cb53-6"><a href="data-manipulation.html#cb53-6" aria-hidden="true" tabindex="-1"></a>        test <span class="op">=</span> np.where(lb_df[<span class="st">&quot;age&quot;</span>] <span class="op">+</span> lb_df[<span class="st">&quot;dehy&quot;</span>] <span class="op">&gt;=</span> <span class="dv">20</span>, <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>))</span></code></pre></div>
-<pre><code>       case   age      breed     sex  ... sepsis    agegr new_breed  test
-0    1670.0   5.0   Hereford    Male  ...     No  Group A   Breed A    No
-1    8124.0   3.0   Holstein  Female  ...     No  Group A   Breed A    No
-2    6954.0   2.0      Angus    Male  ...    Yes  Group A   Breed A    No
-3    2737.0   3.0  Shorthorn    Male  ...     No  Group A   Breed A    No
-4    5341.0   3.0  Charolais  Female  ...    Yes  Group A   Breed B    No
-..      ...   ...        ...     ...  ...    ...      ...       ...   ...
-249  4870.0   1.0      Other  Female  ...    Yes  Group A   Breed B    No
-250  9805.0   3.0      Other  Female  ...     No  Group A   Breed B    No
-251  4869.0   2.0      Other  Female  ...     No  Group A   Breed B    No
-252  2926.0   3.0      Other  Female  ...     No  Group A   Breed B    No
-253  4186.0  25.0      Other  Female  ...     No  Group C   Breed B   Yes
-
-[254 rows x 17 columns]</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="data-manipulation.html#cb52-1" aria-hidden="true" tabindex="-1"></a>lb_df.assign(</span>
+<span id="cb52-2"><a href="data-manipulation.html#cb52-2" aria-hidden="true" tabindex="-1"></a>        agegr <span class="op">=</span> pd.cut(lb_df[<span class="st">&quot;age&quot;</span>],bins<span class="op">=</span>[<span class="dv">0</span>,<span class="dv">9</span>,<span class="dv">14</span>,<span class="dv">99</span>],labels<span class="op">=</span>[<span class="st">&quot;Group A&quot;</span>,<span class="st">&quot;Group B&quot;</span>,<span class="st">&quot;Group C&quot;</span>]), </span>
+<span id="cb52-3"><a href="data-manipulation.html#cb52-3" aria-hidden="true" tabindex="-1"></a>        new_breed <span class="op">=</span> lb_df[<span class="st">&quot;breed&quot;</span>].replace(</span>
+<span id="cb52-4"><a href="data-manipulation.html#cb52-4" aria-hidden="true" tabindex="-1"></a>                  {<span class="st">&quot;Hereford&quot;</span>: <span class="st">&quot;Breed A&quot;</span>, <span class="st">&quot;Holstein&quot;</span>: <span class="st">&quot;Breed A&quot;</span>, <span class="st">&quot;Angus&quot;</span>: <span class="st">&quot;Breed A&quot;</span>,<span class="st">&quot;Shorthorn&quot;</span>: <span class="st">&quot;Breed A&quot;</span>, </span>
+<span id="cb52-5"><a href="data-manipulation.html#cb52-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Charolais&quot;</span> : <span class="st">&quot;Breed B&quot;</span>, <span class="st">&quot;Simmental&quot;</span> : <span class="st">&quot;Breed B&quot;</span>, <span class="st">&quot;Limousin&quot;</span> : <span class="st">&quot;Breed B&quot;</span>, <span class="st">&quot;Crossbreed&quot;</span> : <span class="st">&quot;Breed B&quot;</span>, <span class="st">&quot;Other&quot;</span> : <span class="st">&quot;Breed B&quot;</span>}),</span>
+<span id="cb52-6"><a href="data-manipulation.html#cb52-6" aria-hidden="true" tabindex="-1"></a>        test <span class="op">=</span> np.where(lb_df[<span class="st">&quot;age&quot;</span>] <span class="op">+</span> lb_df[<span class="st">&quot;dehy&quot;</span>] <span class="op">&gt;=</span> <span class="dv">20</span>, <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>))</span></code></pre></div>
+<pre><code>##        case   age      breed     sex  ... sepsis    agegr new_breed  test
+## 0    1670.0   5.0   Hereford    Male  ...     No  Group A   Breed A    No
+## 1    8124.0   3.0   Holstein  Female  ...     No  Group A   Breed A    No
+## 2    6954.0   2.0      Angus    Male  ...    Yes  Group A   Breed A    No
+## 3    2737.0   3.0  Shorthorn    Male  ...     No  Group A   Breed A    No
+## 4    5341.0   3.0  Charolais  Female  ...    Yes  Group A   Breed B    No
+## ..      ...   ...        ...     ...  ...    ...      ...       ...   ...
+## 249  4870.0   1.0      Other  Female  ...    Yes  Group A   Breed B    No
+## 250  9805.0   3.0      Other  Female  ...     No  Group A   Breed B    No
+## 251  4869.0   2.0      Other  Female  ...     No  Group A   Breed B    No
+## 252  2926.0   3.0      Other  Female  ...     No  Group A   Breed B    No
+## 253  4186.0  25.0      Other  Female  ...     No  Group C   Breed B   Yes
+## 
+## [254 rows x 17 columns]</code></pre>
 </div>
 <div id="stata-2" class="section level4" number="2.4.3.3">
 <h4><span class="header-section-number">2.4.3.3</span> STATA</h4>
 <p><strong>Filter rows with <code>list</code></strong></p>
 <p><em>list [varlist] [if] [in] [, options]</em></p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb55-1"><a href="data-manipulation.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="ot">list</span> <span class="kw">if</span> sex == 1 &amp; age &gt;= 5 &amp; <span class="fu">inlist</span>(breed, 1,3,6)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb54-1"><a href="data-manipulation.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="ot">list</span> <span class="kw">if</span> sex == 1 &amp; age &gt;= 5 &amp; <span class="fu">inlist</span>(breed, 1,3,6)</span></code></pre></div>
 <p><strong>Arrange rows with <code>gsort</code></strong></p>
 <p><code>gsort</code> arranges observations to be in ascending or descending order of the specified variables and so differs from sort in that sort produces ascending-order arrangements only. The observations are placed in ascending order of varname if + or nothing is typed in front of the name and are placed in descending order if - is typed.</p>
 <p><em>gsort [+|-] varname [[+|-] varname …] [, generate(newvar) mfirst]</em></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb56-1"><a href="data-manipulation.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gsort</span> -<span class="kw">case</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb55-1"><a href="data-manipulation.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gsort</span> -<span class="kw">case</span></span></code></pre></div>
 <p><strong>Select columns with <code>keep</code></strong></p>
 <p><em>keep varlist</em></p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb57-1"><a href="data-manipulation.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">keep</span> <span class="kw">case</span> breed sex attd <span class="kw">post</span> dehy temp sepsis</span>
-<span id="cb57-2"><a href="data-manipulation.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> sex</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb56-1"><a href="data-manipulation.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">keep</span> <span class="kw">case</span> breed sex attd <span class="kw">post</span> dehy temp sepsis</span>
+<span id="cb56-2"><a href="data-manipulation.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> sex</span></code></pre></div>
 <p><strong>Rename variable</strong></p>
 <p><em>rename old_varname new_varname</em></p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb58-1"><a href="data-manipulation.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">rename</span> <span class="kw">case</span> id</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb57-1"><a href="data-manipulation.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">rename</span> <span class="kw">case</span> id</span></code></pre></div>
 <p><strong>Add new variable with <code>generate</code></strong></p>
 <p><em>generate [type] newvar[:lblname] =exp [if] [in] [, before(varname) | after(varname)]</em></p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb59-1"><a href="data-manipulation.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> agegr =.</span>
-<span id="cb59-2"><a href="data-manipulation.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> agegr = 1 <span class="kw">if</span> age &lt; 10</span>
-<span id="cb59-3"><a href="data-manipulation.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> agegr = 2 <span class="kw">if</span> age &gt;= 10 &amp; age &lt; 15</span>
-<span id="cb59-4"><a href="data-manipulation.html#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> agegr = 3 <span class="kw">if</span> age &gt;= 15</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb58-1"><a href="data-manipulation.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> agegr =.</span>
+<span id="cb58-2"><a href="data-manipulation.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> agegr = 1 <span class="kw">if</span> age &lt; 10</span>
+<span id="cb58-3"><a href="data-manipulation.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> agegr = 2 <span class="kw">if</span> age &gt;= 10 &amp; age &lt; 15</span>
+<span id="cb58-4"><a href="data-manipulation.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> agegr = 3 <span class="kw">if</span> age &gt;= 15</span></code></pre></div>
 </div>
 </div>
 <div id="data-transformation" class="section level3" number="2.4.4">
