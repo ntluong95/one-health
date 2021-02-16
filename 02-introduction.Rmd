@@ -600,20 +600,20 @@ lb_df >> select("case", "breed", "sex", "attd", "post", "dehy", "temp", "sepsis"
 
 There are a number of helper functions you can use within select():
 
--   abc: : ijk: select variable from abc to ijk
+-   Select variable from "case" to "temp"
 
     -   `lb_df.loc[:, "case":"temp"]`
     -   `lb_df.iloc[:, 0:12]`
 
--   starts_with("abc"): matches names that begin with "abc".
+-   Matches names that begin with "se".
 
     -   `lb_df.loc[:, lb_df.columns.str.startswith("se")]`
 
--   ends_with("xyz"): matches names that end with "xyz".
+-   Matches names that end with "se".
 
     -   `lb_df.loc[:, lb_df.columns.str.endswith("se")]`
 
--   contains(c("ijk", "xyz")): matches names that contain "ijk" or "xyz".
+-   Matches names that contain "se" or "mp".
 
     -   `lb_df.loc[:, lb_df.columns.str.contains('|'.join(['se', 'mp']))]`
     -   `lb_df >> select(_.contains('|'.join(['se', 'mp'])))`
@@ -656,7 +656,7 @@ list if sex == 1 & age >= 5 & inlist(breed, 1,3,6)
 *gsort [+\|-] varname [[+\|-] varname ...] [, generate(newvar) mfirst]*
 
 ```{stata, collectcode=TRUE, cleanlog=FALSE, eval = FALSE}
-gsort -case
+gsort -breed
 ```
 
 **Select columns with `keep`**
@@ -664,7 +664,7 @@ gsort -case
 *keep varlist*
 
 ```{stata, collectcode=TRUE, cleanlog=FALSE, eval=FALSE}
-keep case breed sex attd post dehy temp sepsis
+keep breed sex attd dehy temp sepsis
 drop sex
 ```
 
@@ -673,7 +673,7 @@ drop sex
 *rename old_varname new_varname*
 
 ```{stata, collectcode=TRUE, cleanlog=FALSE, eval=FALSE}
-rename case id
+rename breed new_breed
 ```
 
 **Add new variable with `generate`**

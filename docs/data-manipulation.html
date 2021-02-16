@@ -888,20 +888,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [254 rows x 8 columns]</code></pre>
 <p>There are a number of helper functions you can use within select():</p>
 <ul>
-<li><p>abc: : ijk: select variable from abc to ijk</p>
+<li><p>Select variable from “case” to “temp”</p>
 <ul>
 <li><code>lb_df.loc[:, "case":"temp"]</code></li>
 <li><code>lb_df.iloc[:, 0:12]</code></li>
 </ul></li>
-<li><p>starts_with(“abc”): matches names that begin with “abc”.</p>
+<li><p>Matches names that begin with “se”.</p>
 <ul>
 <li><code>lb_df.loc[:, lb_df.columns.str.startswith("se")]</code></li>
 </ul></li>
-<li><p>ends_with(“xyz”): matches names that end with “xyz”.</p>
+<li><p>Matches names that end with “se”.</p>
 <ul>
 <li><code>lb_df.loc[:, lb_df.columns.str.endswith("se")]</code></li>
 </ul></li>
-<li><p>contains(c(“ijk”, “xyz”)): matches names that contain “ijk” or “xyz”.</p>
+<li><p>Matches names that contain “se” or “mp”.</p>
 <ul>
 <li><code>lb_df.loc[:, lb_df.columns.str.contains('|'.join(['se', 'mp']))]</code></li>
 <li><code>lb_df &gt;&gt; select(_.contains('|'.join(['se', 'mp'])))</code></li>
@@ -957,14 +957,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Arrange rows with <code>gsort</code></strong></p>
 <p><code>gsort</code> arranges observations to be in ascending or descending order of the specified variables and so differs from sort in that sort produces ascending-order arrangements only. The observations are placed in ascending order of varname if + or nothing is typed in front of the name and are placed in descending order if - is typed.</p>
 <p><em>gsort [+|-] varname [[+|-] varname …] [, generate(newvar) mfirst]</em></p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb55-1"><a href="data-manipulation.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gsort</span> -<span class="kw">case</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb55-1"><a href="data-manipulation.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gsort</span> -breed</span></code></pre></div>
 <p><strong>Select columns with <code>keep</code></strong></p>
 <p><em>keep varlist</em></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb56-1"><a href="data-manipulation.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">keep</span> <span class="kw">case</span> breed sex attd <span class="kw">post</span> dehy temp sepsis</span>
+<div class="sourceCode" id="cb56"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb56-1"><a href="data-manipulation.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">keep</span> breed sex attd dehy temp sepsis</span>
 <span id="cb56-2"><a href="data-manipulation.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> sex</span></code></pre></div>
 <p><strong>Rename variable</strong></p>
 <p><em>rename old_varname new_varname</em></p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb57-1"><a href="data-manipulation.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">rename</span> <span class="kw">case</span> id</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb57-1"><a href="data-manipulation.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">rename</span> breed new_breed</span></code></pre></div>
 <p><strong>Add new variable with <code>generate</code></strong></p>
 <p><em>generate [type] newvar[:lblname] =exp [if] [in] [, before(varname) | after(varname)]</em></p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb58-1"><a href="data-manipulation.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> agegr =.</span>
