@@ -226,7 +226,7 @@ code span.bu {
 }
 
 .hljs-paren {
-  color: /*#FFAE00*/ #92c1f0;
+  color: #ebff00 /*#FFAE00 #92c1f0*/;
 }
 
 .hljs-storage{
